@@ -4,7 +4,6 @@ export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      console.log(loggedInUser);
       const playlists = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
       const viewData = {
         title: "Placemark Dashboard",
