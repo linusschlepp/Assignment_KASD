@@ -1,4 +1,5 @@
 import { db } from "../models/db.js";
+import { CategorySpec } from "../models/joi-schemas.js";
 
 export const dashboardController = {
   index: {
@@ -14,12 +15,19 @@ export const dashboardController = {
     },
   },
 
-  addPlacemark: {
+  addCategory: {
+    validate: {
+      payload: CategorySpec,
+      options: { abortEarly: false },
+      failAction: (request, h, error) => h.view("dashboard-view", { title: "Add Category error", errors: error.details }).takeover().code(400),
+    },
     handler: async function (request, h) {
-      const newPlacemark = {
-        title: request.payload.title,
+      const loggedInUser = request.auth.credentials;
+      const newCategory = {
+        userid: loggedInUser._id,
+        name: request.payload.name,
       };
-      await db.placemarkStore.addPlacemark(newPlacemark);
+      await db.categoryStore.addCategory(newCategory);
       return h.redirect("/dashboard");
     },
   },
