@@ -19,7 +19,9 @@ export const dashboardController = {
     validate: {
       payload: CategorySpec,
       options: { abortEarly: false },
-      failAction: (request, h, error) => h.view("dashboard-view", { title: "Add Category error", errors: error.details }).takeover().code(400),
+      failAction: function (request, h, error) {
+        h.view("dashboard-view", { title: "Add Category error", errors: error.details }).takeover().code(400);
+      },
     },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
@@ -27,6 +29,7 @@ export const dashboardController = {
         userid: loggedInUser._id,
         name: request.payload.name,
       };
+      console.log(newCategory);
       await db.categoryStore.addCategory(newCategory);
       return h.redirect("/dashboard");
     },
@@ -34,7 +37,7 @@ export const dashboardController = {
   deleteCategory: {
     handler: async function (request, h) {
       const category = await db.categoryStore.getCategoryById(request.params.id);
-      await db.placemarkStore.deleteCategoryById(category._id);
+      await db.categoryStore.deleteCategoryById(category._id);
       return h.redirect("/dashboard");
     },
   },

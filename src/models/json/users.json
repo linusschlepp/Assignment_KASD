@@ -31,6 +31,38 @@
       "password": "12345",
       "admin": false,
       "_id": "55c29e36-cd36-403d-acde-bf670d2fea47"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "4d6c86dc-3790-48bf-acb9-510703274511"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "41409762-9150-4fdf-a1b8-f71460f42fb5"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "9ceaec1a-6b90-411f-ba48-7cdc76cfffd0"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "965cd8fa-49ca-4027-a98d-177750149501"
     }
   ]
 }
