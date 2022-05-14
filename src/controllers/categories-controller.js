@@ -9,7 +9,7 @@ export const categoryController = {
         title: "Category",
         placemark: category,
       };
-      return h.view("placemark-view", viewData);
+      return h.view("category-view", viewData);
     },
   },
 
@@ -17,7 +17,7 @@ export const categoryController = {
     validate: {
       payload: PlacemarkSpec,
       options: { abortEarly: false },
-      failAction: (request, h, error) => h.view("category-view.hbs", { title: "Add placemark error", errors: error.details }).takeover().code(400),
+      failAction: (request, h, error) => h.view("category-view", { title: "Add placemark error", errors: error.details }).takeover().code(400),
     },
     handler: async function (request, h) {
       const category = await db.categoryStore.getCategoryById(request.params.id);
@@ -28,6 +28,14 @@ export const categoryController = {
         name: request.payload.name,
       };
       await db.placemarkStore.addPlacemark(category._id, newPlacemark);
+      return h.redirect(`/category/${category._id}`);
+    },
+  },
+
+  deletePlacemark: {
+    handler: async function (request, h) {
+      const category = await db.categoryStore.getCategoryById(request.params.id);
+      await db.placemarkStore.deletePlacemark(request.params.placemarkid);
       return h.redirect(`/category/${category._id}`);
     },
   },

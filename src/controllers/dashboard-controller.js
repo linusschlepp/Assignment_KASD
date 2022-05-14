@@ -5,11 +5,11 @@ export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
-      const playlists = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
+      const categories = await db.categoryStore.getUserCategories(loggedInUser._id);
       const viewData = {
         title: "Placemark Dashboard",
         user: loggedInUser,
-        playlists: playlists,
+        categories: categories,
       };
       return h.view("dashboard-view", viewData);
     },
@@ -28,6 +28,13 @@ export const dashboardController = {
         name: request.payload.name,
       };
       await db.categoryStore.addCategory(newCategory);
+      return h.redirect("/dashboard");
+    },
+  },
+  deleteCategory: {
+    handler: async function (request, h) {
+      const category = await db.categoryStore.getCategoryById(request.params.id);
+      await db.placemarkStore.deleteCategoryById(category._id);
       return h.redirect("/dashboard");
     },
   },

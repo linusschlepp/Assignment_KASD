@@ -1,3 +1,36 @@
 {
-  "users": []
+  "users": [
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "d2bb08f3-9c26-452d-bba7-78d1b14a7c55"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "5809a186-2385-452e-a3cc-4a6d3972aadd"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "8a107005-6837-4e1d-b982-16478413a123"
+    },
+    {
+      "firstName": "Linus",
+      "lastName": "Schlepp",
+      "email": "l.schlepp@reinhausen.com",
+      "password": "12345",
+      "admin": false,
+      "_id": "55c29e36-cd36-403d-acde-bf670d2fea47"
+    }
+  ]
 }
