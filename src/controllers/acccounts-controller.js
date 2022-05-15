@@ -25,7 +25,6 @@ export const accountsController = {
     handler: async function (request, h) {
       const user = request.payload;
       user.admin = user.email === "placemark@admin.com";
-      // console.log(`adde user${user}`);
       await db.userStore.addUser(user);
       return h.redirect("/");
     },

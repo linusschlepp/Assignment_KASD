@@ -17,7 +17,6 @@ export const PlacemarkSpec = {
   latitude: Joi.number().integer().required(),
   description: Joi.string().required(),
   name: Joi.string().required(),
-  password: Joi.string().required(),
 };
 
 export const CategorySpec = {

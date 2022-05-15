@@ -1,3 +1,24 @@
 {
-  "categories": []
+  "categories": [
+    {
+      "userid": "6280adcbc9df326103ced38a",
+      "name": "linus",
+      "_id": "ee0e9600-39e3-48db-9a92-aba4f6e64c89"
+    },
+    {
+      "userid": "6280adcbc9df326103ced38a",
+      "name": "linus",
+      "_id": "a5db3c1a-f8f2-4dd0-af53-49f294d49a41"
+    },
+    {
+      "userid": "6280adcbc9df326103ced38a",
+      "name": "L1nd4",
+      "_id": "750831be-114d-4c65-8145-e23d5e643c95"
+    },
+    {
+      "userid": "6280adcbc9df326103ced38a",
+      "name": "L1nd4",
+      "_id": "a340b266-af15-4b77-b4db-2fab3b26f17c"
+    }
+  ]
 }

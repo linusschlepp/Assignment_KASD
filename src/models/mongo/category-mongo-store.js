@@ -4,8 +4,8 @@ import { placemarkMongoStore } from "./placemark-mongo-store.js";
 
 export const categoryMongoStore = {
   async getAllCategories() {
-    const playlists = await Category.find().lean();
-    return playlists;
+    const categories = await Category.find().lean();
+    return categories;
   },
 
   async getCategoryById(id) {

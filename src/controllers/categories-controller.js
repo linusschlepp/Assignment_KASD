@@ -4,11 +4,12 @@ import { PlacemarkSpec } from "../models/joi-schemas.js";
 export const categoryController = {
   index: {
     handler: async function (request, h) {
-      const category = await db.placemarkStore.getPlacemarkById(request.params.id);
+      const category = await db.categoryStore.getCategoryById(request.params.id);
       const viewData = {
         title: "Category",
-        placemark: category,
+        category: category,
       };
+      console.log(viewData);
       return h.view("category-view", viewData);
     },
   },
@@ -27,6 +28,7 @@ export const categoryController = {
         description: request.payload.description,
         name: request.payload.name,
       };
+      console.log(category._id);
       await db.placemarkStore.addPlacemark(category._id, newPlacemark);
       return h.redirect(`/category/${category._id}`);
     },
