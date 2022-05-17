@@ -6,6 +6,11 @@ export const placemarkMongoStore = {
     return placemarks;
   },
 
+  async getAllPlacemarks() {
+    const tracks = await Placemark.find().lean();
+    return tracks;
+  },
+
   async addPlacemark(categoryId, placemark) {
     placemark.categoryid = categoryId;
     const newPlacemark = new Placemark(placemark);
