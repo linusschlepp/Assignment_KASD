@@ -2,7 +2,7 @@ import axios from "axios";
 
 // import { serviceUrl } from "../fixtures.js";
 
-export const playtimeService = {
+export const placemarkService = {
   playtimeUrl: "http://localhost:3000",
 
   async createUser(user) {
@@ -42,6 +42,31 @@ export const playtimeService = {
 
   async getAllCategories() {
     const res = await axios.get(`${this.playtimeUrl}/api/categories`);
+    return res.data;
+  },
+
+  async getAllPlacemarks() {
+    const res = await axios.get(`${this.playtimeUrl}/api/placemarks`);
+    return res.data;
+  },
+
+  async createPlacemark(id, placemark) {
+    const res = await axios.post(`${this.playtimeUrl}/api/categories/${id}/placemarks`, placemark);
+    return res.data;
+  },
+
+  async deleteAllPlacemarks() {
+    const res = await axios.delete(`${this.playtimeUrl}/api/placemarks`);
+    return res.data;
+  },
+
+  async deletePlacemark(id) {
+    const res = await axios.delete(`${this.playtimeUrl}/api/placemarks/${id}`);
+    return res.data;
+  },
+
+  async getPlacemark(id) {
+    const res = await axios.get(`${this.playtimeUrl}/api/placemarks/${id}`);
     return res.data;
   },
 
