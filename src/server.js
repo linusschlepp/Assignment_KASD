@@ -6,6 +6,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import Joi from "joi";
+import HapiSwagger from "hapi-swagger";
+import Inert from "@hapi/inert";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/acccounts-controller.js";
@@ -27,6 +29,17 @@ async function init() {
   });
   await server.register(Vision);
   await server.register(Cookie);
+  await server.register(Inert);
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      // eslint-disable-next-line no-use-before-define
+      options: swaggerOptions,
+    },
+  ]);
+
   server.validator(Joi);
 
   server.views({
@@ -62,5 +75,12 @@ process.on("unhandledRejection", (err) => {
   console.log(err);
   process.exit(1);
 });
+
+const swaggerOptions = {
+  info: {
+    title: "Placemark API",
+    version: "0.1",
+  },
+};
 
 init();
