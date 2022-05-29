@@ -3,19 +3,19 @@ import { assertSubset } from "../test-utils.js";
 import { placemarkService } from "../../src/placemark-service.js";
 import { linus, linusCredentials, regensburg, testCategories, testPlacemarks, waterford, cities, rivers } from "../fixtures.js";
 
-suite("Track API tests", () => {
+suite("Placemark API tests", () => {
   let user = null;
   let excitingCities = null;
 
   setup(async () => {
-    //  placemarkService.clearAuth();
+    placemarkService.clearAuth();
     user = await placemarkService.createUser(linus);
-    //   await placemarkService.authenticate(linusCredentials);
+    await placemarkService.authenticate(linusCredentials);
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllPlacemarks();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(linus);
-    //  await placemarkService.authenticate(linusCredentials);
+    await placemarkService.authenticate(linusCredentials);
     cities.userid = user._id;
     excitingCities = await placemarkService.createCategory(cities);
   });

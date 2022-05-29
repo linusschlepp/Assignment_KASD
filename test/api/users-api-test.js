@@ -7,16 +7,16 @@ const users = new Array(testUsers.length);
 
 suite("User API tests", () => {
   setup(async () => {
-    //   placemarkService.clearAuth();
+    placemarkService.clearAuth();
     await placemarkService.createUser(linus);
-    //     await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.authenticate(linusCredentials);
     await placemarkService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[0] = await placemarkService.createUser(testUsers[i]);
     }
     await placemarkService.createUser(linus);
-    //   await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.authenticate(linusCredentials);
   });
   teardown(async () => {});
 
@@ -26,12 +26,12 @@ suite("User API tests", () => {
     assert.isDefined(newUser._id);
   });
 
-  test("delete all user", async () => {
+  test("delete all userApi", async () => {
     let returnedUsers = await placemarkService.getAllUsers();
     assert.equal(returnedUsers.length, 4);
     await placemarkService.deleteAllUsers();
     await placemarkService.createUser(linus);
-    //    await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.authenticate(linusCredentials);
     returnedUsers = await placemarkService.getAllUsers();
     assert.equal(returnedUsers.length, 1);
   });
@@ -54,7 +54,7 @@ suite("User API tests", () => {
   test("get a user - deleted user", async () => {
     await placemarkService.deleteAllUsers();
     await placemarkService.createUser(linus);
-    //     await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.authenticate(linusCredentials);
     try {
       const returnedUser = await placemarkService.getUser(users[0]._id);
       assert.fail("Should not return a response");

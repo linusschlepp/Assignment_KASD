@@ -2,19 +2,19 @@ import { assert } from "chai";
 // eslint-disable-next-line import/named
 import { placemarkService } from "../../src/placemark-service.js";
 import { assertSubset } from "../test-utils.js";
-import { linus, cities, testCategories } from "../fixtures.js";
+import { linus, cities, testCategories, linusCredentials } from "../fixtures.js";
 
 suite("Categories API tests", () => {
   let user = null;
 
   setup(async () => {
-    //  placemarkService.clearAuth();
+    placemarkService.clearAuth();
     user = await placemarkService.createUser(linus);
-    //  await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.authenticate(linusCredentials);
     await placemarkService.deleteAllCategories();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(linus);
-    // await placemarkService.authenticate(maggieCredentials);
+    await placemarkService.authenticate(linusCredentials);
     cities.userid = user._id;
   });
 

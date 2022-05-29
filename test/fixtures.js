@@ -3,7 +3,8 @@ export const linus = {
   lastName: "Schlepp",
   email: "linus@schlepp.com",
   password: "secret",
-  admin: false,
+  // TODO: find out why it does not work with extra admin
+  // admin: false,
 };
 
 export const linusCredentials = {
@@ -17,18 +18,21 @@ export const testUsers = [
     lastName: "Schlepp",
     email: "linus@schlepp.com",
     password: "secret",
+    // admin: "false",
   },
   {
     firstName: "Max",
     lastName: "Mustermann",
     email: "max@mustermann.com",
     password: "secret",
+    // admin: "false",
   },
   {
     firstName: "John",
     lastName: "Doe",
     email: "john@doe.com",
     password: "secret",
+    // admin: "false",
   },
 ];
 

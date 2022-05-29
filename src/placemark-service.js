@@ -74,4 +74,14 @@ export const placemarkService = {
     const res = await axios.get(`${this.playtimeUrl}/api/categories/${id}`);
     return res.data;
   },
+
+  async authenticate(user) {
+    const response = await axios.post(`${this.playtimeUrl}/api/users/authenticate`, user);
+    axios.defaults.headers.common.Authorization = "Bearer " + response.data.token;
+    return response.data;
+  },
+
+  async clearAuth() {
+    axios.defaults.headers.common.Authorization = "";
+  },
 };
