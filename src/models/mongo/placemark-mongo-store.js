@@ -7,8 +7,8 @@ export const placemarkMongoStore = {
   },
 
   async getAllPlacemarks() {
-    const tracks = await Placemark.find().lean();
-    return tracks;
+    const placemarks = await Placemark.find().lean();
+    return placemarks;
   },
 
   async addPlacemark(categoryId, placemark) {

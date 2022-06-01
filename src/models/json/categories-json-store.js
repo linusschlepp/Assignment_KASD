@@ -34,7 +34,7 @@ export const categoriesJsonStore = {
 
   async deleteCategoryById(id) {
     await db.read();
-    const index = db.data.categories.findIndex((playlist) => playlist._id === id);
+    const index = db.data.categories.findIndex((category) => category._id === id);
     db.data.categories.splice(index, 1);
     await db.write();
   },

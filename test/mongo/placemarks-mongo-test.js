@@ -3,7 +3,7 @@ import { db } from "../../src/models/db.js";
 import { testCategories, testPlacemarks, cities, rivers, testUsers } from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
-suite("Track Model tests", () => {
+suite("Placemark Model tests", () => {
   let beethovenList = null;
 
   setup(async () => {
@@ -25,35 +25,35 @@ suite("Track Model tests", () => {
   });
 
   test("create multiple placemarkApi", async () => {
-    const tracks = await db.categoryStore.getCategoryById(beethovenList._id);
+    const placemarks = await db.categoryStore.getCategoryById(beethovenList._id);
     assert.equal(testPlacemarks.length, testPlacemarks.length);
   });
 
   test("delete all placemarkApi", async () => {
-    const tracks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(testPlacemarks.length, tracks.length);
+    const placemarks = await db.placemarkStore.getAllPlacemarks();
+    assert.equal(testPlacemarks.length, placemarks.length);
     await db.placemarkStore.deleteAllPlacemarks();
-    const newTracks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(0, newTracks.length);
+    const newPlacemarks = await db.placemarkStore.getAllPlacemarks();
+    assert.equal(0, newPlacemarks.length);
   });
 
-  test("get a track - success", async () => {
+  test("get a placemark - success", async () => {
     const mozartList = await db.categoryStore.addCategory(cities);
     const placemark = await db.placemarkStore.addPlacemark(mozartList._id, cities);
-    const newTrack = await db.placemarkStore.getPlacemarkById(placemark._id);
-    assertSubset(cities, newTrack);
+    const newPlacemark = await db.placemarkStore.getPlacemarkById(placemark._id);
+    assertSubset(cities, newPlacemark);
   });
 
-  test("delete One Track - success", async () => {
+  test("delete One Placemark - success", async () => {
     const id = testPlacemarks[0]._id;
     await db.placemarkStore.deletePlacemark(id);
-    const tracks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(tracks.length, testCategories.length - 1);
-    const deletedTrack = await db.placemarkStore.getPlacemarkById(id);
-    assert.isNull(deletedTrack);
+    const placemarks = await db.placemarkStore.getAllPlacemarks();
+    assert.equal(placemarks.length, testCategories.length - 1);
+    const deletedPlacemark = await db.placemarkStore.getPlacemarkById(id);
+    assert.isNull(deletedPlacemark);
   });
 
-  test("get a playlist - bad params", async () => {
+  test("get a category - bad params", async () => {
     assert.isNull(await db.placemarkStore.getPlacemarkById(""));
     assert.isNull(await db.placemarkStore.getPlacemarkById());
   });

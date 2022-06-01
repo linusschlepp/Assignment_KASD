@@ -50,7 +50,6 @@ export const CategorySpec = Joi.object()
   .keys({
     name: Joi.string().required().example("cities"),
     userid: IdSpec,
-    placemarks: PlacemarkArraySpec,
   })
   .label("Category");
 

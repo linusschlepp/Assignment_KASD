@@ -3,6 +3,7 @@ import { assert } from "chai";
 import { placemarkService } from "../../src/placemark-service.js";
 import { assertSubset } from "../test-utils.js";
 import { linus, cities, testCategories, linusCredentials } from "../fixtures.js";
+import { CategorySpecPlus } from "../../src/models/joi-schemas.js";
 
 suite("Categories API tests", () => {
   let user = null;
@@ -44,6 +45,7 @@ suite("Categories API tests", () => {
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createCategory(testCategories[i]);
     }
+    // TODO: Check why this does not work?.
     let returnedLists = await placemarkService.getAllCategories();
     assert.equal(returnedLists.length, testCategories.length);
     await placemarkService.deleteAllCategories();

@@ -50,7 +50,7 @@ suite("Placemark API tests", () => {
     assert.equal(returnedPlacemarks.length, testPlacemarks.length);
     for (let i = 0; i < returnedPlacemarks.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      const track = await placemarkService.deletePlacemark(returnedPlacemarks[i]._id);
+      const placemark = await placemarkService.deletePlacemark(returnedPlacemarks[i]._id);
     }
     returnedPlacemarks = await placemarkService.getAllPlacemarks();
     assert.equal(returnedPlacemarks.length, 0);
@@ -62,9 +62,9 @@ suite("Placemark API tests", () => {
       await placemarkService.createPlacemark(excitingCities._id, testPlacemarks[i]);
     }
     const returnedCategory = await placemarkService.getCategory(excitingCities._id);
-    assert.equal(returnedCategory.tracks.length, testPlacemarks.length);
+    assert.equal(returnedCategory.placemarks.length, testPlacemarks.length);
     for (let i = 0; i < testPlacemarks.length; i += 1) {
-      assertSubset(testPlacemarks[i], returnedCategory.tracks[i]);
+      assertSubset(testPlacemarks[i], returnedCategory.placemarks[i]);
     }
   });
 });

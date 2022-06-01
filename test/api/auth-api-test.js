@@ -1,28 +1,26 @@
 import { assert } from "chai";
 import { placemarkService } from "../../src/placemark-service.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
-import { linus } from "../fixtures.js";
+import { linus, linusCredentials } from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
   setup(async () => {
     await placemarkService.clearAuth();
-    console.log("before");
     await placemarkService.createUser(linus);
-    console.log("after");
-    await placemarkService.authenticate(linus);
+    await placemarkService.authenticate(linusCredentials);
     await placemarkService.deleteAllUsers();
   });
 
   test("authenticate", async () => {
     const returnedUser = await placemarkService.createUser(linus);
-    const response = await placemarkService.authenticate(linus);
+    const response = await placemarkService.authenticate(linusCredentials);
     assert(response.success);
     assert.isDefined(response.token);
   });
 
   test("verify Token", async () => {
     const returnedUser = await placemarkService.createUser(linus);
-    const response = await placemarkService.authenticate(linus);
+    const response = await placemarkService.authenticate(linusCredentials);
 
     const userInfo = decodeToken(response.token);
     assert.equal(userInfo.email, returnedUser.email);

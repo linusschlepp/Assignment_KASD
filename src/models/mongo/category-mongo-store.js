@@ -12,7 +12,7 @@ export const categoryMongoStore = {
     if (id) {
       const category = await Category.findOne({ _id: id }).lean();
       if (category) {
-        category.tracks = await placemarkMongoStore.getPlacemarksByCategoryId(category._id);
+        category.placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(category._id);
       }
       return category;
     }

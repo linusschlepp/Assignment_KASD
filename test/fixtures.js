@@ -18,21 +18,18 @@ export const testUsers = [
     lastName: "Schlepp",
     email: "linus@schlepp.com",
     password: "secret",
-    // admin: "false",
   },
   {
     firstName: "Max",
     lastName: "Mustermann",
     email: "max@mustermann.com",
     password: "secret",
-    // admin: "false",
   },
   {
     firstName: "John",
     lastName: "Doe",
     email: "john@doe.com",
     password: "secret",
-    // admin: "false",
   },
 ];
 
@@ -41,15 +38,15 @@ export const cities = {
 };
 
 export const regensburg = {
-  longitude: 12.1,
-  latitude: 49.01,
+  longitude: 12,
+  latitude: 49,
   name: "Regensburg",
   description: "Nice city",
 };
 
 export const waterford = {
-  longitude: -72.16,
-  latitude: 41.35,
+  longitude: -72,
+  latitude: 41,
   name: "Waterford",
   description: "Nice city as well",
 };
@@ -72,14 +69,14 @@ export const testCategories = [
 
 export const testPlacemarks = [
   {
-    longitude: 12.1,
-    latitude: 49.01,
+    longitude: 12,
+    latitude: 49,
     name: "Regensburg",
     description: "Nice city",
   },
   {
-    longitude: -72.16,
-    latitude: 41.35,
+    longitude: -72,
+    latitude: 41,
     name: "Waterford",
     description: "Nice city as well",
   },

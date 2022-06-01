@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 let placemarks = [];
 
 export const placemarkMemStore = {
-  async getAllPlaylists() {
+  async getAllCategories() {
     return placemarks;
   },
 
