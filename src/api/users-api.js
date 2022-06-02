@@ -83,6 +83,24 @@ export const userApi = {
     notes: "All userApi removed from Placemark",
   },
 
+  deleteOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        await db.userStore.deleteUserById(request.params.id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Delete a user",
+    notes: "All userApi removed from Placemark",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
   authenticate: {
     auth: false,
     handler: async function (request, h) {

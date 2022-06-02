@@ -17,9 +17,9 @@ export const categoryApi = {
       }
     },
     tags: ["api"],
-    response: { schema: CategoryArraySpec, failAction: validationError },
     description: "Get all categories",
     notes: "Returns all categories",
+    response: { schema: CategoryArraySpec, failAction: validationError },
   },
 
   findOne: {

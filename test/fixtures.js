@@ -3,8 +3,7 @@ export const linus = {
   lastName: "Schlepp",
   email: "linus@schlepp.com",
   password: "secret",
-  // TODO: find out why it does not work with extra admin
-  // admin: false,
+  admin: false,
 };
 
 export const linusCredentials = {
@@ -18,18 +17,21 @@ export const testUsers = [
     lastName: "Schlepp",
     email: "linus@schlepp.com",
     password: "secret",
+    admin: false,
   },
   {
     firstName: "Max",
     lastName: "Mustermann",
     email: "max@mustermann.com",
     password: "secret",
+    admin: false,
   },
   {
     firstName: "John",
     lastName: "Doe",
     email: "john@doe.com",
     password: "secret",
+    admin: false,
   },
 ];
 
@@ -38,17 +40,17 @@ export const cities = {
 };
 
 export const regensburg = {
-  longitude: 12,
-  latitude: 49,
+  longitude: 12.15,
+  latitude: 49.15,
   name: "Regensburg",
-  description: "Nice city",
+  description: "Nice city in Bavaria",
 };
 
 export const waterford = {
-  longitude: -72,
-  latitude: 41,
+  longitude: -72.15,
+  latitude: 41.15,
   name: "Waterford",
-  description: "Nice city as well",
+  description: "Nice city in the South east of Bavaria",
 };
 
 export const rivers = {
@@ -69,14 +71,14 @@ export const testCategories = [
 
 export const testPlacemarks = [
   {
-    longitude: 12,
-    latitude: 49,
+    longitude: 12.15,
+    latitude: 49.15,
     name: "Regensburg",
     description: "Nice city",
   },
   {
-    longitude: -72,
-    latitude: 41,
+    longitude: -72.15,
+    latitude: 41.15,
     name: "Waterford",
     description: "Nice city as well",
   },
