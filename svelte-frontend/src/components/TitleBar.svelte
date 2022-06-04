@@ -1,12 +1,12 @@
 <script>
-    import homer from "/src/assets/map_dashboard.png"
+    import map_dashboard from "/src/assets/map_dashboard.png"
     export let title = "";
     export let subTitle = "";
 </script>
 
 <div class="box has-text-centered columns m-2">
     <div class="column">
-        <img src="{homer}" width="60" alt="img"/>
+        <img src="{map_dashboard}" width="60" alt="img"/>
     </div>
     <div class="column">
         <div class="title is-5"> {title} </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 // import { serviceUrl } from "../fixtures.js";
 
 export const placemarkService = {
-  placemarkUrl: "http://localhost:3000",
+  placemarkUrl: "http://localhost:4000",
 
   async createUser(user) {
     const res = await axios.post(`${this.placemarkUrl}/api/users`, user);
