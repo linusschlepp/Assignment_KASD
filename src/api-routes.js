@@ -16,10 +16,12 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },
   { method: "DELETE", path: "/api/placemarks/{id}", config: placemarkApi.deleteOne },
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
+  { method: "GET", path: "/api/categories/{id}/placemarks", config: placemarkApi.findPlacemarksByCategoryId },
 
   { method: "POST", path: "/api/categories", config: categoryApi.create },
   { method: "DELETE", path: "/api/categories", config: categoryApi.deleteAll },
   { method: "DELETE", path: "/api/categories/{id}", config: categoryApi.deleteOne },
   { method: "GET", path: "/api/categories", config: categoryApi.find },
   { method: "GET", path: "/api/categories/{id}", config: categoryApi.findOne },
+  { method: "GET", path: "/api/users/{id}/categories", config: categoryApi.findCategoriesByUserId },
 ];

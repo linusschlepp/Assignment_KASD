@@ -6,10 +6,10 @@
     let password = "";
     let errorMessage = "";
 
-    const donationService = getContext("DonationService");
+    const placemarkService = getContext("PlacemarkService");
 
     async function login() {
-        let success = await donationService.login(email, password)
+        let success = await placemarkService.login(email, password)
         if(success) {
             push("/category")
         }else{

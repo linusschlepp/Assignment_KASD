@@ -22,6 +22,26 @@ export const categoryApi = {
     response: { schema: CategoryArraySpec, failAction: validationError },
   },
 
+  findCategoriesByUserId: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        //   const categories = await db.categoryStore.getAllCategories();
+        // return categories.filter((category) => category.userid === request.params.id);
+        //  const categories1 = categories.filter((category) => category.userid === request.params.id);
+        return "pimmel";
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Get all categories",
+    notes: "Returns all categories",
+    response: { schema: CategoryArraySpec, failAction: validationError },
+  },
+
   findOne: {
     auth: {
       strategy: "jwt",

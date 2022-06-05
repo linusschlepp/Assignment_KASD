@@ -22,6 +22,25 @@ export const placemarkApi = {
     notes: "Returns all placemarkApi",
   },
 
+  findPlacemarksByCategoryId: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const placemarks = await db.placemarkStore.getAllPlacemarks();
+        return placemarks.filter((placemark) => placemark.categoryid === request.params.id);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    // TODO: Documentation requires fixing
+    tags: ["api"],
+    response: { schema: PlacemarkArraySpec, failAction: validationError },
+    description: "Get all placemarkApi",
+    notes: "Returns all placemarkApi",
+  },
+
   findOne: {
     auth: {
       strategy: "jwt",

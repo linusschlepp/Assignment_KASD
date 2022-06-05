@@ -29,6 +29,7 @@ async function init() {
     port: process.env.port || 4000,
     routes: { cors: true },
   });
+
   await server.register(Vision);
   await server.register(Cookie);
   await server.register(Inert);
