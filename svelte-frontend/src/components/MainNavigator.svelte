@@ -7,7 +7,7 @@
 <!--        <i class="fas fa-th-list fa-3x" style="color:rgb(63, 122, 139)"></i>-->
         <button class="button is-rounded">My Categories</button>
     </a>
-    <a href="/#/logout" class="column is-4.5">
+    <a href="/#/map" class="column is-4.5">
 <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
         <button class="button is-rounded">Map</button>
     </a>

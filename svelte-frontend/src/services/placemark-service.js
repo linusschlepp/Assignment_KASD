@@ -63,10 +63,11 @@ export class PlacemarkService {
     }
   }
 
-  async donate(placemark) {
+  async addPlacemark_(placemark, category) {
     try {
-      const response = await axios.post(`${this.baseUrl}/api/candidates/${placemark.candidate}/donations`, placemark);
-      return response.status === 200;
+      const response = await axios.post(`${this.baseUrl}/api/categories/${category._id}/placemarks`, placemark);
+      console.log(response.status);
+      return response.status === 200 || response.status === 201;
     } catch (error) {
       return false;
     }
