@@ -1,9 +1,10 @@
 <script>
 
+    import PlacemarkForm from "../components/PlacemarkForm.svelte";
     import CategoryForm from "../components/CategoryForm.svelte";
     import TitleBar from "../components/TitleBar.svelte";
     import MainNavigator from "../components/MainNavigator.svelte";
-    import PlacemarkMap, {addPlacemarkMarker} from "../components/PlacemarkMap.svelte";
+    import PlacemarkMap from "../components/PlacemarkMap.svelte";
 
 
     let placemarkMap = null;
@@ -11,7 +12,7 @@
     function placemarkSet(event){
         console.log(event.detail.placemark)
         // TODO: function does not work
-        placemarkMap.addPlacemarkMarker(event.detail.placemark)
+    //    placemarkMap.addPlacemarkMarker(event.detail.placemark)
     }
 
 </script>
@@ -31,6 +32,10 @@
     </div>
     <div class="column box has-text-centered">
         <h1 class="title is-4">Place your marks!</h1>
-        <CategoryForm on:message={placemarkSet}/>
+        <PlacemarkForm on:message={placemarkSet}/>
+        <div class="column box has-text-centered">
+            <h1 class="title is-4">Add categories!</h1>
+            <CategoryForm on:message={placemarkSet}/>
+        </div>
     </div>
 </div>

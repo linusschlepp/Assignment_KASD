@@ -82,6 +82,15 @@ export class PlacemarkService {
     }
   }
 
+  async addCategory_(category) {
+    try {
+      const response = await axios.post(`${this.baseUrl}/api/categories`, category);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async getPlacemarks() {
     try {
       const response = await axios.get(`${this.baseUrl}/api/placemarks`);

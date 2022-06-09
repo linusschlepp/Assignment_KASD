@@ -48,12 +48,12 @@
             const placemarkStr = `${placemark.name} ${placemark.description}` ;
             map.addMarker({lat: placemark.latitude, lng: placemark.longitude}, placemarkStr, "Placemarks");
         });
-        // TODO: Check why function does not work
-        export function addPlacemarkMarker(placemark) {
-            const placemarkStr = `${placemark.name} ${placemark.description}` ;
-            map.addMarker({lat: placemark.latitude, lng: placemark.longitude}, placemarkStr, "Placemarks");
-            map.moveTo(11, {lat: placemark.latitude, lng: placemark.longitude})
-        }
+        //TODO: Check why function does not work
+        // export function addPlacemarkMarker(placemark) {
+        //     const placemarkStr = `${placemark.name} ${placemark.description}` ;
+        //     map.addMarker({lat: placemark.latitude, lng: placemark.longitude}, placemarkStr, "Placemarks");
+        //     map.moveTo(11, {lat: placemark.latitude, lng: placemark.longitude})
+        // }
 
     });
 
