@@ -64,8 +64,8 @@
     </div>
 
     <div class="field">
-        <label class="label" for="description">Enter Description</label> <input bind:value={description} class="input" id="description"
-                                                                      name="amount" placeholder="Description" type="text">
+        <label class="label" for="description">Enter Description</label> <input bind:value={description} class="textarea" id="description"
+                                                                      name="description" placeholder="Description" type="text">
     </div>
     <div class="field">
         <label class="label" >Select Category</label>
