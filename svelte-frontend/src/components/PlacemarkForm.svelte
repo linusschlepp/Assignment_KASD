@@ -10,10 +10,7 @@
     let name = "";
     let description = ""
 
-    let categoryList = [];
-    let userList = [];
-    let activeUser = null;
-    let placemarkList = []
+    let filteredCategoryList = [];
     let selectedCategory = "";
     let userMail = $user.email
 
@@ -23,18 +20,13 @@
     let message = "Add placemarks";
 
     onMount(async () => {
-        userList = await placemarkService.getUsers();
-        userList = userList.filter(userArray => userArray.email === userMail);
-        activeUser = userList[0];
-        categoryList = await placemarkService.getCategories();
-        categoryList = categoryList.filter(category => category.userid === activeUser._id)
-        placemarkList = await placemarkService.getPlacemarks();
+        filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail)
     });
 
     async function generatePlacemark() {
         if (selectedCategory && name && description) {
             const categoryName = selectedCategory
-            const category = categoryList.find(category => category.name === categoryName);
+            const category = filteredCategoryList.find(category => category.name === categoryName);
             const placemark = {
                 name: name,
                 description: description,
@@ -64,14 +56,14 @@
     </div>
 
     <div class="field">
-        <label class="label" for="description">Enter Description</label> <input bind:value={description} class="textarea" id="description"
-                                                                      name="description" placeholder="Description" type="text">
+        <label class="label" for="description">Enter Description</label> <textarea bind:value={description} class="textarea" id="description"
+                                                                      name="description" placeholder="Description"></textarea>
     </div>
     <div class="field">
         <label class="label" >Select Category</label>
         <div class="select">
             <select bind:value={selectedCategory}>
-                {#each categoryList as category}
+                {#each filteredCategoryList as category}
                     <option>{category.name}</option>
                 {/each}
             </select>

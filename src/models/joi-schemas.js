@@ -58,5 +58,6 @@ export const JwtAuth = Joi.object()
   .keys({
     success: Joi.boolean().example("true").required(),
     token: Joi.string().example("eyJhbGciOiJND.g5YmJisIjoiaGYwNTNjAOhE.gCWGmY5-YigQw0DCBo").required(),
+    //   userId: Joi.string().example("62a30c2ff2f382cc36bdea7c").required(),
   })
   .label("JwtAuth");

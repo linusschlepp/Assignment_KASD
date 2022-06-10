@@ -25,7 +25,9 @@ export class PlacemarkService {
         user.set({
           email: email,
           token: response.data.token,
+          // _id: response.data.userId,
         });
+        console.log(response);
         localStorage.donation = JSON.stringify({ email: email, token: response.data.token });
         return true;
       }
@@ -121,10 +123,19 @@ export class PlacemarkService {
 
   async getUsers() {
     try {
+      console.log("get Users");
       const response = await axios.get(`${this.baseUrl}/api/users`);
       return response.data;
     } catch (error) {
       return [];
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async getFilteredCategoryList(userMail) {
+    const userList = await this.getUsers();
+    const activeUser = userList.find((userToFind) => userToFind.email === userMail);
+    const categoryList = await this.getCategories();
+    return categoryList.filter((category) => category.userid === activeUser._id);
   }
 }

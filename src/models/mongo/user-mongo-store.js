@@ -15,6 +15,15 @@ export const userMongoStore = {
   },
 
   async addUser(user) {
+    const userDb = await User.findOne({ email: user.email }).lean();
+    /*
+     checks if the database already contains the given mail-address
+     if yes, the user is not added
+      */
+    if (userDb) {
+      return null;
+    }
+
     const newUser = new User(user);
     const userObj = await newUser.save();
     const u = await this.getUserById(userObj._id);

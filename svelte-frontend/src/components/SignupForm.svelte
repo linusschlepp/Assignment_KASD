@@ -1,22 +1,26 @@
 <script lang="ts">
     import { push } from "svelte-spa-router";
     import { getContext } from "svelte";
+    import {user} from "../stores.js"
 
     let firstName = "";
     let lastName = "";
     let email = ""
     let password = "";
     let errorMessage = "";
+    let users = []
 
     const placemarkService = getContext("PlacemarkService");
 
     async function signup() {
 
         let success = await placemarkService.signup(firstName, lastName, email, password)
+        console.log(success)
+
         if (success) {
             push("/");
         } else {
-            errorMessage = "Error Trying to sign up";
+                errorMessage = "Error Trying to sign up";
         }
     }
 </script>

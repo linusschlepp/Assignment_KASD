@@ -51,6 +51,7 @@ export const userApi = {
     handler: async function (request, h) {
       try {
         const user = await db.userStore.addUser(request.payload);
+
         if (user) {
           return h.response(user).code(201);
         }
@@ -113,7 +114,7 @@ export const userApi = {
           return Boom.unauthorized("Invalid password");
         }
         const token = createToken(user);
-        return h.response({ success: true, token: token }).code(201);
+        return h.response({ success: true, token: token /* , userId: user._id */ }).code(201);
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }

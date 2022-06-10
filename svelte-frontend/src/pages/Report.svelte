@@ -14,11 +14,6 @@
     </div>
 </div>
 
-<div class="columns">
-    <div class="column has-text-centered">
-    </div>
-    <div class="column box has-text-centered">
-        <h1 class="title is-4">Your Categories:</h1>
-        <CategoryList/>
-    </div>
+<div class="hidden md:block w-full md:w-2/12 ml-auto">
+    <CategoryList/>
 </div>
