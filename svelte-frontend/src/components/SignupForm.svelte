@@ -47,7 +47,7 @@
         <input bind:value={password} id="password" class="input" type="password" placeholder="Enter Password" name="password">
     </div>
     <div class="field is-grouped">
-        <button class="button is-link">Sign Up</button>
+        <button class="button is-rounded">Sign Up</button>
     </div>
 </form>
 {#if errorMessage}
@@ -55,3 +55,24 @@
         {errorMessage}
     </div>
 {/if}
+
+
+
+<style>
+
+
+    button {
+        background-color: #6d00cc;
+        color: white;
+        font-weight: bold;
+    }
+
+
+    input {
+        border-color: #6d00cc;
+    }
+
+    textarea {
+        border-color: #6d00cc;
+    }
+</style>

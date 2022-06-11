@@ -107,11 +107,12 @@ export const placemarkApi = {
     },
     handler: async function (request, h) {
       try {
-        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+        const placemark = await db.placemarkStore.deletePlacemarkById(request.params.id);
         if (!placemark) {
           return Boom.notFound("No Placemark with this id");
         }
-        await db.placemarkStore.deletePlacemarkById(placemark._id);
+
+        await db.placemarkStore.deletePlacemarkById(request.params.id);
         return h.response().code(204);
       } catch (err) {
         return Boom.serverUnavailable("No Placemark with this id");

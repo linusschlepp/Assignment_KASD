@@ -3,6 +3,8 @@
     import CategoryList from "../components/CategoryList.svelte";
     import TitleBar from "../components/TitleBar.svelte";
     import MainNavigator from "../components/MainNavigator.svelte";
+    import PlacemarkMap from "../components/PlacemarkMap.svelte";
+    let placemarkMap = null;
 </script>
 
 <div class="columns is-vcentered">
@@ -14,6 +16,11 @@
     </div>
 </div>
 
-<div class="hidden md:block w-full md:w-2/12 ml-auto">
-    <CategoryList/>
+<div class="columns">
+    <div class="column has-text-centered">
+        <PlacemarkMap bind:this="{placemarkMap}"/>
+    </div>
+    <div class="column">
+        <CategoryList {placemarkMap}/>
+    </div>
 </div>

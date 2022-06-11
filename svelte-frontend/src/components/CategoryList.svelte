@@ -5,20 +5,23 @@
     import MapModal from "./MapModal.svelte";
 
     const placemarkService = getContext("PlacemarkService");
-    const filterService = getContext("FilterService")
     let filteredCategoryList = [];
     let userMail = $user.email
     let placemarkList = []
     let continentMap = "";
     let modalShowing = false;
+    export let description = ""
+    export let placemarkMap = null
 
 
     onMount(async () => {
         placemarkList = await placemarkService.getPlacemarks();
         filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
+        console.log("hallo")
+        console.log(placemarkMap)
     });
 
-    const showMap = () => {
+    const changeModal = () => {
         modalShowing = true;
     }
 </script>
@@ -27,79 +30,27 @@
     <b>Your Categories: </b>
 </header>
 
-<!--<table class="table is-fullwidth">-->
-<!--    <thead>-->
-<!--    <th>Name</th>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    {#each filteredCategoryList as category}-->
-<!--        <tr>-->
-<!--            <td>-->
-<!--                {category.name}-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <thead>-->
-<!--        <th>Longtitude</th>-->
-<!--        <th>Latitude</th>-->
-<!--        <th>Name</th>-->
-<!--        <th>Description</th>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        {#each placemarkList as placemark}-->
-<!--            {#if placemark.categoryid === category._id}-->
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        {placemark.longitude}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {placemark.latitude}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {placemark.name}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {placemark.description}-->
-<!--                    </td>-->
-
-<!--                </tr>-->
-<!--            {/if}-->
-<!--            {/each}-->
-<!--        {/each}-->
-<!--        </tbody>-->
-<!--        </table>-->
-
-
-
-<!--    <div class="accordion flex flex-col items-center justify-center">-->
-<!--        {#each filteredCategoryList as category}-->
-<!--            <div class="w-full">-->
-<!--                <input type="checkbox" name="panel" id="{category.name}" class="hidden">-->
-<!--                <label for="{category.name}"-->
-<!--                       class="relative block  bg-neutral text-neutral-content p-3 shadow border-b border-grey">-->
-<!--                    {category.name}-->
-<!--                </label>-->
-<!--                <div class="accordion__content overflow-hidden bg-grey-lighter px-4">-->
-<!--                    <div class="mt-1"/>-->
-<!--                    {#each placemarkList as placemark}-->
-<!--                        {#if placemark.categoryid === category._id}-->
-<!--                            <a class="text-sm font-thin" href="/#/poi/{placemark.name}"> {@html placemark.name }</a>-->
-<!--                        {/if}-->
-<!--                    {/each}-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        {/each}-->
-<!--    </div>-->
-
-
 {#if modalShowing}
     <MapModal mapurl={continentMap} on:click={() => modalShowing = false} />
 {/if}
-
+{#if filteredCategoryList.length > 0}
 {#each filteredCategoryList as category}
-    <SingleCategory {category}
-               {placemarkList} on:click={() => showMap()}
+    <SingleCategory {category} {placemarkMap}
+               {placemarkList} on:click={() => changeModal()}
        />
+
+
 {/each}
+    {#if description.length > 0}
+    <textarea bind:value={description} class="textarea" id="description"
+              name="description" placeholder="" readonly></textarea>
+
+        {/if}
+    {:else}
+    <b>Oops, it seems like you didn't add any Categories yet.
+        Start adding Categories and placemarks right <a href="/#/category">here!</a></b>
+    {/if}
+
 
 
 
@@ -129,7 +80,7 @@
 
     button.accordion:hover,
     button.accordion.active {
-        background-color: #005F8C;
+        background-color: #6d00cc;
         color: white;
     }
 

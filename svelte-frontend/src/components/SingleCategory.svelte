@@ -1,54 +1,98 @@
-<script>var isOpen;
+<script>
+import {getContext} from "svelte";
+import axios from "axios";
+import {push} from "svelte-spa-router";
+import PlacemarkMap from "../components/PlacemarkMap.svelte";
+import CategoryList from "./CategoryList.svelte";
+
+
 var isOpen;
 
 export let category;
-export let content;
-export let learnmore;
 export let placemarkList
+export let placemarkMap
 
-// let isOpen;
+    const placemarkStore = getContext("PlacemarkStore");
+
+async function deletePlacemarkById_(_id) {
+    console.log("hier drin")
+   // await placemarkStore.deletePlacemarkById_(_id)
+    const response = await axios.delete(`http://localhost:4000/api/placemarks/${_id}`)
+    console.log(response)
+}
+
+
+async function deleteCategoryById_(_id) {
+    console.log("hier drin")
+    // await placemarkStore.deletePlacemarkById_(_id)
+    const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
+}
+
+function pushToTextArea(description){
+        console.log(event.detail.placemark)
+        // TODO: function does not work
+        placemarkMap.addPlacemarkMarker(description)
+}
+
+
 </script>
-
-
 <button class:active={isOpen} class="accordion" on:click={() => isOpen= !isOpen}>
+
     <span class="heading">{category.name}</span>
     {#if isOpen}
         <span class="icon">&minus;</span>
     {:else}
         <span class="icon">&plus;</span>
     {/if}
+
 </button>
 
 <section class:open-panel={isOpen} class="panel">
-    <b style="font-size: 22px">Placemarks of {category.name}</b>
-<table class="table is-fullwidth">
-    <thead>
-            <th>Longtitude</th>
-            <th>Latitude</th>
-            <th>Name</th>
-            <th>Description</th>
-            </thead>
-            <tbody>
-            {#each placemarkList as placemark}
-                {#if placemark.categoryid === category._id}
-                    <tr>
-                        <td>
-                            {placemark.longitude}
-                        </td>
-                        <td>
-                            {placemark.latitude}
-                        </td>
-                        <td>
-                            {placemark.name}
-                        </td>
-                        <td>
-                            {placemark.description}
-                        </td>
-                                {/if}
-                        {/each}
-                    </table>
-</section>
+    <div class="columns is-vcentered content">
+        <div class="column">
+    <b style="font-size: 22px">{category.name}</b>
+        </div>
+        <div class="column">
+    <button class="button is-rounded" on:click={() => deleteCategoryById_(category._id)} >Delete</button>
+        </div>
+    </div>
+    {#if placemarkList.filter(placemark => placemark.categoryid === category._id).length > 0 }
+        <b style="font-size: 19px">Placemarks of {category.name}: </b>
+    <table class="table is-fullwidth">
+        <thead>
+        <th>Name</th>
+        <th>Longtitude</th>
+        <th>Latitude</th>
+        <th></th>
+        </thead>
+        <tbody>
+        {#each placemarkList as placemark}
+            {#if placemark.categoryid === category._id}
+                <tr>
+                    <td>
+                       <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>
 
+                    </td>
+                    <td>
+                        {placemark.longitude}
+                    </td>
+                    <td>
+                        {placemark.latitude}
+                    </td>
+                    <td>
+                        <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)} >Delete</button>
+                    </td>
+                </tr>
+            {/if}
+        {/each}
+    </table>
+            {:else}
+            <b>Oops, it seems like {category.name} is empty,
+                start adding placemarks right <a href="/#/category">here!</a> </b>
+            {/if}
+
+
+</section>
 
 
 <style>
@@ -59,22 +103,22 @@ export let placemarkList
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #D9CDBF;
+        background-color: white;
         text-align: left;
         color: #401E12;
-        border: 1px solid black;
+        border: 1px solid white;
         cursor: pointer;
         transition: .3s;
     }
 
     button.accordion:hover,
     button.accordion.active {
-        background-color: #005F8C;
+        background-color: #6d00cc;
         color: white;
     }
 
     .heading {
-        font-size: 1.5rem;
+        font-size: 27px;
     }
 
     p {
@@ -112,13 +156,19 @@ export let placemarkList
         width: 150px;
         font-weight: bold;
         color: white;
-        background-color: hsl(11, 63%, 40%);
+        background-color: #6d00cc;
         padding: 10px 0;
         margin: 10px 10px 20px;
         cursor: pointer;
     }
 
+    button {
+        background-color: #6d00cc;
+        color: white;
+        font-weight: bold;
+    }
+
     div button:active {
-        background-color: hsl(11, 63%, 34%);
+        background-color: #6d00cc;
     }
 </style>

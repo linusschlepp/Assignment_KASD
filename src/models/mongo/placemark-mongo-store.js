@@ -26,7 +26,7 @@ export const placemarkMongoStore = {
     return null;
   },
 
-  async deletePlacemark(id) {
+  async deletePlacemarkById(id) {
     try {
       await Placemark.deleteOne({ _id: id });
     } catch (error) {

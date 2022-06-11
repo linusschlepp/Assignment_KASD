@@ -16,3 +16,16 @@
         <button class="button is-rounded">Logout</button>
     </a>
 </div>
+
+
+<style>
+
+
+    button {
+        border-color: #6d00cc;
+        color: #6d00cc;
+        /*font-weight: bold;*/
+    }
+
+
+</style>

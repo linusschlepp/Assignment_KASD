@@ -18,8 +18,10 @@ export const placemarkMemStore = {
   },
 
   async deletePlacemarkById(id) {
-    const index = placemarks.findIndex((placemark) => placemark._id === id);
-    placemarks.splice(index, 1);
+    // const index = placemarks.findIndex((placemark) => placemark._id === id);
+    // placemarks.splice(index, 1);
+    // return placemarks.filter((placemark) => placemark._id !== id);
+    return placemarks.find((placemark) => placemark._id === id);
   },
 
   async deleteAllPlacemarks() {

@@ -30,7 +30,7 @@ export const placemarkJsonStore = {
     return db.data.placemarks.find((placemark) => placemark._id === id);
   },
 
-  async deletePlacemark(id) {
+  async deletePlacemarkById(id) {
     await db.read();
     const index = db.data.placemarks.findIndex((placemark) => placemark._id === id);
     db.data.placemarks.splice(index, 1);

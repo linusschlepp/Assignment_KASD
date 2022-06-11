@@ -17,7 +17,7 @@
     let lat = 52.160858;
     let lng = -7.152420;
 
-    let message = "Add placemarks";
+    let message = "";
 
     onMount(async () => {
         filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail)
@@ -25,8 +25,7 @@
 
     async function generatePlacemark() {
         if (selectedCategory && name && description) {
-            const categoryName = selectedCategory
-            const category = filteredCategoryList.find(category => category.name === categoryName);
+            const category = filteredCategoryList.find(category => category.name === selectedCategory);
             const placemark = {
                 name: name,
                 description: description,
@@ -72,7 +71,7 @@
     <Coordinates bind:lat={lat} bind:lng={lng}/>
     <div class="field">
         <div class="control">
-            <button class="button is-link is-light">Add Placemark</button>
+            <button class="button is-rounded">Add Placemark</button>
         </div>
     </div>
     <div class="section">
@@ -80,3 +79,21 @@
     </div>
 </form>
 
+<style>
+
+
+    button {
+        background-color: #6d00cc;
+        color: white;
+        font-weight: bold;
+    }
+
+
+    input {
+        border-color: #6d00cc;
+    }
+
+    textarea {
+        border-color: #6d00cc;
+    }
+</style>

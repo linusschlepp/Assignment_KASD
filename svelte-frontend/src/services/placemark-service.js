@@ -121,6 +121,16 @@ export class PlacemarkService {
     }
   }
 
+  async deletePlacemarkById_(placemarkId) {
+    console.log(placemarkId);
+    try {
+      const response = await axios.delete(`${this.baseUrl}/api/placemarks/${placemarkId}`);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async getUsers() {
     try {
       console.log("get Users");

@@ -1,9 +1,8 @@
 <script>
-    import {createEventDispatcher, getContext, onMount} from "svelte";
+    import {getContext, onMount} from "svelte";
     import Coordinates from "./Coordinates.svelte";
     import {user} from "../stores.js"
 
-    const dispatch = createEventDispatcher();
 
     const placemarkService = getContext("PlacemarkService");
 
@@ -14,13 +13,9 @@
     let userList = [];
     let activeUser = null;
     let placemarkList = []
-    let selectedCategory = "";
     let userMail = $user.email
 
-    let lat = 52.160858;
-    let lng = -7.152420;
-
-    let message = "Add categories";
+    let message = "";
 
     onMount(async () => {
         userList = await placemarkService.getUsers();
@@ -33,8 +28,6 @@
 
     async function generateCategory() {
         if (name) {
-           // const categoryName = selectedCategory
-       //     const category = categoryList.find(category => category.name === categoryName);
             const category = {
                 name: name,
                 userid: activeUser._id,
@@ -45,9 +38,6 @@
                 return;
             }
             message = `You added ${name}`;
-            dispatch("message", {
-                placemark: category,
-            });
         } else {
             message = "Please select a name";
         }
@@ -61,7 +51,7 @@
     </div>
     <div class="field">
         <div class="control">
-            <button class="button is-link is-light">Add Category</button>
+            <button class="button is-rounded">Add Category</button>
         </div>
     </div>
     <div class="section">
@@ -69,3 +59,23 @@
     </div>
 </form>
 
+
+
+
+
+
+
+<style>
+
+
+    button {
+        background-color: #6d00cc;
+        color: white;
+        font-weight: bold;
+    }
+
+
+    input {
+        border-color: #6d00cc;
+    }
+    </style>

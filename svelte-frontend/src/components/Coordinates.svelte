@@ -23,3 +23,9 @@
         </div>
     </div>
 </div>
+
+<style>
+    input {
+        border-color: #6d00cc;
+    }
+</style>
