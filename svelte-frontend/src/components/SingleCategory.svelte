@@ -1,5 +1,5 @@
 <script>
-import {getContext} from "svelte";
+    import {createEventDispatcher, getContext} from "svelte";
 import axios from "axios";
 import {push} from "svelte-spa-router";
 import PlacemarkMap from "../components/PlacemarkMap.svelte";
@@ -7,10 +7,11 @@ import CategoryList from "./CategoryList.svelte";
 
 
 var isOpen;
-
+let dispatch = createEventDispatcher();
 export let category;
 export let placemarkList
 export let placemarkMap
+export let description
 
     const placemarkStore = getContext("PlacemarkStore");
 
@@ -28,10 +29,12 @@ async function deleteCategoryById_(_id) {
     const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
 }
 
-function pushToTextArea(description){
+function pushToTextArea(descriptionPlacemark){
         console.log(event.detail.placemark)
         // TODO: function does not work
-        placemarkMap.addPlacemarkMarker(description)
+    console.log(descriptionPlacemark)
+    console.log(dispatch("addDescription", descriptionPlacemark))
+    dispatch("addDescription", descriptionPlacemark)
 }
 
 
@@ -70,7 +73,7 @@ function pushToTextArea(description){
             {#if placemark.categoryid === category._id}
                 <tr>
                     <td>
-                       <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>
+                       <a on:click={() => pushToTextArea(placemark.description)}>{placemark.name}</a>
 
                     </td>
                     <td>

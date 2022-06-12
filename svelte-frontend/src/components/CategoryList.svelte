@@ -10,7 +10,7 @@
     let placemarkList = []
     let continentMap = "";
     let modalShowing = false;
-    export let description = ""
+    let description = "asdasd"
     export let placemarkMap = null
 
 
@@ -24,8 +24,13 @@
     const changeModal = () => {
         modalShowing = true;
     }
+    const changeDescription = (e) => {
+        console.log(e)
+        description = e
+        description = "name"
+    };
 </script>
-
+<!--<svelte:component this="{SingleCategory}" bind:this="{description}" />-->
 <header>
     <b>Your Categories: </b>
 </header>
@@ -35,17 +40,17 @@
 {/if}
 {#if filteredCategoryList.length > 0}
 {#each filteredCategoryList as category}
-    <SingleCategory {category} {placemarkMap}
-               {placemarkList} on:click={() => changeModal()}
+    <SingleCategory {description} {category} {placemarkMap}
+               {placemarkList} on:click={() => changeModal()} on:addDescription={changeDescription}
        />
 
 
 {/each}
-    {#if description.length > 0}
+    <!--{#if description.length > 0}-->
     <textarea bind:value={description} class="textarea" id="description"
               name="description" placeholder="" readonly></textarea>
 
-        {/if}
+        <!--{/if}-->
     {:else}
     <b>Oops, it seems like you didn't add any Categories yet.
         Start adding Categories and placemarks right <a href="/#/category">here!</a></b>

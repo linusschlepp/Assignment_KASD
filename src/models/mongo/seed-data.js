@@ -27,6 +27,7 @@ export const seedData = {
     _model: "Category",
     cities: {
       name: "cities",
+      img: "test",
       userid: "->users.linus",
     },
   },

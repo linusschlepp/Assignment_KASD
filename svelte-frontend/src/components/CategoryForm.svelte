@@ -4,6 +4,8 @@
     import {user} from "../stores.js"
 
 
+
+
     const placemarkService = getContext("PlacemarkService");
 
     let name = "";
@@ -14,7 +16,8 @@
     let activeUser = null;
     let placemarkList = []
     let userMail = $user.email
-    let img = ""
+    let imageName = ""
+    let imageObject = null
 
     let message = "";
 
@@ -27,38 +30,35 @@
         placemarkList = await placemarkService.getPlacemarks();
 
         const fileInput = document.querySelector(".file-input");
-
         fileInput.onchange = () => {
             if (fileInput.files.length > 0) {
                 const fileName = document.querySelector(".file-name");
                 fileName.textContent = fileInput.files[0].name;
-                img = fileName.textContent
-                //  console.log(fileName.textContent)
+                imageObject = fileInput.files[0]
+                imageName = fileName.textContent
             }
-            console.log(img)
         };
     });
 
-
     function removeImageName() {
-        img = ""
+        imageName = ""
 
         const fileInput = document.querySelector(".file-input");
 
         if (fileInput.files.length > 0) {
             const fileName = document.querySelector(".file-name");
-            fileName.textContent = img
+            fileName.textContent = imageName
         }
-        console.log(img)
+        console.log(imageName)
     }
-
-
     async function generateCategory() {
-        console.log(img)
 
+            console.log(imageObject)
         if (name) {
             const category = {
                 name: name,
+               // img1: imageObject,
+                img: imageName,
                 userid: activeUser._id,
             };
             const success = await placemarkService.addCategory_(category);
@@ -86,8 +86,8 @@
         <label class="label" for="name">(Optional) Add Image</label>
         <form on:click={removeImageName}>
             <div id="file-select" class="file has-name is-fullwidth">
-                <label on:submit={removeImageName} class="file-label"> <input class="file-input" type="file"
-                                                                              name="resume"
+                <label on:submit={removeImageName} class="file-label"> <input id="file-selector" class="file-input" type="file"
+                                                                              name="imagefile"
                                                                               accept="image/png, image/jpeg">
                     <span class="file-cta">
             <span class="file-icon">
@@ -99,7 +99,7 @@
            </span>
                     <span class="file-name"></span>
                 </label>
-                <button on:click={img = ""} style="background-color: #6d00cc" class="button is-info">x</button>
+                <button on:click={imageName = ""} style="background-color: #6d00cc" class="button is-info">x</button>
             </div>
         </form>
     </div>
@@ -111,8 +111,6 @@
     <div class="section">
         {message}
     </div>
-
-
 </form>
 
 

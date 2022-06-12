@@ -43,6 +43,8 @@ export const CategorySpec = Joi.object()
   .keys({
     name: Joi.string().required().example("cities"),
     userid: IdSpec,
+    img: Joi.string().required().example("test"),
+    // img1: Joi.object().optional(),
     placemarks: PlacemarkArraySpec,
   })
   .label("Category");
