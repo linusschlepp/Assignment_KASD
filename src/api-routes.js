@@ -24,4 +24,5 @@ export const apiRoutes = [
   { method: "GET", path: "/api/categories", config: categoryApi.find },
   { method: "GET", path: "/api/categories/{id}", config: categoryApi.findOne },
   { method: "GET", path: "/api/users/{id}/categories", config: categoryApi.findCategoriesByUserId },
+  { method: "POST", path: "/api/users/{id}/uploadimage", config: categoryApi.uploadImage },
 ];

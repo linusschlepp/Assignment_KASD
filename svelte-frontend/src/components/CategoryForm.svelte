@@ -14,6 +14,7 @@
     let activeUser = null;
     let placemarkList = []
     let userMail = $user.email
+    let img = ""
 
     let message = "";
 
@@ -24,9 +25,37 @@
         categoryList = await placemarkService.getCategories();
         categoryList = categoryList.filter(category => category.userid === activeUser._id)
         placemarkList = await placemarkService.getPlacemarks();
+
+        const fileInput = document.querySelector(".file-input");
+
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector(".file-name");
+                fileName.textContent = fileInput.files[0].name;
+                img = fileName.textContent
+                //  console.log(fileName.textContent)
+            }
+            console.log(img)
+        };
     });
 
+
+    function removeImageName() {
+        img = ""
+
+        const fileInput = document.querySelector(".file-input");
+
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector(".file-name");
+            fileName.textContent = img
+        }
+        console.log(img)
+    }
+
+
     async function generateCategory() {
+        console.log(img)
+
         if (name) {
             const category = {
                 name: name,
@@ -42,12 +71,37 @@
             message = "Please select a name";
         }
     }
+
+
 </script>
 
 <form on:submit|preventDefault={generateCategory}>
     <div class="field">
         <label class="label" for="name">Enter Name</label> <input bind:value={name} class="input" id="name"
                                                                   name="name" placeholder="Name" type="text">
+    </div>
+
+
+    <div class="card-content">
+        <label class="label" for="name">(Optional) Add Image</label>
+        <form on:click={removeImageName}>
+            <div id="file-select" class="file has-name is-fullwidth">
+                <label on:submit={removeImageName} class="file-label"> <input class="file-input" type="file"
+                                                                              name="resume"
+                                                                              accept="image/png, image/jpeg">
+                    <span class="file-cta">
+            <span class="file-icon">
+<!--              <i class="fas fa-upload"></i>-->
+            </span>
+            <span class="file-label">
+              Choose a file…
+            </span>
+           </span>
+                    <span class="file-name"></span>
+                </label>
+                <button on:click={img = ""} style="background-color: #6d00cc" class="button is-info">x</button>
+            </div>
+        </form>
     </div>
     <div class="field">
         <div class="control">
@@ -57,12 +111,9 @@
     <div class="section">
         {message}
     </div>
+
+
 </form>
-
-
-
-
-
 
 
 <style>
@@ -78,4 +129,4 @@
     input {
         border-color: #6d00cc;
     }
-    </style>
+</style>
