@@ -1,45 +1,52 @@
 <script>
-    import {createEventDispatcher, getContext} from "svelte";
-import axios from "axios";
-import {push} from "svelte-spa-router";
-import PlacemarkMap from "../components/PlacemarkMap.svelte";
-import CategoryList from "./CategoryList.svelte";
+    import {createEventDispatcher, getContext, onMount} from "svelte";
+    import axios from "axios";
+    import {push} from "svelte-spa-router";
+    import PlacemarkMap from "../components/PlacemarkMap.svelte";
+    import CategoryList from "./CategoryList.svelte";
 
 
-var isOpen;
-let dispatch = createEventDispatcher();
-export let category;
-export let placemarkList
-export let placemarkMap
-export let description
+    var isOpen;
+    let dispatch = createEventDispatcher();
+    export let category;
+    export let placemarkList
+
 
     const placemarkStore = getContext("PlacemarkStore");
 
-async function deletePlacemarkById_(_id) {
-    console.log("hier drin")
-   // await placemarkStore.deletePlacemarkById_(_id)
-    const response = await axios.delete(`http://localhost:4000/api/placemarks/${_id}`)
-    console.log(response)
-}
+    async function deletePlacemarkById_(_id) {
+        console.log("hier drin")
+        // await placemarkStore.deletePlacemarkById_(_id)
+        const response = await axios.delete(`http://localhost:4000/api/placemarks/${_id}`)
+        console.log(response)
+    }
 
 
-async function deleteCategoryById_(_id) {
-    console.log("hier drin")
-    // await placemarkStore.deletePlacemarkById_(_id)
-    const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
-}
+    // onMount(async () => {
+    //     selectedPlacemark = false;
+    // });
 
-function pushToTextArea(descriptionPlacemark){
-        console.log(event.detail.placemark)
-        // TODO: function does not work
-    console.log(descriptionPlacemark)
-    console.log(dispatch("addDescription", descriptionPlacemark))
-    dispatch("addDescription", descriptionPlacemark)
-}
+    async function deleteCategoryById_(_id) {
+        console.log("hier drin")
+        // await placemarkStore.deletePlacemarkById_(_id)
+        const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
+    }
+
+    function pushToTextArea(placemark) {
+
+       // selectedPlacemark = true;
+        dispatch("addDescription", placemark)
+    }
+
+    async function changeIsOpen(){
+        isOpen = !isOpen
+
+        dispatch("destroyDescription", isOpen)
+    }
 
 
 </script>
-<button class:active={isOpen} class="accordion" on:click={() => isOpen= !isOpen}>
+<button class:active={isOpen} class="accordion" on:click={changeIsOpen}>
 
     <span class="heading">{category.name}</span>
     {#if isOpen}
@@ -53,46 +60,48 @@ function pushToTextArea(descriptionPlacemark){
 <section class:open-panel={isOpen} class="panel">
     <div class="columns is-vcentered content">
         <div class="column">
-    <b style="font-size: 22px">{category.name}</b>
+            <b style="font-size: 22px">{category.name}</b>
         </div>
         <div class="column">
-    <button class="button is-rounded" on:click={() => deleteCategoryById_(category._id)} >Delete</button>
+            <button class="button is-rounded" on:click={() => deleteCategoryById_(category._id)}>Delete</button>
         </div>
     </div>
     {#if placemarkList.filter(placemark => placemark.categoryid === category._id).length > 0 }
         <b style="font-size: 19px">Placemarks of {category.name}: </b>
-    <table class="table is-fullwidth">
-        <thead>
-        <th>Name</th>
-        <th>Longtitude</th>
-        <th>Latitude</th>
-        <th></th>
-        </thead>
-        <tbody>
-        {#each placemarkList as placemark}
-            {#if placemark.categoryid === category._id}
-                <tr>
-                    <td>
-                       <a on:click={() => pushToTextArea(placemark.description)}>{placemark.name}</a>
+        <table class="table is-fullwidth">
+            <thead>
+            <th>Name</th>
+            <th>Longtitude</th>
+            <th>Latitude</th>
+            <th></th>
+            </thead>
+            <tbody>
+            {#each placemarkList as placemark}
+                {#if placemark.categoryid === category._id}
+                    <tr>
+                        <td>
+                            <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>
 
-                    </td>
-                    <td>
-                        {placemark.longitude}
-                    </td>
-                    <td>
-                        {placemark.latitude}
-                    </td>
-                    <td>
-                        <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)} >Delete</button>
-                    </td>
-                </tr>
-            {/if}
-        {/each}
-    </table>
-            {:else}
-            <b>Oops, it seems like {category.name} is empty,
-                start adding placemarks right <a href="/#/category">here!</a> </b>
-            {/if}
+                        </td>
+                        <td>
+                            {placemark.longitude}
+                        </td>
+                        <td>
+                            {placemark.latitude}
+                        </td>
+                        <td>
+                            <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                {/if}
+            {/each}
+        </table>
+    {:else}
+        <b>Oops, it seems like {category.name} is empty,
+            start adding placemarks right <a href="/#/category">here!</a> </b>
+    {/if}
 
 
 </section>
@@ -118,6 +127,10 @@ function pushToTextArea(descriptionPlacemark){
     button.accordion.active {
         background-color: #6d00cc;
         color: white;
+    }
+
+    button.accordion {
+        border-color: #6d00cc;
     }
 
     .heading {

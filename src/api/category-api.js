@@ -72,32 +72,14 @@ export const categoryApi = {
     handler: async function (request, h) {
       try {
         const category = request.payload;
-        console.log(request.payload);
         const newCategory = await db.categoryStore.addCategory(category);
-        // console.log(`Request${Object.getOwnPropertyNames(newCategory)}`);
-        // console.log(`Request${Object.getOwnPropertyNames(newCategory.img1)}`);
         if (newCategory) {
-          // sollte buffered sein
-          const file = newCategory.img;
-          if (Object.keys(file).length > 0) {
-            const url = await imageStore.uploadImage(newCategory.img);
-            newCategory.img = url;
-            console.log(newCategory);
-            await db.categoryStore.updateCategory(newCategory);
-          }
           return h.response(newCategory).code(201);
         }
         return Boom.badImplementation("error creating Category");
       } catch (err) {
-        console.log(err);
         return Boom.serverUnavailable("Database Error");
       }
-    },
-    payload: {
-      multipart: true,
-      output: "data",
-      maxBytes: 209715200,
-      parse: true,
     },
     tags: ["api"],
     description: "Create a Category",

@@ -66,11 +66,13 @@ export class PlacemarkService {
   }
 
   async addPlacemark_(placemark, category) {
+    console.log(placemark);
     try {
       const response = await axios.post(`${this.baseUrl}/api/categories/${category._id}/placemarks`, placemark);
       console.log(response.status);
       return response.status === 200 || response.status === 201;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }

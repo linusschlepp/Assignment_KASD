@@ -28,6 +28,7 @@ export const PlacemarkSpec = Joi.object()
     latitude: Joi.number().required().example(12.125),
     description: Joi.string().required().example("Very nice city"),
     name: Joi.string().required().example("Regensburg"),
+    img: Joi.string().required().example("test"),
     categoryid: IdSpec,
   })
   .label("Placemark");
@@ -43,7 +44,6 @@ export const CategorySpec = Joi.object()
   .keys({
     name: Joi.string().required().example("cities"),
     userid: IdSpec,
-    img: Joi.string().required().example("test"),
     // img1: Joi.object().optional(),
     placemarks: PlacemarkArraySpec,
   })

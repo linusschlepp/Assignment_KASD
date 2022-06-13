@@ -27,7 +27,6 @@ export const seedData = {
     _model: "Category",
     cities: {
       name: "cities",
-      img: "test",
       userid: "->users.linus",
     },
   },
@@ -36,6 +35,7 @@ export const seedData = {
     regensburg: {
       longitude: 12.35,
       latitude: 49.15,
+      img: "test",
       name: "Regensburg",
       description: "Nice city in Bavaria",
       categoryid: "->categories.cities",
@@ -44,6 +44,7 @@ export const seedData = {
       longitude: -72.35,
       latitude: 41.35,
       name: "Waterford",
+      img: "test",
       description: "Nice city in the south east of Ireland",
       categoryid: "->categories.cities",
     },

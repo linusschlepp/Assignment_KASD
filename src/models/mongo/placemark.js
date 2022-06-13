@@ -6,8 +6,8 @@ const placemarkSchema = new Schema({
   longitude: Number,
   latitude: Number,
   name: String,
+  img: String,
   description: String,
-  // duration: Number,
   categoryid: {
     type: Schema.Types.ObjectId,
     ref: "Category",

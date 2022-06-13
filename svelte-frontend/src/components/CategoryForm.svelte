@@ -18,6 +18,7 @@
     let userMail = $user.email
     let imageName = ""
     let imageObject = null
+    let binaryString1 = ""
 
     let message = "";
 
@@ -38,12 +39,35 @@
                 imageName = fileName.textContent
             }
         };
+
+        document.querySelector('.file-input').addEventListener('change', function() {
+
+            var reader = new FileReader();
+            reader.onload = function() {
+
+                var arrayBuffer = this.result,
+                    array = new Uint8Array(arrayBuffer),
+                    binaryString = String.fromCharCode.apply(null, array);
+                binaryString1 = binaryString
+
+
+                // safe binary string and pass it to img
+
+                console.log(typeof binaryString);
+
+            }
+            reader.readAsArrayBuffer(this.files[0]);
+
+        }, false);
+
     });
 
     function removeImageName() {
         imageName = ""
 
         const fileInput = document.querySelector(".file-input");
+
+
 
         if (fileInput.files.length > 0) {
             const fileName = document.querySelector(".file-name");
@@ -53,12 +77,12 @@
     }
     async function generateCategory() {
 
-            console.log(imageObject)
+            // console.log(URL.createObjectURL(imageObject))
         if (name) {
             const category = {
                 name: name,
                // img1: imageObject,
-                img: imageName,
+               // img: binaryString1,
                 userid: activeUser._id,
             };
             const success = await placemarkService.addCategory_(category);
@@ -82,27 +106,7 @@
     </div>
 
 
-    <div class="card-content">
-        <label class="label" for="name">(Optional) Add Image</label>
-        <form on:click={removeImageName}>
-            <div id="file-select" class="file has-name is-fullwidth">
-                <label on:submit={removeImageName} class="file-label"> <input id="file-selector" class="file-input" type="file"
-                                                                              name="imagefile"
-                                                                              accept="image/png, image/jpeg">
-                    <span class="file-cta">
-            <span class="file-icon">
-<!--              <i class="fas fa-upload"></i>-->
-            </span>
-            <span class="file-label">
-              Choose a file…
-            </span>
-           </span>
-                    <span class="file-name"></span>
-                </label>
-                <button on:click={imageName = ""} style="background-color: #6d00cc" class="button is-info">x</button>
-            </div>
-        </form>
-    </div>
+
     <div class="field">
         <div class="control">
             <button class="button is-rounded">Add Category</button>

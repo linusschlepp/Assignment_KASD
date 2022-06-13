@@ -20,7 +20,7 @@
     <div class="column has-text-centered">
         <PlacemarkMap bind:this="{placemarkMap}"/>
     </div>
-    <div class="column">
+    <div class="column is-two-thirds">
         <CategoryList {placemarkMap}/>
     </div>
 </div>

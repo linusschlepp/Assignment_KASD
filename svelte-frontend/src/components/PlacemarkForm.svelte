@@ -13,6 +13,8 @@
     let filteredCategoryList = [];
     let selectedCategory = "";
     let userMail = $user.email
+    let imageName = ""
+    let imageObject = null;
 
     let lat = 52.160858;
     let lng = -7.152420;
@@ -21,7 +23,36 @@
 
     onMount(async () => {
         filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail)
+        const fileInput = document.querySelector(".file-input");
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector(".file-name");
+                fileName.textContent = fileInput.files[0].name;
+                imageObject = fileInput.files[0]
+                imageName = fileName.textContent
+            }
+        };
+
     });
+
+
+
+
+
+
+    function removeImageName() {
+        imageName = ""
+
+        const fileInput = document.querySelector(".file-input");
+
+
+
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector(".file-name");
+            fileName.textContent = imageName
+        }
+
+    }
 
     async function generatePlacemark() {
         if (selectedCategory && name && description) {
@@ -29,13 +60,14 @@
             const placemark = {
                 name: name,
                 description: description,
+                img : imageName,
                 categoryid: category._id,
                 latitude: lat,
                 longitude: lng
             };
             const success = await placemarkService.addPlacemark_(placemark, category);
             if (!success) {
-                message = "Donation not completed - some error occurred";
+                message = "Placemark could not be added - some error occured";
                 return;
             }
             message = `You added ${name} to ${category.name}`;
@@ -55,7 +87,7 @@
     </div>
 
     <div class="field">
-        <label class="label" for="description">Enter Description</label> <textarea bind:value={description} class="textarea" id="description"
+        <label class="label" for="description">Enter Description</label> <textarea bind:value={description} class="textarea has-fixed-size" id="description"
                                                                       name="description" placeholder="Description"></textarea>
     </div>
     <div class="field">
@@ -67,6 +99,27 @@
                 {/each}
             </select>
         </div>
+    </div>
+    <div class="card-content">
+        <label style="border-color: #6d00cc" class="label" for="name">(Optional) Add Image</label>
+        <form on:click={removeImageName}>
+            <div id="file-select" class="file has-name is-fullwidth">
+                <label on:submit={removeImageName} class="file-label"> <input id="file-selector" class="file-input" type="file"
+                                                                              name="imagefile"
+                                                                              accept="image/png, image/jpeg">
+                    <span class="file-cta">
+            <span class="file-icon">
+<!--              <i class="fas fa-upload"></i>-->
+            </span>
+            <span  class="file-label">
+              Choose a file…
+            </span>
+           </span>
+                    <span class="file-name"></span>
+                </label>
+                <button on:click={imageName = ""} style="background-color: #6d00cc" class="button is-info">x</button>
+            </div>
+        </form>
     </div>
     <Coordinates bind:lat={lat} bind:lng={lng}/>
     <div class="field">

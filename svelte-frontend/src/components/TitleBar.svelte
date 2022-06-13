@@ -6,7 +6,7 @@
     export let subTitle = "";
 </script>
 
-<div class="box has-text-centered columns m-2">
+<div style="border-color: #6d00cc" class="box has-text-centered columns m-2">
     <div class="column">
         <img src="{map_dashboard}" width="60" alt="img"/>
     </div>
@@ -22,3 +22,4 @@
         {/if}
     </div>
 </div>
+

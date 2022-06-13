@@ -11,6 +11,10 @@
 <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
         <button class="button is-rounded">Map</button>
     </a>
+    <a href="/#/gallery" class="column is-4.5">
+        <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
+        <button class="button is-rounded">Gallery</button>
+    </a>
     <a href="/#/logout" class="column is-4.5">
         <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
         <button class="button is-rounded">Logout</button>

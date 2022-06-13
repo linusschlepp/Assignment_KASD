@@ -11,7 +11,7 @@
 
     function placemarkGenerated(event){
         console.log(event.detail.placemark)
-        // TODO: function does not work
+
             placemarkMap.addPlacemarkMarker(event.detail.placemark)
     }
 
@@ -35,7 +35,7 @@
         <PlacemarkForm on:message={placemarkGenerated}/>
         <div class="column box has-text-centered">
             <h1 class="title is-4">Add categories!</h1>
-            <CategoryForm on:message={placemarkGenerated}/>
+            <CategoryForm/>
         </div>
     </div>
 </div>

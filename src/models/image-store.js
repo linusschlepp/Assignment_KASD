@@ -1,5 +1,5 @@
 import * as cloudinary from "cloudinary";
-import { writeFileSync } from "fs";
+import { writeFileSync, writeFile } from "fs";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -20,7 +20,9 @@ export const imageStore = {
   uploadImage: async function (imageFile) {
     // const test = Buffer.from(imageFile);
     // console.log(test);
-    //  await writeFileSync("./public/temp.img", imageFile);
+    // imageFile = Buffer.from("C:C:\\Users\\linus\\Downloads");
+    // await writeFileSync("./public/temp.img", imageFile);
+    // writeFile("./public/temp.img", imageFile);
     const response = await cloudinary.v2.uploader.upload("./public/temp.img");
     return response.url;
   },

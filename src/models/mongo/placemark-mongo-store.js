@@ -1,4 +1,5 @@
 import { Placemark } from "./placemark.js";
+import { Category } from "./category.js";
 
 export const placemarkMongoStore = {
   async getPlacemarksByCategoryId(id) {
@@ -44,6 +45,13 @@ export const placemarkMongoStore = {
     placemark.name = updatedPlacemark.name;
     placemark.description = updatedPlacemark.description;
     placemark.duration = updatedPlacemark.duration;
+    await placemark.save();
+  },
+
+  async updatePlacemark_(updatedPlacemark) {
+    const placemark = await Placemark.findOne({ _id: updatedPlacemark._id });
+    //   placemark.name = updatedPlacemark.name;
+    placemark.img = updatedPlacemark.img;
     await placemark.save();
   },
 };
