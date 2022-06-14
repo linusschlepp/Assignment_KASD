@@ -150,4 +150,15 @@ export class PlacemarkService {
     const categoryList = await this.getCategories();
     return categoryList.filter((category) => category.userid === activeUser._id);
   }
+
+  async getFilteredPlacemarkList(userMail, placemarkList) {
+    const categoryList = await this.getFilteredCategoryList(userMail);
+    console.log(categoryList);
+    const tempPlacemarkList = [];
+    placemarkList.forEach((placemark) => {
+      console.log(placemark.categoryid);
+      if (categoryList.map((category) => category._id).includes(placemark.categoryid)) tempPlacemarkList.push(placemark);
+    });
+    return tempPlacemarkList;
+  }
 }
