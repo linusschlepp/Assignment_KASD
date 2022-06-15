@@ -25,6 +25,11 @@ export const placemarkService = {
     return res.data;
   },
 
+  async updateUser(id, user) {
+    const res = await axios.put(`${this.placemarkUrl}/api/users/${id}`, user);
+    return res.data;
+  },
+
   async createCategory(category) {
     const res = await axios.post(`${this.placemarkUrl}/api/categories`, category);
     return res.data;

@@ -9,6 +9,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
   { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
   { method: "DELETE", path: "/api/users/{id}", config: userApi.deleteOne },
+  { method: "PUT", path: "/api/users/{id}", config: userApi.updateOne },
 
   { method: "GET", path: "/api/placemarks", config: placemarkApi.find },
   { method: "GET", path: "/api/placemarks/{id}", config: placemarkApi.findOne },

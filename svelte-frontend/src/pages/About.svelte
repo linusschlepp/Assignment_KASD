@@ -17,7 +17,10 @@
 <div class="columns">
     <div class="column">
         <h1 class="title">About Placemark</h1>
-        <h2 class="subtitle">What makes a human a human?</h2>
+<!--        <h2 class="subtitle">What makes a human a human?</h2>-->
+        <b class="subtitle">What defines a person?</b>
+        <br>
+        <br>
         <AboutForm/>
     </div>
 </div>

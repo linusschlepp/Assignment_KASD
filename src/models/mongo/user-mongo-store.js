@@ -1,4 +1,5 @@
 import { User } from "./user.js";
+import { Placemark } from "./placemark.js";
 
 export const userMongoStore = {
   async getAllUsers() {
@@ -45,5 +46,14 @@ export const userMongoStore = {
 
   async deleteAll() {
     await User.deleteMany({});
+  },
+
+  async updateUser(updatedUser) {
+    const user = await User.findOne({ _id: updatedUser._id });
+    //   user.name = updatedUser.name;
+    user.firstName = updatedUser.firstName;
+    user.lastName = updatedUser.lastName;
+    user.email = updatedUser.email;
+    await user.save();
   },
 };

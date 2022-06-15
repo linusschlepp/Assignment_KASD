@@ -19,6 +19,11 @@
         <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
         <button class="button is-rounded">Analytics</button>
     </a>
+    <a href="/#/adminform" class="column is-4.5">
+        <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
+        <button class="button is-rounded">Admin</button>
+    </a>
+
     <a href="/#/logout" class="column is-4.5">
         <!--        <i class="fas fa-sign-out-alt fa-3x" style="color:rgb(156, 70, 128)"></i>-->
         <button class="button is-rounded">Logout</button>

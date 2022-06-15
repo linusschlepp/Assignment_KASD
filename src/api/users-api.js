@@ -102,6 +102,26 @@ export const userApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  updateOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        console.log(request.payload);
+        await db.userStore.updateUser(request.payload);
+        return h.response().code(204);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Delete a user",
+    notes: "All userApi removed from Placemark",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
   authenticate: {
     auth: false,
     handler: async function (request, h) {

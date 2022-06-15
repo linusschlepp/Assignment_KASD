@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="title">Discover the images of your favourite places</div>
-
+{#if placemarkList.length > 0 }
 {#each placemarkList as placemark}
 
     {#if filteredCategoryList.map(category => category._id).includes(placemark.categoryid)}
@@ -48,6 +48,13 @@
     {/if}
 {/each}
 
+{:else}
+
+    <b>Oops, it seems like you didn't add any Placemarks or pictures yet.
+        Start adding Placemarks right <a href="/#/category">here!</a></b>
+
+
+{/if}
 <style>
 
 

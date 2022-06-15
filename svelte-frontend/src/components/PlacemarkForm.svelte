@@ -149,4 +149,15 @@
     textarea {
         border-color: #6d00cc;
     }
+
+
+
+     select {
+         border: 1px solid #6d00cc;
+         outline: 0;
+         background-color: transparent;
+     }
+
+
+
 </style>
