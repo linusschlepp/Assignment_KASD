@@ -50,10 +50,10 @@ export const userMongoStore = {
 
   async updateUser(updatedUser) {
     const user = await User.findOne({ _id: updatedUser._id });
-    //   user.name = updatedUser.name;
     user.firstName = updatedUser.firstName;
     user.lastName = updatedUser.lastName;
     user.email = updatedUser.email;
+    user.admin = updatedUser.admin;
     await user.save();
   },
 };

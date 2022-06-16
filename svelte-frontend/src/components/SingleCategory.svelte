@@ -5,7 +5,7 @@
     import PlacemarkMap from "../components/PlacemarkMap.svelte";
     import CategoryList from "./CategoryList.svelte";
 
-
+    let openSubTable = false;
     var isOpen;
     let dispatch = createEventDispatcher();
     export let category;
@@ -28,21 +28,44 @@
 
     async function deleteCategoryById_(_id) {
         console.log("hier drin")
+
         // await placemarkStore.deletePlacemarkById_(_id)
         const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
     }
 
+
+    async function updateCategoryById_(category) {
+        openSubTable = !openSubTable
+        console.log("hier drin")
+
+
+        const newCategory = {
+            name: newName,
+            userid: category.userid,
+            _id: category._id
+
+        }
+
+        // const response = await placemarkService.updateCategoryById(category._id, newCategory)
+        const response = await axios.put(`http://localhost:4000/api/categories/${category._id}`,newCategory)
+
+        // await placemarkStore.deletePlacemarkById_(_id)
+        //   const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
+    }
+
     function pushToTextArea(placemark) {
 
-       // selectedPlacemark = true;
+        // selectedPlacemark = true;
         dispatch("addDescription", placemark)
     }
 
-    async function changeIsOpen(){
+    async function changeIsOpen() {
         isOpen = !isOpen
 
         dispatch("destroyDescription", isOpen)
     }
+
+    let newName = "";
 
 
 </script>
@@ -65,7 +88,27 @@
         <div class="column">
             <button class="button is-rounded" on:click={() => deleteCategoryById_(category._id)}>Delete</button>
         </div>
+        <div class="column">
+            <button class="button is-rounded" on:click={() => openSubTable = !openSubTable}>Edit</button>
+        </div>
     </div>
+
+    {#if openSubTable}
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <input bind:value={newName} type="text" class="input">
+                </div>
+            </div>
+            <div class="column">
+                <button class="button is-rounded" on:click={() => updateCategoryById_(category)}>Ok</button>
+            </div>
+        </div>
+
+    {/if}
+
+
     {#if placemarkList.filter(placemark => placemark.categoryid === category._id).length > 0 }
         <b style="font-size: 19px">Placemarks of {category.name}: </b>
         <table class="table is-fullwidth">
@@ -74,6 +117,7 @@
             <th>Longtitude</th>
             <th>Latitude</th>
             <th></th>
+            <!--            <th></th>-->
             </thead>
             <tbody>
             {#each placemarkList as placemark}
@@ -94,6 +138,11 @@
                                 Delete
                             </button>
                         </td>
+                        <!--                        <td>-->
+                        <!--                        <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>-->
+                        <!--                            Edit-->
+                        <!--                        </button>-->
+                        <!--                        </td>-->
                     </tr>
                 {/if}
             {/each}

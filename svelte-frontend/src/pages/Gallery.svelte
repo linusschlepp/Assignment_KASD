@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="title">Discover the images of your favourite places</div>
-{#if placemarkList.length > 0 }
+{#if filteredCategoryList.length > 0 }
 {#each placemarkList as placemark}
 
     {#if filteredCategoryList.map(category => category._id).includes(placemark.categoryid)}

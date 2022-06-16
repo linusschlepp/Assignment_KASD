@@ -7,14 +7,15 @@
     export let user;
     let openSubTable = false
     let newMail = ""
-    let newLastName  = ""
+    let newLastName = ""
     let newFirstName = ""
     let newAdmin;
+    let otherData;
 
     let placemarkService = getContext("PlacemarkService")
 
 
-    async function changeIsOpen(){
+    async function changeIsOpen() {
         openSubTable = !openSubTable
     }
 
@@ -25,88 +26,101 @@
 
     async function changeUser(user) {
 
+        console.log(newAdmin)
+        console.log(newAdmin === "true")
         const newUser = {
             email: newMail !== "" ? newMail : user.email,
             firstName: newFirstName !== "" ? newFirstName : user.firstName,
             lastName: newLastName !== "" ? newLastName : user.lastName,
             password: user.password,
-            admin: newAdmin === "true",
+            admin: newAdmin,
             _id: user._id
         }
 
         const response = await placemarkService.updateUserById(user._id, newUser)
 
         openSubTable = !openSubTable
+
+        await update()
     }
 
 
+    async function update() {
+        const res = await fetch();
+        otherData = await res.json();
+    }
 </script>
+<tr>
+    <td>
+        {user._id}
+    </td>
+    <td>
+        {user.lastName}
+    </td>
+    <td>
+        {user.firstName}
+    </td>
+    <td>
+        {user.email}
+    </td>
+    <td>
+        {#if user.admin }
+            Admin
 
+        {:else}
+            No admin
+        {/if}
 
+    </td>
+
+    <td>
+        <button class="button is-rounded" on:click={() => deleteUserById_(user._id)}>
+            Delete
+        </button>
+    </td>
+    <td>
+        <button class="button is-rounded" on:click={changeIsOpen}>
+            Edit
+        </button>
+        {#if openSubTable}
+            <table class="table is-fullwidth">
+                <thead>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Admin</th>
+                </thead>
+                <tbody>
                 <tr>
                     <td>
-                        {user._id}
+                        <input bind:value={newMail} type="email" class="input" placeholder="{user.email}">
                     </td>
                     <td>
-                        {user.lastName}
+                        <input bind:value={newFirstName} type="text" class="input" placeholder="{user.firstName}">
                     </td>
                     <td>
-                        {user.firstName}
+                        <input bind:value={newLastName} type="text" class="input" placeholder="{user.lastName}">
                     </td>
                     <td>
-                        {user.email}
-                    </td>
-                    <td>
-                        {#if user.admin }
-                            Admin
+                        <!--                                        <input bind:value={newAdmin}  type="text" class="input">-->
 
-                        {:else}
-                            No admin
-                        {/if}
-
-                    </td>
-
-                    <td>
-                        <button class="button is-rounded" on:click={() => deleteUserById_(user._id)}>
-                            Delete
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button is-rounded" on:click={changeIsOpen}>
-                            Edit
-                        </button>
-                        {#if openSubTable}
-                            <table class="table is-fullwidth">
-                                <thead>
-                                <th>Email</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Admin</th>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <input bind:value={newMail} type="email" class="input">
-                                    </td>
-                                    <td>
-                                        <input bind:value={newFirstName} type="text" class="input">
-                                    </td>
-                                    <td>
-                                        <input bind:value={newLastName}  type="text" class="input">
-                                    </td>
-                                    <td>
-                                        <input bind:value={newAdmin}  type="text" class="input">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <button class="button is-rounded" on:click={() => changeUser(user)}>
-                                Ok
-                            </button>
-                        {/if}
-
+                        <div style="border-color: #6d00cc" class="select">
+                            <select bind:value={newAdmin}>
+                                <option>{user.admin}</option>
+                                <option>{!user.admin}</option>
+                            </select>
+                        </div>
                     </td>
                 </tr>
+                </tbody>
+            </table>
+            <button class="button is-rounded" on:click={() => changeUser(user)}>
+                Ok
+            </button>
+        {/if}
+
+    </td>
+</tr>
 
 
 <style>
@@ -114,6 +128,17 @@
         background-color: #6d00cc;
         color: white;
         font-weight: bold;
+    }
+
+    select {
+        border: 1px solid #6d00cc;
+        outline: 0;
+        background-color: transparent;
+    }
+
+
+    input {
+        border-color: #6d00cc;
     }
 
 </style>

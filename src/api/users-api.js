@@ -117,8 +117,8 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Delete a user",
-    notes: "All userApi removed from Placemark",
+    description: "Update a user",
+    notes: "One userApi is removed from Placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 

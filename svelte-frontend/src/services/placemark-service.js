@@ -143,6 +143,16 @@ export class PlacemarkService {
     }
   }
 
+  async updateCategoryById(categoryId, categoryToUpdate) {
+    try {
+      console.log(categoryToUpdate);
+      const response = await axios.put(`${this.baseUrl}/api/categories/${categoryId}`, categoryToUpdate);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async getUsers() {
     try {
       console.log("get Users");

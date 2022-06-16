@@ -109,6 +109,26 @@ export const categoryApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  updateOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        console.log(request.payload);
+        await db.categoryStore.updateCategory(request.payload);
+        return h.response().code(204);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update a Category",
+    notes: "All userApi removed from Placemark",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt",
