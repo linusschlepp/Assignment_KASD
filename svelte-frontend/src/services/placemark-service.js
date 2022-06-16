@@ -67,6 +67,7 @@ export class PlacemarkService {
 
   async addPlacemark_(placemark, category) {
     console.log(placemark);
+    console.log(category);
     try {
       const response = await axios.post(`${this.baseUrl}/api/categories/${category._id}/placemarks`, placemark);
       console.log(response.status);
@@ -143,6 +144,16 @@ export class PlacemarkService {
     }
   }
 
+  async updatePlacemarkById(placemarkId, placemarkToUpdate) {
+    try {
+      console.log(placemarkToUpdate);
+      const response = await axios.put(`${this.baseUrl}/api/placemarks/${placemarkId}`, placemarkToUpdate);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async updateCategoryById(categoryId, categoryToUpdate) {
     try {
       console.log(categoryToUpdate);
@@ -176,7 +187,6 @@ export class PlacemarkService {
     console.log(categoryList);
     const tempPlacemarkList = [];
     placemarkList.forEach((placemark) => {
-      console.log(placemark.categoryid);
       if (categoryList.map((category) => category._id).includes(placemark.categoryid)) tempPlacemarkList.push(placemark);
     });
     return tempPlacemarkList;

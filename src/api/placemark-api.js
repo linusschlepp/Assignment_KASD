@@ -64,12 +64,33 @@ export const placemarkApi = {
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
+  updateOne: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        console.log(request.payload);
+        await db.placemarkStore.updatePlacemark(request.payload);
+        return h.response().code(204);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Update a Placemark",
+    notes: "One placemarkApi gets updated",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
   create: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
       try {
+        console.log(request.payload);
         const newPlacemark = await db.placemarkStore.addPlacemark(request.params.id, request.payload);
         console.log(newPlacemark);
         if (newPlacemark) {
@@ -79,7 +100,7 @@ export const placemarkApi = {
             const url = await imageStore.uploadImage(newPlacemark.img);
             newPlacemark.img = url;
             console.log(newPlacemark);
-            await db.placemarkStore.updatePlacemark_(newPlacemark);
+            await db.placemarkStore.updatePlacemark(newPlacemark);
           }
           return h.response(newPlacemark).code(201);
         }
@@ -125,6 +146,7 @@ export const placemarkApi = {
     },
     handler: async function (request, h) {
       try {
+        console.log("requestparam:" + request.params.id);
         const placemark = await db.placemarkStore.deletePlacemarkById(request.params.id);
         if (!placemark) {
           return Boom.notFound("No Placemark with this id");

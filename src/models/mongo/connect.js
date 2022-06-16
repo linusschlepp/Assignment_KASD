@@ -1,13 +1,13 @@
 import * as dotenv from "dotenv";
 import Mongoose from "mongoose";
-import * as mongooseSeeder from "mais-mongoose-seeder";
+import * as seeder from "mais-mongoose-seeder";
 import { seedData } from "./seed-data.js";
 
-const seedLib = mongooseSeeder.default;
+const seedLib = seeder.default;
 
 async function seed() {
-  const seeder = seedLib(Mongoose);
-  const dbData = await seeder.seed(seedData, { dropDatabase: false, dropCollection: true });
+  const seedObj = seedLib(Mongoose);
+  const dbData = await seedObj.seed(seedData, { dropDatabase: false, dropCollection: true });
   console.log(dbData);
 }
 
@@ -27,6 +27,6 @@ export function connectMongo() {
 
   db.once("open", function () {
     console.log(`database connected to ${this.name} on ${this.host}`);
-    seed();
+    // seed();
   });
 }

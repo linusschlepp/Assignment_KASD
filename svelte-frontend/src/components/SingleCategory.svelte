@@ -4,6 +4,7 @@
     import {push} from "svelte-spa-router";
     import PlacemarkMap from "../components/PlacemarkMap.svelte";
     import CategoryList from "./CategoryList.svelte";
+    import SinglePlacemark from "./SinglePlacemark.svelte";
 
     let openSubTable = false;
     var isOpen;
@@ -36,18 +37,17 @@
 
     async function updateCategoryById_(category) {
         openSubTable = !openSubTable
-        console.log("hier drin")
 
 
         const newCategory = {
-            name: newName,
+            name: newName.length === 0 ? category.name : newName,
             userid: category.userid,
             _id: category._id
 
         }
 
         // const response = await placemarkService.updateCategoryById(category._id, newCategory)
-        const response = await axios.put(`http://localhost:4000/api/categories/${category._id}`,newCategory)
+        const response = await axios.put(`http://localhost:4000/api/categories/${category._id}`, newCategory)
 
         // await placemarkStore.deletePlacemarkById_(_id)
         //   const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
@@ -57,12 +57,43 @@
 
         // selectedPlacemark = true;
         dispatch("addDescription", placemark)
+
+    }
+
+    async function addDescription(placemark){
+
+        dispatch("addDescription", placemark)
+    }
+
+    async function dispatchDestroy(){
+        dispatch("destroyDescription", isOpen)
     }
 
     async function changeIsOpen() {
         isOpen = !isOpen
 
         dispatch("destroyDescription", isOpen)
+    }
+
+
+    function myFunction() {
+        console.log("inside")
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     }
 
     let newName = "";
@@ -96,9 +127,10 @@
     {#if openSubTable}
         <div class="columns">
             <div class="column">
-                <div class="field">
-                    <label class="label">Name</label>
-                    <input bind:value={newName} type="text" class="input">
+                <div style="float:left;margin-right:20px;">
+                    <label for="name" class="label">Name</label>
+                    <input name="name" id="name" bind:value={newName} type="text" class="input"
+                           placeholder="{category.name}">
                 </div>
             </div>
             <div class="column">
@@ -111,39 +143,43 @@
 
     {#if placemarkList.filter(placemark => placemark.categoryid === category._id).length > 0 }
         <b style="font-size: 19px">Placemarks of {category.name}: </b>
-        <table class="table is-fullwidth">
+        <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={myFunction}
+               placeholder="Search for placemark by name...">
+        <table class="table is-fullwidth" id="myTable">
             <thead>
             <th>Name</th>
             <th>Longtitude</th>
             <th>Latitude</th>
             <th></th>
-            <!--            <th></th>-->
+            <th></th>
             </thead>
             <tbody>
             {#each placemarkList as placemark}
                 {#if placemark.categoryid === category._id}
-                    <tr>
-                        <td>
-                            <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>-->
 
-                        </td>
-                        <td>
-                            {placemark.longitude}
-                        </td>
-                        <td>
-                            {placemark.latitude}
-                        </td>
-                        <td>
-                            <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>
-                                Delete
-                            </button>
-                        </td>
-                        <!--                        <td>-->
-                        <!--                        <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>-->
-                        <!--                            Edit-->
-                        <!--                        </button>-->
-                        <!--                        </td>-->
-                    </tr>
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            {placemark.longitude}-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            {placemark.latitude}-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>-->
+<!--                                Delete-->
+<!--                            </button>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>-->
+<!--                                Edit-->
+<!--                            </button>-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+                    <SinglePlacemark {placemark} {category} on:destroyDescription={dispatchDestroy} on:addDescription={addDescription(placemark)}/>
                 {/if}
             {/each}
         </table>
@@ -204,6 +240,11 @@
         height: 0;
         overflow: auto;
         transition: all .5s;
+    }
+
+
+    input, label {
+        display: block;
     }
 
     section.open-panel {

@@ -8,6 +8,7 @@ const users = new Array(testUsers.length);
 suite("User API tests", () => {
   setup(async () => {
     placemarkService.clearAuth();
+
     await placemarkService.createUser(linus);
     await placemarkService.authenticate(linusCredentials);
     await placemarkService.deleteAllUsers();
@@ -28,7 +29,7 @@ suite("User API tests", () => {
 
   test("delete all userApi", async () => {
     let returnedUsers = await placemarkService.getAllUsers();
-    assert.equal(returnedUsers.length, 4);
+    assert.equal(returnedUsers.length, 3);
     await placemarkService.deleteAllUsers();
     await placemarkService.createUser(linus);
     await placemarkService.authenticate(linusCredentials);

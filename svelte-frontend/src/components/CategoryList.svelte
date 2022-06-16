@@ -59,7 +59,7 @@
 <div class="columns">
 
 {#if filteredCategoryList.length > 0}
-    <div class="column is-three-quarters">
+    <div class="column is-four-fifths">
     {#each filteredCategoryList as category}
         <SingleCategory {category}
                         {placemarkList} on:click={() => changeModal()} on:addDescription={changeDescription}
@@ -167,7 +167,7 @@
     }
 
     section.open-panel {
-        height: 170px;
+        height: 500px;
         box-shadow: inset 0 0 5px black;
     }
 

@@ -9,6 +9,10 @@
 
     let userMail = $user.email;
     let selectedChart = ""
+    let specificPlacemarkList = []
+    let specificCategoryList = []
+    let placemarkList = []
+    let categoryList = []
 
     const placemarkService = getContext("PlacemarkService");
 
@@ -70,11 +74,11 @@
     }
 
     onMount(async () => {
-        let placemarkList = await placemarkService.getPlacemarks();
-        let categoryList = await placemarkService.getCategories()
+        placemarkList = await placemarkService.getPlacemarks();
+        categoryList = await placemarkService.getCategories()
         let userList = await placemarkService.getUsers();
-        let specificPlacemarkList = await placemarkService.getFilteredPlacemarkList(userMail, placemarkList)
-        let specificCategoryList = await placemarkService.getFilteredCategoryList(userMail)
+        specificPlacemarkList = await placemarkService.getFilteredPlacemarkList(userMail, placemarkList)
+        specificCategoryList = await placemarkService.getFilteredCategoryList(userMail)
 
         userList = userList.filter((item, pos) => { return userList.indexOf(item) === pos});
         userList = remove_duplicates(userList)
@@ -127,13 +131,24 @@
     {#if selectedChart === "BarCharts" || selectedChart === "Both" }
         <div class="columns">
             <div class="column has-text-centered">
-                <h1 class="title is-4">Your Amount of Placemarks compared to the general User Average</h1>
+                <h1 class="title is-4">Your amount of Placemarks compared to the general User-Average</h1>
                 <Chart style="width: 500px; height:300px" data={dataBarPlacemark} type="bar" color="red"/>
+                {#if specificPlacemarkList.length > placemarkList.length}
+                    <div class="subtitle">Wow, you are in front of the general User-Average< in terms of Placemarks, keep it up!</div>
+                {:else}
+                    <div class="subtitle">Oops, you are behind of the general User-Average< in terms of Placemarks, come on, go and create some <a href="/#/category">here!</a></div>
+                {/if}
             </div>
             <div class="column has-text-centered">
-                <h1 class="title is-4">Your Amount of Categories compared to the general User Average</h1>
+                <h1 class="title is-4">Your amount of Categories compared to the general User-Average</h1>
                 <Chart style="width: 500px; height:300px" data={dataBarCategory} type="bar" color="red"/>
+                {#if specificCategoryList.length > categoryList.length}
+                    <div class="subtitle">Wow, you are in front of the general user-average in terms of Categories, keep it up!</div>
+                {:else}
+                    <div class="subtitle">Oops, you are behind of the general user-average in terms of Categories, come on, go and create some <a href="/#/category">here!</a></div>
+                {/if}
             </div>
+
         </div>
         <br>
         <br>
@@ -141,11 +156,11 @@
     {#if selectedChart === "PieCharts" || selectedChart === "Both" }
         <div class="columns">
             <div class="column has-text-centered">
-                <h1 class="title is-4">Your Amount of Placemarks compared to the to total amount of placemarks</h1>
+                <h1 class="title is-4">Your Placemarks make up {(specificPlacemarkList.length/placemarkList.length)*100}% of the total amount of placemarks</h1>
                 <Chart style="width: 500px; height:300px" data={dataPiePlacemark} type="pie"/>
             </div>
             <div class="column  has-text-centered">
-                <h1 class="title is-4">Your Amount of Categories compared to the total amount of categories</h1>
+                <h1 class="title is-4">Your Categories make up {(specificCategoryList.length/categoryList.length)*100}% of the total amount of categories</h1>
                 <Chart style="width: 500px; height:300px" data={dataPieCategory} type="pie"/>
             </div>
         </div>

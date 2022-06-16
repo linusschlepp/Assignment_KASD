@@ -39,7 +39,7 @@ suite("Placemark API tests", () => {
       const placemark = await placemarkService.getPlacemark(returnedPlacemarks[i]._id);
       assertSubset(placemark, returnedPlacemarks[i]);
     }
-  });
+  }).timeout(200000);
 
   test("Delete PlacemarkApi", async () => {
     for (let i = 0; i < testPlacemarks.length; i += 1) {
@@ -54,7 +54,7 @@ suite("Placemark API tests", () => {
     }
     returnedPlacemarks = await placemarkService.getAllPlacemarks();
     assert.equal(returnedPlacemarks.length, 0);
-  });
+  }).timeout(300000);
 
   test("denormalised category", async () => {
     for (let i = 0; i < testPlacemarks.length; i += 1) {
@@ -66,5 +66,5 @@ suite("Placemark API tests", () => {
     for (let i = 0; i < testPlacemarks.length; i += 1) {
       assertSubset(testPlacemarks[i], returnedCategory.placemarks[i]);
     }
-  });
+  }).timeout(200000);
 });

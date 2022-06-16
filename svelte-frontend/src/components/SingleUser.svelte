@@ -1,6 +1,6 @@
 <script>
 
-    import {getContext} from "svelte";
+    import {getContext, onMount} from "svelte";
 
     import axios from "axios";
 
@@ -11,6 +11,8 @@
     let newFirstName = ""
     let newAdmin;
     let otherData;
+    let filteredPlacemarkList = []
+    let filteredCategoryList = []
 
     let placemarkService = getContext("PlacemarkService")
 
@@ -24,10 +26,8 @@
         const response = await axios.delete(`http://localhost:4000/api/users/${_id}`)
     }
 
-    async function changeUser(user) {
+    async function updateUserById(user) {
 
-        console.log(newAdmin)
-        console.log(newAdmin === "true")
         const newUser = {
             email: newMail !== "" ? newMail : user.email,
             firstName: newFirstName !== "" ? newFirstName : user.firstName,
@@ -43,6 +43,14 @@
 
         await update()
     }
+
+
+    onMount(async () => {
+        let placemarkList = await placemarkService.getPlacemarks();
+        filteredCategoryList = await placemarkService.getFilteredCategoryList(user.email);
+        filteredPlacemarkList = await placemarkService.getFilteredPlacemarkList(user.email, placemarkList);
+
+    });
 
 
     async function update() {
@@ -62,6 +70,12 @@
     </td>
     <td>
         {user.email}
+    </td>
+    <td>
+        {filteredPlacemarkList.length}
+    </td>
+    <td>
+        {filteredCategoryList.length}
     </td>
     <td>
         {#if user.admin }
@@ -93,13 +107,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        <input bind:value={newMail} type="email" class="input" placeholder="{user.email}">
+                        <input bind:value={newMail} style="width: 250px" type="email" class="input" placeholder="{user.email}">
                     </td>
                     <td>
-                        <input bind:value={newFirstName} type="text" class="input" placeholder="{user.firstName}">
+                        <input bind:value={newFirstName} style="width: 200px"  type="text" class="input" placeholder="{user.firstName}">
                     </td>
                     <td>
-                        <input bind:value={newLastName} type="text" class="input" placeholder="{user.lastName}">
+                        <input bind:value={newLastName} style="width: 200px" type="text" class="input" placeholder="{user.lastName}">
                     </td>
                     <td>
                         <!--                                        <input bind:value={newAdmin}  type="text" class="input">-->
@@ -114,9 +128,18 @@
                 </tr>
                 </tbody>
             </table>
-            <button class="button is-rounded" on:click={() => changeUser(user)}>
+            <div class="columns">
+                <div class="column">
+            <button class="button is-rounded" on:click={() => updateUserById(user)}>
                 Ok
             </button>
+                </div>
+                    <div class="column">
+                    <button class="button is-rounded" on:click={changeIsOpen}>
+                        x
+                    </button>
+                    </div>
+            </div>
         {/if}
 
     </td>

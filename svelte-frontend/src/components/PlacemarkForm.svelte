@@ -55,6 +55,9 @@
     }
 
     async function generatePlacemark() {
+
+        imageName = imageName.length === 0 ? "test" : imageName;
+
         if (selectedCategory && name && description) {
             const category = filteredCategoryList.find(category => category.name === selectedCategory);
             const placemark = {

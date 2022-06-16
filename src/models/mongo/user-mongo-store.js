@@ -22,7 +22,7 @@ export const userMongoStore = {
      if yes, the user is not added
       */
     if (userDb) {
-      return null;
+      return userDb;
     }
 
     const newUser = new User(user);

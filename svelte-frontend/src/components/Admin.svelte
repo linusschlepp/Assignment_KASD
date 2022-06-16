@@ -22,6 +22,9 @@
 
 
 
+
+
+
     onMount(async () => {
         let placemarkList = await placemarkService.getPlacemarks();
         let filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
@@ -32,6 +35,27 @@
         isAdmin = activeUser.admin
         console.log(filteredCategoryList.length)
     });
+
+
+    function myFunction() {
+        console.log("inside")
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 
 
 
@@ -57,12 +81,15 @@
 {#if isAdmin}
 <div class="title is-4">List of Users</div>
     <div class="title is-5">Total amount of users: {userList.length}</div>
-    <table class="table is-fullwidth">
+    <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={myFunction} placeholder="Search for user by mail...">
+    <table class="table is-fullwidth"  id="myTable">
         <thead>
         <th>Id</th>
         <th>Last Name</th>
         <th>First Name</th>
         <th>Email</th>
+        <th>No. of PMs</th>
+        <th>No. of Cat.</th>
         <th>Status</th>
         <th></th>
         <th></th>
@@ -70,63 +97,6 @@
         <tbody>
         {#each userList as user}
             <SingleUser {user}/>
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        {user._id}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {user.lastName}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {user.firstName}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {user.email}-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        {#if user.admin }-->
-<!--                            Admin-->
-
-<!--                        {:else}-->
-<!--                            No admin-->
-<!--                        {/if}-->
-
-<!--                    </td>-->
-<!--               -->
-<!--                    <td>-->
-<!--                        <button class="button is-rounded" on:click={() => deleteUserById_(user._id)}>-->
-<!--                            Delete-->
-<!--                        </button>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <button class="button is-rounded" on:click={changeIsOpen}>-->
-<!--                            Edit-->
-<!--                        </button>-->
-<!--                        {#if openSubTable}-->
-<!--                            <table class="table is-fullwidth">-->
-<!--                                <thead>-->
-<!--                                <th>First Name</th>-->
-<!--                                <th>Last Name</th>-->
-<!--                                <th>Admin </th>-->
-<!--                                </thead>-->
-<!--                                <tbody>-->
-<!--                                <tr>-->
-<!--                                    <td>-->
-<!--                                        <input type="text" class="input">-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <input type="text" class="input">-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <input type="text" class="input">-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                </tbody>-->
-<!--                            </table>-->
-<!--                        {/if}-->
-
-<!--                    </td>-->
-<!--                </tr>-->
         {/each}
     </table>
 {:else}
@@ -139,6 +109,11 @@
         background-color: #6d00cc;
         color: white;
         font-weight: bold;
+    }
+
+
+    input {
+        border-color: #6d00cc;
     }
 
 </style>

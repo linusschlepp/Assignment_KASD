@@ -125,7 +125,7 @@ export const categoryApi = {
     },
     tags: ["api"],
     description: "Update a Category",
-    notes: "All userApi removed from Placemark",
+    notes: "One categoryApi gets updated",
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
