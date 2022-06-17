@@ -30,14 +30,11 @@
         let filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
         userList = await placemarkService.getUsers();
         let activeUser = userList.find(user => user.email === userMail)
-        console.log(activeUser)
-        console.log(activeUser.admin)
         isAdmin = activeUser.admin
-        console.log(filteredCategoryList.length)
     });
 
 
-    function myFunction() {
+    function filterTable() {
         console.log("inside")
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
@@ -77,11 +74,11 @@
 
 </div>
 
-<div class="title">Admin Board</div>
+<div class="title">Admin Dashboard</div>
 {#if isAdmin}
 <div class="title is-4">List of Users</div>
     <div class="title is-5">Total amount of users: {userList.length}</div>
-    <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={myFunction} placeholder="Search for user by mail...">
+    <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={filterTable} placeholder="Search for user by mail...">
     <table class="table is-fullwidth"  id="myTable">
         <thead>
         <th>Id</th>

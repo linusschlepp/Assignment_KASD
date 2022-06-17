@@ -15,6 +15,7 @@
     let categoryList = []
 
     const placemarkService = getContext("PlacemarkService");
+    let backGBGolors = [["#6d00cc", "#2b0080" ]]
 
     let dataBarPlacemark = {
         labels: ["Your Amount of placemarks", "Placemarks User-Average"],
@@ -38,10 +39,12 @@
 
     let dataPieCategory = {
         labels: ["Your Categories", "Total Categories of all users"],
+        colors: ['#4dcd32', '#4dcd32'],
         datasets: [
             {
                 values: [0, 0],
-                colors: ['#4dcd32', '#4dcd32']
+
+                backgroundColor: backGBGolors[0]
             }
         ]
 
@@ -134,9 +137,9 @@
                 <h1 class="title is-4">Your amount of Placemarks compared to the general User-Average</h1>
                 <Chart style="width: 500px; height:300px" data={dataBarPlacemark} type="bar" color="red"/>
                 {#if specificPlacemarkList.length > placemarkList.length}
-                    <div class="subtitle">Wow, you are in front of the general User-Average< in terms of Placemarks, keep it up!</div>
+                    <div class="subtitle">Wow, you are in front of the general User-Average in terms of Placemarks, keep it up!</div>
                 {:else}
-                    <div class="subtitle">Oops, you are behind of the general User-Average< in terms of Placemarks, come on, go and create some <a href="/#/category">here!</a></div>
+                    <div class="subtitle">Oops, you are behind of the general User-Average in terms of Placemarks, come on, go and create some <a href="/#/category">here!</a></div>
                 {/if}
             </div>
             <div class="column has-text-centered">
@@ -166,8 +169,8 @@
         </div>
     {/if}
 {:else}
- <b>Oops, it seems like, you didn't select a Chart-Type. Go and start selecting a Chart-Type
-     above.</b>
+    <b>Oops, it seems like, you didn't select a Chart-Type. Go and start selecting a Chart-Type
+        above.</b>
 {/if}
 
 

@@ -60,6 +60,7 @@
         <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>
 
     </td>
+
     <td>
         {placemark.longitude}
     </td>
@@ -75,53 +76,84 @@
         <button class="button is-rounded" on:click={changeIsOpen}>
             Edit
         </button>
-        {#if openSubTable}
-            <table class="table is-fullwidth">
-                <thead>
-                <th>Name</th>
-                <th>Longitude</th>
-                <th>Latitude</th>
-                <th>Description</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <input bind:value={newName} style="width: 250px" type="email" class="input"
-                               placeholder="{placemark.name}">
-                    </td>
-                    <td>
-                        <input bind:value={newLng} style="width: 200px" type="number" class="input"
-                               placeholder="{placemark.longitude}">
-                    </td>
-                    <td>
-                        <input bind:value={newLat} style="width: 200px" type="number" class="input"
-                               placeholder="{placemark.latitude}">
-                    </td>
-                    <td>
-                        <!--                                        <input bind:value={newAdmin}  type="text" class="input">-->
-                        <textarea bind:value={newDescription} class="textarea"
-                                  placeholder="{placemark.description}"></textarea>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="columns">
-                <div class="column">
-                    <button class="button is-rounded" on:click={updatePlacemarkById(placemark)}>
-                        Ok
-                    </button>
-                </div>
-                <div class="column">
-                    <button class="button is-rounded" on:click={changeIsOpen}>
-                        x
-                    </button>
-                </div>
-            </div>
-        {/if}
+        <!--{#if openSubTable}-->
+        <!--    <table>-->
+        <!--        <thead>-->
+        <!--        <th>Name</th>-->
+        <!--        <th>Longitude</th>-->
+        <!--        <th>Latitude</th>-->
+        <!--        <th>Description</th>-->
+        <!--        </thead>-->
+        <!--        <tbody>-->
+        <!--        <tr>-->
+        <!--            <td>-->
+        <!--                <input bind:value={newName} style="width: 250px" type="email" class="input"-->
+        <!--                       placeholder="{placemark.name}">-->
+        <!--            </td>-->
+        <!--            <td>-->
+        <!--                <input bind:value={newLng} style="width: 200px" type="number" class="input"-->
+        <!--                       placeholder="{placemark.longitude}">-->
+        <!--            </td>-->
+        <!--            <td>-->
+        <!--                <input bind:value={newLat} style="width: 200px" type="number" class="input"-->
+        <!--                       placeholder="{placemark.latitude}">-->
+        <!--            </td>-->
+        <!--            <td>-->
+        <!--                <textarea style="width: 500px" bind:value={newDescription} class="textarea"-->
+        <!--                          placeholder="{placemark.description}"></textarea>-->
+        <!--            </td>-->
+        <!--        </tr>-->
+        <!--        </tbody>-->
+        <!--    </table>-->
+        <!--    <div class="columns">-->
+        <!--        <div class="column">-->
+        <!--            <button class="button is-rounded" on:click={updatePlacemarkById(placemark)}>-->
+        <!--                Ok-->
+        <!--            </button>-->
+        <!--        </div>-->
+        <!--        <div class="column">-->
+        <!--            <button class="button is-rounded" on:click={changeIsOpen}>-->
+        <!--                x-->
+        <!--            </button>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--{/if}-->
 
     </td>
 
 </tr>
+
+{#if openSubTable}
+    <tr>
+        <td>
+            <input bind:value={newName} style="width: 100px" type="email" class="input"
+                   placeholder="{placemark.name}">
+        </td>
+        <td>
+            <input bind:value={newLng} style="width: 100px" type="number" class="input"
+                   placeholder="{placemark.longitude}">
+        </td>
+        <td>
+            <input bind:value={newLat} style="width: 100px" type="number" class="input"
+                   placeholder="{placemark.latitude}">
+        </td>
+        <td>
+                        <textarea style="width: 100px; height:50px" bind:value={newDescription} class="textarea"
+                                  placeholder="{placemark.description}"></textarea>
+        </td>
+
+        <td>
+            <button class="button is-rounded" on:click={updatePlacemarkById(placemark)}>
+                Ok
+            </button>
+        </td>
+        <td>
+            <button class="button is-rounded" on:click={changeIsOpen}>
+                x
+            </button>
+        </td>
+    </tr>
+{/if}
 
 
 <style>

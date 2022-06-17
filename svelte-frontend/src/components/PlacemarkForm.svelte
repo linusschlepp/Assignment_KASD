@@ -55,8 +55,8 @@
     }
 
     async function generatePlacemark() {
-
-        imageName = imageName.length === 0 ? "test" : imageName;
+        
+        imageName = imageObject.length === 0 ? " " : imageObject;
 
         if (selectedCategory && name && description) {
             const category = filteredCategoryList.find(category => category.name === selectedCategory);
@@ -81,6 +81,23 @@
             message = "Please select name, description and category";
         }
     }
+
+    const onFileSelected =(e)=> {
+        let image = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onload = e => {
+            imageObject = e.target.result
+            console.log(imageObject)
+        };
+
+        console.log(typeof imageObject)
+
+    }
+
+
+
+
 </script>
 
 <form on:submit|preventDefault={generatePlacemark}>
@@ -107,7 +124,7 @@
         <label style="border-color: #6d00cc" class="label" for="name">(Optional) Add Image</label>
         <form on:click={removeImageName}>
             <div id="file-select" class="file has-name is-fullwidth">
-                <label on:submit={removeImageName} class="file-label"> <input id="file-selector" class="file-input" type="file"
+                <label on:submit={removeImageName} class="file-label"> <input on:change={(e)=>onFileSelected(e)} id="file-selector" class="file-input" type="file"
                                                                               name="imagefile"
                                                                               accept="image/png, image/jpeg">
                     <span class="file-cta">

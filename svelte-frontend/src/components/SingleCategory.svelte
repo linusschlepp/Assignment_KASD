@@ -156,29 +156,6 @@
             <tbody>
             {#each placemarkList as placemark}
                 {#if placemark.categoryid === category._id}
-<!--                    <tr>-->
-<!--                        <td>-->
-<!--                            <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>-->
-
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            {placemark.longitude}-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            {placemark.latitude}-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>-->
-<!--                                Delete-->
-<!--                            </button>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>-->
-<!--                                Edit-->
-<!--                            </button>-->
-<!--                        </td>-->
-
-<!--                    </tr>-->
                     <SinglePlacemark {placemark} {category} on:destroyDescription={dispatchDestroy} on:addDescription={addDescription(placemark)}/>
                 {/if}
             {/each}

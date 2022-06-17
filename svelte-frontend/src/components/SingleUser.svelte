@@ -9,6 +9,7 @@
     let newMail = ""
     let newLastName = ""
     let newFirstName = ""
+    let newPassword = ""
     let newAdmin;
     let otherData;
     let filteredPlacemarkList = []
@@ -27,13 +28,14 @@
     }
 
     async function updateUserById(user) {
+        console.log(newPassword)
 
         const newUser = {
             email: newMail !== "" ? newMail : user.email,
             firstName: newFirstName !== "" ? newFirstName : user.firstName,
             lastName: newLastName !== "" ? newLastName : user.lastName,
-            password: user.password,
-            admin: newAdmin,
+            password: newPassword !== "" ? newPassword : user.password,
+            admin: newAdmin === "Admin",
             _id: user._id
         }
 
@@ -96,55 +98,62 @@
         <button class="button is-rounded" on:click={changeIsOpen}>
             Edit
         </button>
-        {#if openSubTable}
-            <table class="table is-fullwidth">
-                <thead>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Admin</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <input bind:value={newMail} style="width: 250px" type="email" class="input" placeholder="{user.email}">
-                    </td>
-                    <td>
-                        <input bind:value={newFirstName} style="width: 200px"  type="text" class="input" placeholder="{user.firstName}">
-                    </td>
-                    <td>
-                        <input bind:value={newLastName} style="width: 200px" type="text" class="input" placeholder="{user.lastName}">
-                    </td>
-                    <td>
-                        <!--                                        <input bind:value={newAdmin}  type="text" class="input">-->
+    </td>
+</tr>
+{#if openSubTable}
+    <tr>
+        <td>
+            <b>Edit User: {user._id}</b>
+        </td>
+        <td>
+            <input bind:value={newLastName} style="width: 200px" type="text" class="input"
+                   placeholder="{user.lastName}">
+        </td>
+        <td>
+            <input bind:value={newFirstName} style="width: 200px" type="text" class="input"
+                   placeholder="{user.firstName}">
+        </td>
 
-                        <div style="border-color: #6d00cc" class="select">
-                            <select bind:value={newAdmin}>
-                                <option>{user.admin}</option>
-                                <option>{!user.admin}</option>
-                            </select>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="columns">
-                <div class="column">
+        <td>
+            <input bind:value={newMail} style="width: 250px" type="email" class="input" placeholder="{user.email}">
+        </td>
+
+        <td>
+
+            <input bind:value={newPassword} style="width: 150px" type="password" class="input"
+                   placeholder="{user.password}">
+        </td>
+        <td></td>
+
+        <td>
+            <div style="border-color: #6d00cc" class="select">
+                <select bind:value={newAdmin}>
+                    {#if user.admin}
+                        <option>Admin</option>
+                        <option>No Admin</option>
+                    {:else}
+                        <option>No Admin</option>
+                        <option>Admin</option>
+                    {/if}
+<!--                    <option>{user.admin}</option>-->
+<!--                    <option>{!user.admin}</option>-->
+                </select>
+            </div>
+        </td>
+
+
+        <td>
             <button class="button is-rounded" on:click={() => updateUserById(user)}>
                 Ok
             </button>
-                </div>
-                    <div class="column">
-                    <button class="button is-rounded" on:click={changeIsOpen}>
-                        x
-                    </button>
-                    </div>
-            </div>
-        {/if}
-
-    </td>
-</tr>
-
+        </td>
+        <td>
+            <button class="button is-rounded" on:click={changeIsOpen}>
+                x
+            </button>
+        </td>
+    </tr>
+{/if}
 
 <style>
     button {
