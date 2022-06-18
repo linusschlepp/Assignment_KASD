@@ -8,13 +8,12 @@
         "/": Main,
         "/login": Login,
         "/signup": Signup,
-        "/main": Main
     }
 </script>
 
 <div class="container">
     <div class="notification is-primary">
-        <p class="is-primary">Hello from Donation</p>
+        <p class="is-primary">Hello from Placemark</p>
     </div>
     <Router {routes}/>
 </div>

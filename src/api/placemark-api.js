@@ -70,11 +70,9 @@ export const placemarkApi = {
     },
     handler: async function (request, h) {
       try {
-        console.log(request.payload);
         await db.placemarkStore.updatePlacemark(request.payload);
         return h.response().code(204);
       } catch (err) {
-        console.log(err);
         return Boom.serverUnavailable("Database Error");
       }
     },
@@ -90,24 +88,19 @@ export const placemarkApi = {
     },
     handler: async function (request, h) {
       try {
-        console.log(request.payload);
         const newPlacemark = await db.placemarkStore.addPlacemark(request.params.id, request.payload);
-        console.log(newPlacemark);
         if (newPlacemark) {
           // sollte buffered sein
           const file = newPlacemark.img;
           if (Object.keys(file).length > 1) {
             const url = await imageStore.uploadImage(newPlacemark.img);
             newPlacemark.img = url;
-            console.log(newPlacemark);
           } else {
             newPlacemark.img = "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png";
-            console.log(newPlacemark);
           }
           await db.placemarkStore.updatePlacemark(newPlacemark);
           return h.response(newPlacemark).code(201);
         }
-        console.log(newPlacemark);
         return Boom.badImplementation("error creating Placemark");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -150,6 +143,7 @@ export const placemarkApi = {
       try {
         console.log("requestparam:" + request.params.id);
         const placemark = await db.placemarkStore.deletePlacemarkById(request.params.id);
+        console.log(placemark);
         if (!placemark) {
           return Boom.notFound("No Placemark with this id");
         }
@@ -157,6 +151,7 @@ export const placemarkApi = {
         await db.placemarkStore.deletePlacemarkById(request.params.id);
         return h.response().code(204);
       } catch (err) {
+        console.log(`der Fehler: ${err}`);
         return Boom.serverUnavailable("No Placemark with this id");
       }
     },

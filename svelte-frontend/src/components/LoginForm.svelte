@@ -11,7 +11,7 @@
     async function login() {
         let success = await placemarkService.login(email, password)
         if(success) {
-            push("/category")
+            push("/add")
         }else{
             email = "";
             password = "";
@@ -38,11 +38,6 @@
         </div>
     {/if}
 </form>
-
-
-
-
-
 <style>
 
 

@@ -13,57 +13,46 @@
     let filteredCategoryList = [];
     let selectedCategory = "";
     let userMail = $user.email
-    let imageName = ""
-    let imageObject = null;
-
-    let lat = 52.160858;
-    let lng = -7.152420;
+    let imageObject = "";
+    let lat = 49.013432;
+    let lng = 12.101624;
 
     let message = "";
 
     onMount(async () => {
         filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail)
+
         const fileInput = document.querySelector(".file-input");
         fileInput.onchange = () => {
             if (fileInput.files.length > 0) {
                 const fileName = document.querySelector(".file-name");
                 fileName.textContent = fileInput.files[0].name;
-                imageObject = fileInput.files[0]
-                imageName = fileName.textContent
+
             }
         };
 
     });
 
-
-
-
-
-
     function removeImageName() {
-        imageName = ""
 
         const fileInput = document.querySelector(".file-input");
-
-
-
         if (fileInput.files.length > 0) {
             const fileName = document.querySelector(".file-name");
-            fileName.textContent = imageName
+            fileName.textContent = ""
         }
 
     }
 
     async function generatePlacemark() {
-        
-        imageName = imageObject.length === 0 ? " " : imageObject;
+
+        imageObject = imageObject.length === 0 ? " " : imageObject;
 
         if (selectedCategory && name && description) {
             const category = filteredCategoryList.find(category => category.name === selectedCategory);
             const placemark = {
                 name: name,
                 description: description,
-                img : imageName,
+                img : imageObject,
                 categoryid: category._id,
                 latitude: lat,
                 longitude: lng
@@ -96,8 +85,6 @@
     }
 
 
-
-
 </script>
 
 <form on:submit|preventDefault={generatePlacemark}>
@@ -123,28 +110,27 @@
     <div class="card-content">
         <label style="border-color: #6d00cc" class="label" for="name">(Optional) Add Image</label>
         <form on:click={removeImageName}>
-            <div id="file-select" class="file has-name is-fullwidth">
+            <div style="border: 1px solid #6d00cc;" id="file-select" class="file has-name is-fullwidth">
                 <label on:submit={removeImageName} class="file-label"> <input on:change={(e)=>onFileSelected(e)} id="file-selector" class="file-input" type="file"
                                                                               name="imagefile"
                                                                               accept="image/png, image/jpeg">
                     <span class="file-cta">
             <span class="file-icon">
-<!--              <i class="fas fa-upload"></i>-->
             </span>
-            <span  class="file-label">
+            <span   class="file-label">
               Choose a file…
             </span>
            </span>
                     <span class="file-name"></span>
                 </label>
-                <button on:click={imageName = ""} style="background-color: #6d00cc" class="button is-info">x</button>
+                <button style="background-color: #6d00cc" class="button is-info">x</button>
             </div>
         </form>
     </div>
     <Coordinates bind:lat={lat} bind:lng={lng}/>
     <div class="field">
         <div class="control">
-            <button class="button is-rounded">Add Placemark</button>
+            <button class="button">Add Placemark</button>
         </div>
     </div>
     <div class="section">

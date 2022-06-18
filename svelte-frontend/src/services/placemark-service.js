@@ -134,6 +134,25 @@ export class PlacemarkService {
     }
   }
 
+  async deleteCategoryById_(categoryId) {
+    console.log(categoryId);
+    try {
+      const response = await axios.delete(`${this.baseUrl}/api/categories/${categoryId}`);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  async deleteUserById_(userId) {
+    try {
+      const response = await axios.delete(`${this.baseUrl}/api/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async updateUserById(userId, userToUpdate) {
     try {
       console.log(userToUpdate);
@@ -184,7 +203,6 @@ export class PlacemarkService {
 
   async getFilteredPlacemarkList(userMail, placemarkList) {
     const categoryList = await this.getFilteredCategoryList(userMail);
-    console.log(categoryList);
     const tempPlacemarkList = [];
     placemarkList.forEach((placemark) => {
       if (categoryList.map((category) => category._id).includes(placemark.categoryid)) tempPlacemarkList.push(placemark);

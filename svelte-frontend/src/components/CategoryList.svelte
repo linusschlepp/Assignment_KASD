@@ -2,14 +2,13 @@
     import {getContext, onMount} from 'svelte'
     import {user} from "../stores.js"
     import SingleCategory from "./SingleCategory.svelte";
-    import MapModal from "./MapModal.svelte";
+    import AccordionElement from "./AccordionElement.svelte";
 
     const placemarkService = getContext("PlacemarkService");
     let filteredCategoryList = [];
     let userMail = $user.email
     let placemarkList = []
-    let continentMap = "";
-    let modalShowing = false;
+    let accordionShowing = false;
     let description = ""
     export let placemarkMap = null
     let lng = ""
@@ -22,12 +21,10 @@
     onMount(async () => {
         placemarkList = await placemarkService.getPlacemarks();
         filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
-        console.log("hallo")
-        console.log(placemarkMap)
     });
 
     const changeModal = () => {
-        modalShowing = true;
+        accordionShowing = true;
         description = ""
     }
     const changeDescription = (e) => {
@@ -41,9 +38,7 @@
     };
 
     const destroyDescription = (e) => {
-
         show = e.detail
-
     };
 
 
@@ -53,8 +48,8 @@
     <b>Your Categories: </b>
 </header>
 
-{#if modalShowing}
-    <MapModal mapurl={continentMap} on:click={() => {modalShowing = false; description=""}}/>
+{#if accordionShowing}
+    <AccordionElement  on:click={() => {accordionShowing = false; description=""}}/>
 {/if}
 <div class="columns">
 
@@ -92,7 +87,7 @@
     </div>
 {:else}
     <b>Oops, it seems like you didn't add any Categories yet.
-        Start adding Categories and placemarks right <a href="/#/category">here!</a></b>
+        Start adding Categories and placemarks right <a href="/#/add">here!</a></b>
 {/if}
 
 </div>
@@ -104,20 +99,20 @@
         border: 1px solid #6d00cc;
     }
 
-    button.accordion {
-        width: 100%;
-        padding: 15px;
-        margin: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #D9CDBF;
-        text-align: left;
-        color: #401E12;
-        border: 1px solid black;
-        cursor: pointer;
-        transition: .3s;
-    }
+    /*button.accordion {*/
+    /*    width: 100%;*/
+    /*    padding: 15px;*/
+    /*    margin: 0;*/
+    /*    display: flex;*/
+    /*    justify-content: space-between;*/
+    /*    align-items: center;*/
+    /*    background-color: #D9CDBF;*/
+    /*    text-align: left;*/
+    /*    color: #401E12;*/
+    /*    border: 1px solid black;*/
+    /*    cursor: pointer;*/
+    /*    transition: .3s;*/
+    /*}*/
 
     header {
         width: 100%;
@@ -127,11 +122,11 @@
 
     }
 
-    button.accordion:hover,
-    button.accordion.active {
-        background-color: #6d00cc;
-        color: white;
-    }
+    /*button.accordion:hover,*/
+    /*button.accordion.active {*/
+    /*    background-color: #6d00cc;*/
+    /*    color: white;*/
+    /*}*/
 
     input {
         border-color: #6d00cc;
@@ -142,9 +137,9 @@
     }
 
 
-    .heading {
-        font-size: 1.5rem;
-    }
+    /*.heading {*/
+    /*    font-size: 1.5rem;*/
+    /*}*/
 
     p {
         font-size: 1.2rem;
@@ -153,23 +148,23 @@
         margin: auto 0;
     }
 
-    span.icon {
-        font-size: 1.8rem;
-    }
+    /*span.icon {*/
+    /*    font-size: 1.8rem;*/
+    /*}*/
 
-    section.panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 0;
-        overflow: auto;
-        transition: all .5s;
-    }
+    /*section.panel {*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    align-items: center;*/
+    /*    height: 0;*/
+    /*    overflow: auto;*/
+    /*    transition: all .5s;*/
+    /*}*/
 
-    section.open-panel {
-        height: 500px;
-        box-shadow: inset 0 0 5px black;
-    }
+    /*section.open-panel {*/
+    /*    height: 500px;*/
+    /*    box-shadow: inset 0 0 5px black;*/
+    /*}*/
 
     section.open-panel div {
         width: 100%;
@@ -177,17 +172,17 @@
         justify-content: center;
     }
 
-    section div button {
-        width: 150px;
-        font-weight: bold;
-        color: white;
-        background-color: hsl(11, 63%, 40%);
-        padding: 10px 0;
-        margin: 10px 10px 20px;
-        cursor: pointer;
-    }
+    /*section div button {*/
+    /*    width: 150px;*/
+    /*    font-weight: bold;*/
+    /*    color: white;*/
+    /*    background-color: hsl(11, 63%, 40%);*/
+    /*    padding: 10px 0;*/
+    /*    margin: 10px 10px 20px;*/
+    /*    cursor: pointer;*/
+    /*}*/
 
-    div button:active {
-        background-color: hsl(11, 63%, 34%);
-    }
+    /*div button:active {*/
+    /*    background-color: hsl(11, 63%, 34%);*/
+    /*}*/
 </style>

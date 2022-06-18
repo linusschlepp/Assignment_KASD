@@ -10,7 +10,6 @@
     let placemarkMap = null;
 
     function placemarkGenerated(event){
-        console.log(event.detail.placemark)
 
             placemarkMap.addPlacemarkMarker(event.detail.placemark)
     }

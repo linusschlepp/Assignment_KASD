@@ -29,10 +29,12 @@ export const placemarkMongoStore = {
 
   async deletePlacemarkById(id) {
     try {
-      await Placemark.deleteOne({ _id: id });
+      const placemark = await Placemark.deleteOne({ _id: id });
+      return placemark;
     } catch (error) {
       console.log("bad id");
     }
+    return null;
   },
 
   async deleteAllPlacemarks() {

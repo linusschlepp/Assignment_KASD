@@ -15,11 +15,11 @@
     let categoryList = []
 
     const placemarkService = getContext("PlacemarkService");
-    let backGBGolors = [["#6d00cc", "#2b0080" ]]
+
 
     let dataBarPlacemark = {
         labels: ["Your Amount of placemarks", "Placemarks User-Average"],
-        color: ["#6d00cc", "#6d00cc"],
+
         datasets: [
             {
                 values: [0, 0]
@@ -39,12 +39,11 @@
 
     let dataPieCategory = {
         labels: ["Your Categories", "Total Categories of all users"],
-        colors: ['#4dcd32', '#4dcd32'],
+
         datasets: [
             {
                 values: [0, 0],
 
-                backgroundColor: backGBGolors[0]
             }
         ]
 
@@ -59,10 +58,7 @@
                 values: [0, 0]
             }
         ],
-
-
     };
-
 
     function remove_duplicates(arr) {
         var obj = {};
@@ -76,6 +72,7 @@
         return ret_arr;
     }
 
+
     onMount(async () => {
         placemarkList = await placemarkService.getPlacemarks();
         categoryList = await placemarkService.getCategories()
@@ -83,9 +80,10 @@
         specificPlacemarkList = await placemarkService.getFilteredPlacemarkList(userMail, placemarkList)
         specificCategoryList = await placemarkService.getFilteredCategoryList(userMail)
 
+
+        // TODO: figure this out remove_duplicate
         userList = userList.filter((item, pos) => { return userList.indexOf(item) === pos});
         userList = remove_duplicates(userList)
-
 
 
         dataBarPlacemark.datasets[0].values[0] = specificPlacemarkList.length
@@ -135,20 +133,20 @@
         <div class="columns">
             <div class="column has-text-centered">
                 <h1 class="title is-4">Your amount of Placemarks compared to the general User-Average</h1>
-                <Chart style="width: 500px; height:300px" data={dataBarPlacemark} type="bar" color="red"/>
+                <Chart style="width: 500px; height:300px" data={dataBarPlacemark} type="bar"/>
                 {#if specificPlacemarkList.length > placemarkList.length}
                     <div class="subtitle">Wow, you are in front of the general User-Average in terms of Placemarks, keep it up!</div>
                 {:else}
-                    <div class="subtitle">Oops, you are behind of the general User-Average in terms of Placemarks, come on, go and create some <a href="/#/category">here!</a></div>
+                    <div class="subtitle">Oops, you are behind of the general User-Average in terms of Placemarks, come on, go and create some <a href="/#/add">here!</a></div>
                 {/if}
             </div>
             <div class="column has-text-centered">
                 <h1 class="title is-4">Your amount of Categories compared to the general User-Average</h1>
-                <Chart style="width: 500px; height:300px" data={dataBarCategory} type="bar" color="red"/>
+                <Chart style="width: 500px; height:300px" data={dataBarCategory} type="bar"/>
                 {#if specificCategoryList.length > categoryList.length}
                     <div class="subtitle">Wow, you are in front of the general user-average in terms of Categories, keep it up!</div>
                 {:else}
-                    <div class="subtitle">Oops, you are behind of the general user-average in terms of Categories, come on, go and create some <a href="/#/category">here!</a></div>
+                    <div class="subtitle">Oops, you are behind of the general user-average in terms of Categories, come on, go and create some <a href="/#/add">here!</a></div>
                 {/if}
             </div>
 
@@ -161,10 +159,24 @@
             <div class="column has-text-centered">
                 <h1 class="title is-4">Your Placemarks make up {(specificPlacemarkList.length/placemarkList.length)*100}% of the total amount of placemarks</h1>
                 <Chart style="width: 500px; height:300px" data={dataPiePlacemark} type="pie"/>
+                {#if (specificPlacemarkList.length/placemarkList.length)*100 >= 50 }
+                    <div class="subtitle">Wow! That's a lot Placemarks, keep it up!</div>
+                {:else if (specificPlacemarkList.length/placemarkList.length)*100 >= 20}
+                    <div class="subtitle">Impressive, but you can still do better add expand your Placemark-Collection!</div>
+                {:else}
+                    <div class="subtitle">Come on, go and some Placemarks here <a href="/#/add">here!</a></div>
+                {/if}
             </div>
             <div class="column  has-text-centered">
                 <h1 class="title is-4">Your Categories make up {(specificCategoryList.length/categoryList.length)*100}% of the total amount of categories</h1>
                 <Chart style="width: 500px; height:300px" data={dataPieCategory} type="pie"/>
+                {#if (specificCategoryList.length/categoryList.length)*100 >= 50 }
+                    <div class="subtitle">Wow! That's a lot Categories, keep it up!</div>
+                {:else if (specificCategoryList.length/categoryList.length)*100 >= 20}
+                    <div class="subtitle">Impressive, but you can still do better add expand your Category-Collection!</div>
+                {:else}
+                    <div class="subtitle">Come on, go and some Categories here <a href="/#/add">here!</a></div>
+                {/if}
             </div>
         </div>
     {/if}

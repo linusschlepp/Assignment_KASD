@@ -2,10 +2,8 @@
 
     import TitleBar from "../components/TitleBar.svelte";
     import MainNavigator from "../components/MainNavigator.svelte";
-    import Chart from 'svelte-frappe-charts';
     import {getContext, onMount} from "svelte";
     import {user} from "../stores.js"
-    import axios from "axios";
     import SingleUser from "./SingleUser.svelte";
 
 
@@ -20,11 +18,6 @@
     const placemarkService = getContext("PlacemarkService");
 
 
-
-
-
-
-
     onMount(async () => {
         let placemarkList = await placemarkService.getPlacemarks();
         let filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
@@ -35,7 +28,6 @@
 
 
     function filterTable() {
-        console.log("inside")
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
@@ -54,12 +46,6 @@
         }
     }
 
-
-
-
-
-
-
 </script>
 
 
@@ -70,8 +56,6 @@
     <div class="column">
         <MainNavigator/>
     </div>
-
-
 </div>
 
 <div class="title">Admin Dashboard</div>

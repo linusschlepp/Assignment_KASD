@@ -42,7 +42,7 @@ export const cities = {
 export const regensburg = {
   longitude: 12.15,
   latitude: 49.15,
-  img: "test",
+  img: " ",
   name: "Regensburg",
   description: "Nice city in Bavaria",
 };
@@ -50,7 +50,7 @@ export const regensburg = {
 export const waterford = {
   longitude: -72.15,
   latitude: 41.15,
-  img: "test",
+  img: " ",
   name: "Waterford",
   description: "Nice city in the South east of Bavaria",
 };
@@ -75,14 +75,14 @@ export const testPlacemarks = [
   {
     longitude: 12.15,
     latitude: 49.15,
-    img: "test",
+    img: " ",
     name: "Regensburg",
     description: "Nice city",
   },
   {
     longitude: -72.15,
     latitude: 41.15,
-    img: "test",
+    img: " ",
     name: "Waterford",
     description: "Nice city as well",
   },

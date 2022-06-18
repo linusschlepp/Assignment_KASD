@@ -2,8 +2,6 @@
 
     import {getContext, onMount} from "svelte";
 
-    import axios from "axios";
-
     export let user;
     let openSubTable = false
     let newMail = ""
@@ -11,7 +9,6 @@
     let newFirstName = ""
     let newPassword = ""
     let newAdmin;
-    let otherData;
     let filteredPlacemarkList = []
     let filteredCategoryList = []
 
@@ -24,11 +21,11 @@
 
     async function deleteUserById_(_id) {
 
-        const response = await axios.delete(`http://localhost:4000/api/users/${_id}`)
+        const response = await placemarkService.deleteUserById_(_id)
+        location.reload()
     }
 
     async function updateUserById(user) {
-        console.log(newPassword)
 
         const newUser = {
             email: newMail !== "" ? newMail : user.email,
@@ -43,7 +40,7 @@
 
         openSubTable = !openSubTable
 
-        await update()
+        location.reload()
     }
 
 
@@ -54,11 +51,6 @@
 
     });
 
-
-    async function update() {
-        const res = await fetch();
-        otherData = await res.json();
-    }
 </script>
 <tr>
     <td>
@@ -135,8 +127,8 @@
                         <option>No Admin</option>
                         <option>Admin</option>
                     {/if}
-<!--                    <option>{user.admin}</option>-->
-<!--                    <option>{!user.admin}</option>-->
+                    <!--                    <option>{user.admin}</option>-->
+                    <!--                    <option>{!user.admin}</option>-->
                 </select>
             </div>
         </td>

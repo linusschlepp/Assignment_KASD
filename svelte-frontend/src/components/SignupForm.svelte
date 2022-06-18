@@ -1,7 +1,6 @@
 <script lang="ts">
     import { push } from "svelte-spa-router";
     import { getContext } from "svelte";
-    import {user} from "../stores.js"
 
     let firstName = "";
     let lastName = "";

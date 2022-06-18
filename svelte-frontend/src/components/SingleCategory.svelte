@@ -1,9 +1,5 @@
 <script>
-    import {createEventDispatcher, getContext, onMount} from "svelte";
-    import axios from "axios";
-    import {push} from "svelte-spa-router";
-    import PlacemarkMap from "../components/PlacemarkMap.svelte";
-    import CategoryList from "./CategoryList.svelte";
+    import {createEventDispatcher, getContext} from "svelte";
     import SinglePlacemark from "./SinglePlacemark.svelte";
 
     let openSubTable = false;
@@ -13,31 +9,19 @@
     export let placemarkList
 
 
-    const placemarkStore = getContext("PlacemarkStore");
+    const placemarkService = getContext("PlacemarkService");
 
-    async function deletePlacemarkById_(_id) {
-        console.log("hier drin")
-        // await placemarkStore.deletePlacemarkById_(_id)
-        const response = await axios.delete(`http://localhost:4000/api/placemarks/${_id}`)
-        console.log(response)
-    }
-
-
-    // onMount(async () => {
-    //     selectedPlacemark = false;
-    // });
 
     async function deleteCategoryById_(_id) {
-        console.log("hier drin")
 
-        // await placemarkStore.deletePlacemarkById_(_id)
-        const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
+        const response = placemarkService.deleteCategoryById_(_id)
+        location.reload()
     }
 
 
     async function updateCategoryById_(category) {
-        openSubTable = !openSubTable
 
+        openSubTable = !openSubTable
 
         const newCategory = {
             name: newName.length === 0 ? category.name : newName,
@@ -46,17 +30,8 @@
 
         }
 
-        // const response = await placemarkService.updateCategoryById(category._id, newCategory)
-        const response = await axios.put(`http://localhost:4000/api/categories/${category._id}`, newCategory)
-
-        // await placemarkStore.deletePlacemarkById_(_id)
-        //   const response = await axios.delete(`http://localhost:4000/api/categories/${_id}`)
-    }
-
-    function pushToTextArea(placemark) {
-
-        // selectedPlacemark = true;
-        dispatch("addDescription", placemark)
+        const repsone = await placemarkService.updateCategoryById(category._id, newCategory);
+        location.reload()
 
     }
 
@@ -76,7 +51,7 @@
     }
 
 
-    function myFunction() {
+    function filterTable() {
         console.log("inside")
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
@@ -143,7 +118,7 @@
 
     {#if placemarkList.filter(placemark => placemark.categoryid === category._id).length > 0 }
         <b style="font-size: 19px">Placemarks of {category.name}: </b>
-        <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={myFunction}
+        <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={filterTable}
                placeholder="Search for placemark by name...">
         <table class="table is-fullwidth" id="myTable">
             <thead>
@@ -162,10 +137,8 @@
         </table>
     {:else}
         <b>Oops, it seems like {category.name} is empty,
-            start adding placemarks right <a href="/#/category">here!</a> </b>
+            start adding placemarks right <a href="/#/add">here!</a> </b>
     {/if}
-
-
 </section>
 
 

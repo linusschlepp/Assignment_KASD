@@ -1,6 +1,7 @@
 <script>
     import {push} from "svelte-spa-router";
     import {getContext} from "svelte";
+    import map_dashboard from "/src/assets/map_dashboard.png";
 
     let email = ""
     let password = "";
@@ -11,12 +12,19 @@
     async function login() {
         let success = await placemarkService.login(email, password)
         if(success) {
-            push("/category")
+            push("/add")
         }else{
             email = "";
             password = "";
             errorMessage = "Invalid Credentials";
         }
+    }
+
+   async function goToHome() {
+        const image = document.getElementById("imag-emap");
+        const source = image.src;
+        console.log(image.src)
+        push("/")
     }
 </script>
 
@@ -25,34 +33,22 @@
 
         <ul style="list-style-type:disc;">
             <li class="subtitle is-5 is-spaced">The memories a person has collected</li>
-            <li class="subtitle is-5 is-spaced">The Places the person has visited through out the life</li>
+            <li class="subtitle is-5 is-spaced">The places the person has visited through out the life</li>
         </ul>
 <br>
-      <div align="justify" class="subtitle is-4 ">  Placemark enables you to connect your memories and your favourite places.
-        You can safe, categorize and picturs to  your favourite Memories as Places on a Map. In the description you can add,
-          who shares those special memories with you. And you can even add pictures!  </div>
-
-
+      <div style="margin: 10px ; text-align: center" class="subtitle is-5 is-spaced">  Placemark enables you to connect your memories and favourite places.
+        You can safe, categorize and even add pictures to your favourite memories as places on a map. <br> In the description you can add
+          special details about your favourite places. So what are you waiting for? Start adding your favourite places and <a href="/#/signup">signup!</a></div>
+<img class="center" style="text-align: center" width="300" src="{map_dashboard}" id="image-map" alt="map" onclick="goToHome()">
 
 
 <style>
-
 
     button {
         background-color: #6d00cc;
         color: white;
         font-weight: bold;
     }
-
-
-    /*ul li::before {*/
-    /*    content: "\2022";*/
-    /*    color: red;*/
-    /*    font-weight: bold;*/
-    /*    display: inline-block;*/
-    /*    width: 1em;*/
-    /*    margin-left: -1em;*/
-    /*}*/
 
 
     input {
@@ -62,4 +58,12 @@
     textarea {
         border-color: #6d00cc;
     }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
 </style>

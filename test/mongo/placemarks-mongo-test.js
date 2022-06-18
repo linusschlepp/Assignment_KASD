@@ -46,9 +46,9 @@ suite("Placemark Model tests", () => {
 
   test("delete One Placemark - success", async () => {
     const id = testPlacemarks[0]._id;
-    await db.placemarkStore.deletePlacemark(id);
+    await db.placemarkStore.deletePlacemarkById(id);
     const placemarks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(placemarks.length, testCategories.length - 1);
+    assert.equal(placemarks.length, testCategories.length - 2);
     const deletedPlacemark = await db.placemarkStore.getPlacemarkById(id);
     assert.isNull(deletedPlacemark);
   });
@@ -58,8 +58,8 @@ suite("Placemark Model tests", () => {
     assert.isNull(await db.placemarkStore.getPlacemarkById());
   });
 
-  test("delete One User - fail", async () => {
-    await db.placemarkStore.deletePlacemark("bad-id");
+  test("delete One Placemark - fail", async () => {
+    await db.placemarkStore.deletePlacemarkById("bad-id");
     const placemarks = await db.placemarkStore.getAllPlacemarks();
     assert.equal(placemarks.length, testPlacemarks.length);
   });

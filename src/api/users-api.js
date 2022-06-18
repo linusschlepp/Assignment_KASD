@@ -50,13 +50,11 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        console.log(request.payload);
         const user = await db.userStore.addUser(request.payload);
 
         if (user) {
           return h.response(user).code(201);
         }
-        console.log(user);
         return Boom.badImplementation("error creating user");
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
@@ -110,11 +108,9 @@ export const userApi = {
     },
     handler: async function (request, h) {
       try {
-        console.log(request.payload);
         await db.userStore.updateUser(request.payload);
         return h.response().code(204);
       } catch (err) {
-        console.log(err);
         return Boom.serverUnavailable("Database Error");
       }
     },

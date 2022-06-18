@@ -1,7 +1,7 @@
 <script>
 
-    import axios from "axios";
     import {createEventDispatcher, getContext} from "svelte";
+    import {push} from "svelte-spa-router";
 
     export let placemark;
     export let category;
@@ -16,26 +16,19 @@
 
 
     async function deletePlacemarkById_(_id) {
-        console.log("hier drin")
-        // await placemarkStore.deletePlacemarkById_(_id)
-        const response = await axios.delete(`http://localhost:4000/api/placemarks/${_id}`)
+        const response = await placemarkService.deletePlacemarkById_(_id)
         console.log(response)
+        location.reload()
+        push("/categories")
     }
 
 
     function pushToTextArea(placemark) {
 
-        // selectedPlacemark = true;
         dispatch("addDescription", placemark)
     }
 
-    async function changeIsOpen() {
-        openSubTable = !openSubTable
-    }
-
-
     async function updatePlacemarkById(placemark) {
-
 
         const newPlacemark = {
             name: newName.length === 0 ? placemark.name : newName,
@@ -50,6 +43,8 @@
         const response = await placemarkService.updatePlacemarkById(placemark._id, newPlacemark)
 
         openSubTable = !openSubTable
+        location.reload()
+        push("/categories")
     }
 
 </script>
@@ -73,54 +68,9 @@
         </button>
     </td>
     <td>
-        <button class="button is-rounded" on:click={changeIsOpen}>
+        <button class="button is-rounded" on:click={() => openSubTable = !openSubTable}>
             Edit
         </button>
-        <!--{#if openSubTable}-->
-        <!--    <table>-->
-        <!--        <thead>-->
-        <!--        <th>Name</th>-->
-        <!--        <th>Longitude</th>-->
-        <!--        <th>Latitude</th>-->
-        <!--        <th>Description</th>-->
-        <!--        </thead>-->
-        <!--        <tbody>-->
-        <!--        <tr>-->
-        <!--            <td>-->
-        <!--                <input bind:value={newName} style="width: 250px" type="email" class="input"-->
-        <!--                       placeholder="{placemark.name}">-->
-        <!--            </td>-->
-        <!--            <td>-->
-        <!--                <input bind:value={newLng} style="width: 200px" type="number" class="input"-->
-        <!--                       placeholder="{placemark.longitude}">-->
-        <!--            </td>-->
-        <!--            <td>-->
-        <!--                <input bind:value={newLat} style="width: 200px" type="number" class="input"-->
-        <!--                       placeholder="{placemark.latitude}">-->
-        <!--            </td>-->
-        <!--            <td>-->
-        <!--                <textarea style="width: 500px" bind:value={newDescription} class="textarea"-->
-        <!--                          placeholder="{placemark.description}"></textarea>-->
-        <!--            </td>-->
-        <!--        </tr>-->
-        <!--        </tbody>-->
-        <!--    </table>-->
-        <!--    <div class="columns">-->
-        <!--        <div class="column">-->
-        <!--            <button class="button is-rounded" on:click={updatePlacemarkById(placemark)}>-->
-        <!--                Ok-->
-        <!--            </button>-->
-        <!--        </div>-->
-        <!--        <div class="column">-->
-        <!--            <button class="button is-rounded" on:click={changeIsOpen}>-->
-        <!--                x-->
-        <!--            </button>-->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--{/if}-->
-
-    </td>
-
 </tr>
 
 {#if openSubTable}
@@ -148,7 +98,7 @@
             </button>
         </td>
         <td>
-            <button class="button is-rounded" on:click={changeIsOpen}>
+            <button class="button is-rounded" on:click={() => openSubTable = !openSubTable}>
                 x
             </button>
         </td>
@@ -157,8 +107,6 @@
 
 
 <style>
-
-
     button {
         background-color: #6d00cc;
         color: white;

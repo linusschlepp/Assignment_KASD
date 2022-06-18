@@ -7,8 +7,6 @@ export class LeafletMap {
 
   overlays = {};
 
-  // https://leaflet-extras.github.io/leaflet-providers/preview/
-
   baseLayers = {
     Terrain: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 17,
