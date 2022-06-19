@@ -44,7 +44,7 @@
 
         openSubTable = !openSubTable
         location.reload()
-        push("/categories")
+        // push("/categories")
     }
 
 </script>

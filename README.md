@@ -10,13 +10,14 @@ Database and are structured according to this UML-Class-Diagram:
 ![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/uml_diagramm.jpg)
 
 
-The backend uses [Hapi](https://hapi.dev/) while the frontend is written in [Svelte](https://svelte.dev/). Front- and backend communicate via a api, which is powered by [Axios](https://github.com/axios/axios)
+The backend uses [Hapi](https://hapi.dev/) while the frontend is written in [Svelte](https://svelte.dev/). Front- and backend communicate via an api, which is powered by [Axios](https://github.com/axios/axios)
+and documented according to the [Open API Swagger Standard](https://www.openapis.org/).
 
 
 
 ## How to run this application 
 
-Clone this repositroy in your file-directory, like this: 
+Clone this repository in your file-directory, like this: 
 ````
 git clone https://github.com/linusschlepp/Assignment_KASD.git
 ````
@@ -40,4 +41,11 @@ Now, you should be good to go!
 
 ## Self evaluation
 ![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/grading_rubrik.png)
+
+In the following I will discuss the grading rubric row by row:
+
+* In the first row every task has been completed. Regarding git, just run: ``git log`` to inspect the commit history. I have also implemented a mem-store, which is never used because, mongo is the standard
+* In the second row every task has also been completed. A Json-store has also been implemented, but is never used as well. 
+* In the third row every task has also been completed. Except the hosting on Cloud-Atlas, this still needs to achieved. To check out the tagged releases just run: ``git tag``.
+
 
