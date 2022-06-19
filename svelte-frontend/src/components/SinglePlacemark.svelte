@@ -8,43 +8,62 @@
     let dispatch = createEventDispatcher();
     let newName = "";
     let newDescription = "";
-    let newLng = 0;
-    let newLat = 0;
-    let openSubTable = false
+    let newLng = placemark.longitude;
+    let newLat = placemark.latitude;
+    let openSubTable = false // if true subTable (edit-menu) gets openened, if false subTable stays hidden
 
     let placemarkService = getContext("PlacemarkService")
 
-
-    async function deletePlacemarkById_(_id) {
-        const response = await placemarkService.deletePlacemarkById_(_id)
-        console.log(response)
+    /**
+     * Deletes placemark by id, uses the api to delete out of the database
+     *
+     * @param _id id of the placemark, which is going to be deleted
+     * @returns {Promise<void>}
+     * @private
+     */
+    async function deletePlacemarkById(_id) {
+        // Api call
+        await placemarkService.deletePlacemarkById(_id)
+        // page is reloaded after deletion to show changes
         location.reload()
-        push("/categories")
     }
 
+    /**
+     * If the user clicks on the name of the placemark, an event gets dispatched and details of the placemark
+     * are shown on the screen
+     *
+     * @param placemark Placemark, which is shown on screen
+     */
+    function showPlacemarkDetails(placemark) {
 
-    function pushToTextArea(placemark) {
-
-        dispatch("addDescription", placemark)
+        dispatch("showPlacemark", placemark)
     }
 
+    /**
+     * Updates a placemark, uses the api to update the placemark in the database
+     *
+     * @param placemark Placemark object, which is getting updated
+     * @returns {Promise<void>}
+     */
     async function updatePlacemarkById(placemark) {
-
+        /**
+         * Creates new placemark object, if the values differ from the original they are reassigned
+         * if not, they stay the same
+         */
         const newPlacemark = {
             name: newName.length === 0 ? placemark.name : newName,
             description: newDescription.length === 0 ? placemark.description : newDescription,
-            longitude: newLng === 0 ? placemark.longitude : newLng,
-            latitude: newLat === 0 ? placemark.latitude : newLat,
+            longitude: newLng,
+            latitude: newLat,
             categoryid: category._id,
             img: placemark.img,
             _id: placemark._id
         }
 
-        const response = await placemarkService.updatePlacemarkById(placemark._id, newPlacemark)
-
-        openSubTable = !openSubTable
+        // Api call
+        await placemarkService.updatePlacemarkById(placemark._id, newPlacemark)
+        // page is reloaded after edit to show changes
         location.reload()
-        // push("/categories")
     }
 
 </script>
@@ -52,7 +71,7 @@
 
 <tr>
     <td>
-        <a on:click={() => pushToTextArea(placemark)}>{placemark.name}</a>
+        <a on:click={() => showPlacemarkDetails(placemark)}>{placemark.name}</a>
 
     </td>
 
@@ -63,7 +82,7 @@
         {placemark.latitude}
     </td>
     <td>
-        <button class="button is-rounded" on:click={() => deletePlacemarkById_(placemark._id)}>
+        <button class="button is-rounded" on:click={() => deletePlacemarkById(placemark._id)}>
             Delete
         </button>
     </td>

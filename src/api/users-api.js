@@ -6,6 +6,7 @@ import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
+  // Get all users
   find: {
     auth: {
       strategy: "jwt",
@@ -24,6 +25,7 @@ export const userApi = {
     response: { schema: UserArray, failAction: validationError },
   },
 
+  // Finds user
   findOne: {
     auth: {
       strategy: "jwt",
@@ -46,6 +48,7 @@ export const userApi = {
     response: { schema: UserSpecPlus, failAction: validationError },
   },
 
+  // Creates user
   create: {
     auth: false,
     handler: async function (request, h) {
@@ -67,6 +70,7 @@ export const userApi = {
     response: { schema: UserSpecPlus, failAction: validationError },
   },
 
+  // Deletes user
   deleteAll: {
     auth: {
       strategy: "jwt",
@@ -84,6 +88,7 @@ export const userApi = {
     notes: "All userApi removed from Placemark",
   },
 
+  // Deletes one user
   deleteOne: {
     auth: {
       strategy: "jwt",
@@ -102,6 +107,7 @@ export const userApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  // Updates one user
   updateOne: {
     auth: {
       strategy: "jwt",
@@ -120,6 +126,7 @@ export const userApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  // Authenticates user
   authenticate: {
     auth: false,
     handler: async function (request, h) {

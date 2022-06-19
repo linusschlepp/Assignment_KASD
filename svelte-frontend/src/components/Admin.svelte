@@ -7,11 +7,10 @@
     import SingleUser from "./SingleUser.svelte";
 
 
-    let userMail = $user.email;
-    let selectedChart = ""
-    let userList = []
-    let activeUser = ""
-    let isAdmin = false
+    let userMail = $user.email; //Saves email of current user
+    let userList = [];
+    let activeUser = "";
+    let isAdmin = false;
     let openSubTable = false;
 
 
@@ -19,19 +18,19 @@
 
 
     onMount(async () => {
-        let placemarkList = await placemarkService.getPlacemarks();
-        let filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
         userList = await placemarkService.getUsers();
-        let activeUser = userList.find(user => user.email === userMail)
-        isAdmin = activeUser.admin
+        activeUser = userList.find(user => user.email === userMail) // Searches in userList, for the active user, using the email (email can only appear once in the database, there are no duplicates)
+        isAdmin = activeUser.admin; // Checks if user is admin
     });
 
-
+    /**
+     * Filters the table (my-table) according to the input (my-input) of the user in the input field
+     */
     function filterTable() {
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
+        input = document.getElementById("my-input");
         filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
+        table = document.getElementById("my-table");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[3];
@@ -62,8 +61,8 @@
 {#if isAdmin}
 <div class="title is-4">List of Users</div>
     <div class="title is-5">Total amount of users: {userList.length}</div>
-    <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={filterTable} placeholder="Search for user by mail...">
-    <table class="table is-fullwidth"  id="myTable">
+    <input style="width: 350px" id="my-input" class="input" type="text" on:keyup={filterTable} placeholder="Search for user by mail...">
+    <table class="table is-fullwidth"  id="my-table">
         <thead>
         <th>Id</th>
         <th>Last Name</th>

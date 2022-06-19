@@ -11,34 +11,38 @@
     let accordionShowing = false;
     let description = ""
     export let placemarkMap = null
-    let lng = ""
-    let lat = ""
-    let imgLink = ""
+    let lng = "" // Represents longitude of specific placemark
+    let lat = "" // Represents latitude of specific placemark
+    let imgLink = "" // Represents img of specific placemark
     let name = ""
-    let show = false;
+    let showPlacmemark = false; // If a placemark gets selected, this will be turned to true
 
 
     onMount(async () => {
         placemarkList = await placemarkService.getPlacemarks();
-        filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
+        filteredCategoryList = await placemarkService.getCategoriesByMail(userMail); // get all categories of the specific user
     });
 
-    const changeModal = () => {
-        accordionShowing = true;
-        description = ""
-    }
-    const changeDescription = (e) => {
 
+    /**
+     * Shows placemark-details on screen, if event gets triggered in SingleCategory
+     *
+     * @param e Placemark, which will be displayed
+     */
+    const showPlacemarkDetails = (e) => {
+
+        // all variables get initialized
         description = e.detail.description
         lng = e.detail.longitude
         lat = e.detail.latitude
         imgLink = e.detail.img
         name = e.detail.name
+        // Show placemark on map
         placemarkMap.addPlacemarkMarker(e.detail)
     };
 
-    const destroyDescription = (e) => {
-        show = e.detail
+    const hidePlacemarkDetails = (e) => {
+        showPlacmemark = e.detail
     };
 
 
@@ -49,7 +53,7 @@
 </header>
 
 {#if accordionShowing}
-    <AccordionElement  on:click={() => {accordionShowing = false; description=""}}/>
+    <AccordionElement  on:click={() => accordionShowing = !accordionShowing}/>
 {/if}
 <div class="columns">
 
@@ -57,15 +61,15 @@
     <div class="column is-four-fifths">
     {#each filteredCategoryList as category}
         <SingleCategory {category}
-                        {placemarkList} on:click={() => changeModal()} on:addDescription={changeDescription}
-                        on:destroyDescription={destroyDescription}
+                        {placemarkList} on:click={() => accordionShowing = !accordionShowing} on:showPlacemark={showPlacemarkDetails}
+                        on:hidePlacemark={hidePlacemarkDetails}
         />
     {/each}
 
     </div>
     <div class="column is-three-quarters">
 
-    {#if description.length > 0 && show}
+    {#if description.length > 0 && showPlacmemark}
         <div class="title">You selected: {name}</div>
         <div class="columns">
             <div class="column">
@@ -99,20 +103,6 @@
         border: 1px solid #6d00cc;
     }
 
-    /*button.accordion {*/
-    /*    width: 100%;*/
-    /*    padding: 15px;*/
-    /*    margin: 0;*/
-    /*    display: flex;*/
-    /*    justify-content: space-between;*/
-    /*    align-items: center;*/
-    /*    background-color: #D9CDBF;*/
-    /*    text-align: left;*/
-    /*    color: #401E12;*/
-    /*    border: 1px solid black;*/
-    /*    cursor: pointer;*/
-    /*    transition: .3s;*/
-    /*}*/
 
     header {
         width: 100%;
@@ -121,12 +111,6 @@
         font-size: 23px
 
     }
-
-    /*button.accordion:hover,*/
-    /*button.accordion.active {*/
-    /*    background-color: #6d00cc;*/
-    /*    color: white;*/
-    /*}*/
 
     input {
         border-color: #6d00cc;
@@ -137,10 +121,6 @@
     }
 
 
-    /*.heading {*/
-    /*    font-size: 1.5rem;*/
-    /*}*/
-
     p {
         font-size: 1.2rem;
         text-align: justify;
@@ -148,41 +128,10 @@
         margin: auto 0;
     }
 
-    /*span.icon {*/
-    /*    font-size: 1.8rem;*/
-    /*}*/
-
-    /*section.panel {*/
-    /*    display: flex;*/
-    /*    flex-direction: column;*/
-    /*    align-items: center;*/
-    /*    height: 0;*/
-    /*    overflow: auto;*/
-    /*    transition: all .5s;*/
-    /*}*/
-
-    /*section.open-panel {*/
-    /*    height: 500px;*/
-    /*    box-shadow: inset 0 0 5px black;*/
-    /*}*/
-
     section.open-panel div {
         width: 100%;
         display: flex;
         justify-content: center;
     }
 
-    /*section div button {*/
-    /*    width: 150px;*/
-    /*    font-weight: bold;*/
-    /*    color: white;*/
-    /*    background-color: hsl(11, 63%, 40%);*/
-    /*    padding: 10px 0;*/
-    /*    margin: 10px 10px 20px;*/
-    /*    cursor: pointer;*/
-    /*}*/
-
-    /*div button:active {*/
-    /*    background-color: hsl(11, 63%, 34%);*/
-    /*}*/
 </style>

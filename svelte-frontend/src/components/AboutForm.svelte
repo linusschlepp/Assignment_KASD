@@ -3,33 +3,17 @@
     import {getContext} from "svelte";
     import map_dashboard from "/src/assets/map_dashboard.png";
 
-    let email = ""
-    let password = "";
-    let errorMessage = "";
 
     const placemarkService = getContext("PlacemarkService");
 
-    async function login() {
-        let success = await placemarkService.login(email, password)
-        if(success) {
-            push("/add")
-        }else{
-            email = "";
-            password = "";
-            errorMessage = "Invalid Credentials";
-        }
-    }
 
+    //TODO: Check out, why this does not work
    async function goToHome() {
-        const image = document.getElementById("imag-emap");
+        const image = document.getElementById("image-map");
         const source = image.src;
-        console.log(image.src)
         push("/")
     }
 </script>
-
-
-
 
         <ul style="list-style-type:disc;">
             <li class="subtitle is-5 is-spaced">The memories a person has collected</li>

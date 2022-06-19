@@ -7,16 +7,16 @@
 
     let placemarkList = []
     let filteredCategoryList = []
-    let userMail = $user.email
+    let userMail = $user.email // gets mail of current user
     let filteredPlacemarkList = []
 
 
     const placemarkService = getContext("PlacemarkService");
 
     onMount(async () => {
-        placemarkList = await placemarkService.getPlacemarks();
-        filteredCategoryList = await placemarkService.getFilteredCategoryList(userMail);
-        filteredPlacemarkList = await placemarkService.getFilteredPlacemarkList(userMail, placemarkList)
+        placemarkList = await placemarkService.getPlacemarks(); // get all placemarks
+        filteredCategoryList = await placemarkService.getCategoriesByMail(userMail); // get all categories of the specific user
+        filteredPlacemarkList = await placemarkService.getPlacemarksByMail(userMail, placemarkList) // get all placemarks of the specific user
     });
 
 </script>

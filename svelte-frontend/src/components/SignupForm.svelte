@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { push } from "svelte-spa-router";
-    import { getContext } from "svelte";
+    import {push} from "svelte-spa-router";
+    import {getContext} from "svelte";
 
     let firstName = "";
     let lastName = "";
@@ -11,15 +11,21 @@
 
     const placemarkService = getContext("PlacemarkService");
 
+    /**
+     * Signs up user, by adding him/ her to the database and sending the credentials, using the api
+     *
+     */
     async function signup() {
 
+        // Api call
         let success = await placemarkService.signup(firstName, lastName, email, password)
-        console.log(success)
 
         if (success) {
+            // If api call was successful the user gets redirected to the menu
             push("/");
         } else {
-                errorMessage = "Error Trying to sign up";
+            // If the credentials were invalid, an error message appears
+            errorMessage = "Error Trying to sign up";
         }
     }
 </script>
@@ -29,11 +35,13 @@
         <div class="field-body">
             <div class="field">
                 <label for="firstname" class="label">First Name</label>
-                <input bind:value={firstName} id="firstname" class="input" type="text" placeholder="Enter first name" name="firstName">
+                <input bind:value={firstName} id="firstname" class="input" type="text" placeholder="Enter first name"
+                       name="firstName">
             </div>
             <div class="field">
                 <label for="lastname" class="label">Last Name </label>
-                <input bind:value={lastName}  id="lastname" class="input" type="text" placeholder="Enter last name" name="lastName">
+                <input bind:value={lastName} id="lastname" class="input" type="text" placeholder="Enter last name"
+                       name="lastName">
             </div>
         </div>
     </div>
@@ -43,7 +51,8 @@
     </div>
     <div class="field">
         <label for="password" class="label">Password</label>
-        <input bind:value={password} id="password" class="input" type="password" placeholder="Enter Password" name="password">
+        <input bind:value={password} id="password" class="input" type="password" placeholder="Enter Password"
+               name="password">
     </div>
     <div class="field is-grouped">
         <button class="button is-rounded">Sign Up</button>
@@ -56,9 +65,7 @@
 {/if}
 
 
-
 <style>
-
 
     button {
         background-color: #6d00cc;

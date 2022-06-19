@@ -5,6 +5,7 @@ import { validationError } from "./logger.js";
 import { imageStore } from "../models/image-store.js";
 
 export const placemarkApi = {
+  // Get all placemarks
   find: {
     auth: {
       strategy: "jwt",
@@ -23,6 +24,7 @@ export const placemarkApi = {
     notes: "Returns all placemarkApi",
   },
 
+  // Finds placemarks corresponding to category id
   findPlacemarksByCategoryId: {
     auth: {
       strategy: "jwt",
@@ -35,13 +37,13 @@ export const placemarkApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    // TODO: Documentation requires fixing
     tags: ["api"],
     response: { schema: PlacemarkArraySpec, failAction: validationError },
     description: "Get all placemarkApi",
     notes: "Returns all placemarkApi",
   },
 
+  // Finds one specific placemark
   findOne: {
     auth: {
       strategy: "jwt",
@@ -64,6 +66,7 @@ export const placemarkApi = {
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
+  // Update specific placemark
   updateOne: {
     auth: {
       strategy: "jwt",
@@ -82,6 +85,7 @@ export const placemarkApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  // Creates specific placemark
   create: {
     auth: {
       strategy: "jwt",
@@ -90,12 +94,12 @@ export const placemarkApi = {
       try {
         const newPlacemark = await db.placemarkStore.addPlacemark(request.params.id, request.payload);
         if (newPlacemark) {
-          // sollte buffered sein
           const file = newPlacemark.img;
           if (Object.keys(file).length > 1) {
             const url = await imageStore.uploadImage(newPlacemark.img);
             newPlacemark.img = url;
           } else {
+            // If the user didn't add any picture in the frontend, a default picture is added to the placemark
             newPlacemark.img = "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png";
           }
           await db.placemarkStore.updatePlacemark(newPlacemark);
@@ -106,12 +110,12 @@ export const placemarkApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    payload: {
-      multipart: true,
-      output: "data",
-      maxBytes: 209715200,
-      parse: true,
-    },
+    // payload: {
+    //   multipart: true,
+    //   output: "data",
+    //   maxBytes: 209715200,
+    //   parse: true,
+    // },
     tags: ["api"],
     description: "Create a placemark",
     notes: "Returns the newly created placemark",
@@ -119,6 +123,7 @@ export const placemarkApi = {
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
 
+  // Deletes all placemarks
   deleteAll: {
     auth: {
       strategy: "jwt",
@@ -135,13 +140,13 @@ export const placemarkApi = {
     description: "Delete all placemarkApi",
   },
 
+  // Deletes one specific placemarks
   deleteOne: {
     auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
       try {
-        console.log("requestparam:" + request.params.id);
         const placemark = await db.placemarkStore.deletePlacemarkById(request.params.id);
         console.log(placemark);
         if (!placemark) {

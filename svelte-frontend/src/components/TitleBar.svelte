@@ -23,37 +23,3 @@
     </div>
 </div>
 
-<!--<div class="footer">-->
-<!--   &copy  Linus Schlepp 2022-->
-<!--</div>-->
-<!--&lt;!&ndash;<footer class="has-text-centered is-flex-align-items-flex-end mt-auto">&ndash;&gt;-->
-<!--&lt;!&ndash;    <small>&ndash;&gt;-->
-<!--&lt;!&ndash;        <span>Copyright @2022</span>&ndash;&gt;-->
-<!--&lt;!&ndash;        <br />&ndash;&gt;-->
-<!--&lt;!&ndash;    </small>&ndash;&gt;-->
-<!--&lt;!&ndash;    <a href="/">About</a>&ndash;&gt;-->
-<!--&lt;!&ndash;</footer>&ndash;&gt;-->
-<!--<style>-->
-
-<!--    .footer {-->
-<!--       /* position: fixed;*/-->
-<!--       /* left: 10px;*/-->
-<!--       /*margin-bottom: 5px;*/-->
-<!--       /* right: 5px;*/-->
-<!--       /* width: 95%;*/-->
-<!--       /* color: #6d00cc;*/-->
-<!--       /* text-align: center;*/-->
-<!--       /* z-index: 950;*/-->
-
-
-<!--        position: absolute;-->
-
-<!--        bottom: 0;-->
-
-<!--        width: 100%;-->
-
-<!--        z-index: 10000;-->
-
-<!--    }-->
-
-<!--</style>-->

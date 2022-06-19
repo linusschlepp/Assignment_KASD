@@ -10,29 +10,37 @@
 
     let userList = [];
     let activeUser = null;
-    let userMail = $user.email
+    let userMail = $user.email //Saves email of current user
     let message = "";
 
     onMount(async () => {
         userList = await placemarkService.getUsers();
-        activeUser = userList.find(user => user.email === userMail);
+        activeUser = userList.find(user => user.email === userMail); //  Searches in userList, for the active user, using the email (email can only appear once in the database, there are no duplicates)
     });
 
+    /**
+     * Creates new Category ends it to the backend, via the api
+     *
+     * @returns {Promise<void>}
+     */
     async function generateCategory() {
 
         if (name) {
-            const category = {
+            // new Category is created, if name is selected
+            const newCategory = {
                 name: name,
                 userid: activeUser._id,
             };
-            const success = await placemarkService.addCategory_(category);
+            const success = await placemarkService.addCategory(newCategory);
             if (!success) {
                 message = "Some error occurred";
                 return;
             }
             message = `You added ${name}`;
+            // Reloads page if a new category was created
             location.reload()
         } else {
+            // Appears if no name has been selected
             message = "Please select a name";
         }
     }

@@ -7,16 +7,17 @@
     import {user} from "../stores.js"
 
 
-    let userMail = $user.email;
+    let userMail = $user.email; // email of the current user
     let selectedChart = ""
-    let specificPlacemarkList = []
-    let specificCategoryList = []
+    let filteredPlacemarkList = []
+    let filteredCategoryList = []
     let placemarkList = []
     let categoryList = []
+    let userList = []
 
     const placemarkService = getContext("PlacemarkService");
 
-
+    // Safes all placemark related data, gets displayed as bar-chart
     let dataBarPlacemark = {
         labels: ["Your Amount of placemarks", "Placemarks User-Average"],
 
@@ -27,7 +28,7 @@
         ]
     };
 
-
+    // Safes all category related data, gets displayed as bar-chart
     let dataBarCategory = {
         labels: ["Your Amount of Categories", "Categories User-Average"],
         datasets: [
@@ -37,6 +38,7 @@
         ]
     };
 
+    // Safes all category related data, gets displayed as pie-chart
     let dataPieCategory = {
         labels: ["Your Categories", "Total Categories of all users"],
 
@@ -46,11 +48,9 @@
 
             }
         ]
-
-
     };
 
-
+    // Safes all placemark related data, gets displayed as pie-chart
     let dataPiePlacemark = {
         labels: ["Your Placemarks", "Total Placemarks of all users"],
         datasets: [
@@ -60,46 +60,33 @@
         ],
     };
 
-    function remove_duplicates(arr) {
-        var obj = {};
-        var ret_arr = [];
-        for (var i = 0; i < arr.length; i++) {
-            obj[arr[i]] = true;
-        }
-        for (var key in obj) {
-            ret_arr.push(key);
-        }
-        return ret_arr;
-    }
+
 
 
     onMount(async () => {
         placemarkList = await placemarkService.getPlacemarks();
         categoryList = await placemarkService.getCategories()
-        let userList = await placemarkService.getUsers();
-        specificPlacemarkList = await placemarkService.getFilteredPlacemarkList(userMail, placemarkList)
-        specificCategoryList = await placemarkService.getFilteredCategoryList(userMail)
+        userList = await placemarkService.getUsers();
+        filteredPlacemarkList = await placemarkService.getPlacemarksByMail(userMail, placemarkList); // gets all placemarks of the current user
+        filteredCategoryList = await placemarkService.getCategoriesByMail(userMail); // get all categories of the current user
 
+        // Fills datasets with values
 
-        // TODO: figure this out remove_duplicate
-        userList = userList.filter((item, pos) => { return userList.indexOf(item) === pos});
-        userList = remove_duplicates(userList)
-
-
-        dataBarPlacemark.datasets[0].values[0] = specificPlacemarkList.length
+        // Compares placemarks of user to user average
+        dataBarPlacemark.datasets[0].values[0] = filteredPlacemarkList.length
         dataBarPlacemark.datasets[0].values[1] = placemarkList.length / userList.length
 
-        dataBarCategory.datasets[0].values[0] = specificCategoryList.length
+        // Compares categories of user to user average
+        dataBarCategory.datasets[0].values[0] = filteredCategoryList.length
         dataBarCategory.datasets[0].values[1] = categoryList.length / userList.length
 
-
-        dataPieCategory.datasets[0].values[0] = specificCategoryList.length
+        // Compares categories of user to total amount of categories
+        dataPieCategory.datasets[0].values[0] = filteredCategoryList.length
         dataPieCategory.datasets[0].values[1] = categoryList.length
 
-
-        dataPiePlacemark.datasets[0].values[0] = specificPlacemarkList.length
+        // Compares placemarks of user to total amount of placemarks
+        dataPiePlacemark.datasets[0].values[0] = filteredPlacemarkList.length
         dataPiePlacemark.datasets[0].values[1] = placemarkList.length
-
     });
 
 </script>
@@ -134,7 +121,7 @@
             <div class="column has-text-centered">
                 <h1 class="title is-4">Your amount of Placemarks compared to the general User-Average</h1>
                 <Chart style="width: 500px; height:300px" data={dataBarPlacemark} type="bar"/>
-                {#if specificPlacemarkList.length > placemarkList.length}
+                {#if filteredPlacemarkList.length > placemarkList.length}
                     <div class="subtitle">Wow, you are in front of the general User-Average in terms of Placemarks, keep it up!</div>
                 {:else}
                     <div class="subtitle">Oops, you are behind of the general User-Average in terms of Placemarks, come on, go and create some <a href="/#/add">here!</a></div>
@@ -143,7 +130,7 @@
             <div class="column has-text-centered">
                 <h1 class="title is-4">Your amount of Categories compared to the general User-Average</h1>
                 <Chart style="width: 500px; height:300px" data={dataBarCategory} type="bar"/>
-                {#if specificCategoryList.length > categoryList.length}
+                {#if filteredCategoryList.length > categoryList.length}
                     <div class="subtitle">Wow, you are in front of the general user-average in terms of Categories, keep it up!</div>
                 {:else}
                     <div class="subtitle">Oops, you are behind of the general user-average in terms of Categories, come on, go and create some <a href="/#/add">here!</a></div>
@@ -157,22 +144,22 @@
     {#if selectedChart === "PieCharts" || selectedChart === "Both" }
         <div class="columns">
             <div class="column has-text-centered">
-                <h1 class="title is-4">Your Placemarks make up {(specificPlacemarkList.length/placemarkList.length)*100}% of the total amount of placemarks</h1>
+                <h1 class="title is-4">Your Placemarks make up {(filteredPlacemarkList.length/placemarkList.length)*100}% of the total amount of placemarks</h1>
                 <Chart style="width: 500px; height:300px" data={dataPiePlacemark} type="pie"/>
-                {#if (specificPlacemarkList.length/placemarkList.length)*100 >= 50 }
+                {#if (filteredPlacemarkList.length/placemarkList.length)*100 >= 50 }
                     <div class="subtitle">Wow! That's a lot Placemarks, keep it up!</div>
-                {:else if (specificPlacemarkList.length/placemarkList.length)*100 >= 20}
+                {:else if (filteredPlacemarkList.length/placemarkList.length)*100 >= 20}
                     <div class="subtitle">Impressive, but you can still do better add expand your Placemark-Collection!</div>
                 {:else}
                     <div class="subtitle">Come on, go and some Placemarks here <a href="/#/add">here!</a></div>
                 {/if}
             </div>
             <div class="column  has-text-centered">
-                <h1 class="title is-4">Your Categories make up {(specificCategoryList.length/categoryList.length)*100}% of the total amount of categories</h1>
+                <h1 class="title is-4">Your Categories make up {(filteredCategoryList.length/categoryList.length)*100}% of the total amount of categories</h1>
                 <Chart style="width: 500px; height:300px" data={dataPieCategory} type="pie"/>
-                {#if (specificCategoryList.length/categoryList.length)*100 >= 50 }
+                {#if (filteredCategoryList.length/categoryList.length)*100 >= 50 }
                     <div class="subtitle">Wow! That's a lot Categories, keep it up!</div>
-                {:else if (specificCategoryList.length/categoryList.length)*100 >= 20}
+                {:else if (filteredCategoryList.length/categoryList.length)*100 >= 20}
                     <div class="subtitle">Impressive, but you can still do better add expand your Category-Collection!</div>
                 {:else}
                     <div class="subtitle">Come on, go and some Categories here <a href="/#/add">here!</a></div>

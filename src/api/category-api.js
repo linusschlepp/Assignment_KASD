@@ -5,6 +5,7 @@ import { validationError } from "./logger.js";
 import { imageStore } from "../models/image-store.js";
 
 export const categoryApi = {
+  // Get all categories
   find: {
     auth: {
       strategy: "jwt",
@@ -23,6 +24,7 @@ export const categoryApi = {
     response: { schema: CategoryArraySpec, failAction: validationError },
   },
 
+  // Find one specific category
   findOne: {
     auth: {
       strategy: "jwt",
@@ -45,6 +47,7 @@ export const categoryApi = {
     response: { schema: CategorySpecPlus, failAction: validationError },
   },
 
+  // Create one category
   create: {
     auth: {
       strategy: "jwt",
@@ -68,6 +71,7 @@ export const categoryApi = {
     response: { schema: CategorySpecPlus, failAction: validationError },
   },
 
+  // Delete one specific category
   deleteOne: {
     auth: {
       strategy: "jwt",
@@ -89,6 +93,7 @@ export const categoryApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  // Update one specific category
   updateOne: {
     auth: {
       strategy: "jwt",
@@ -107,6 +112,7 @@ export const categoryApi = {
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
 
+  // Delete all categories
   deleteAll: {
     auth: {
       strategy: "jwt",

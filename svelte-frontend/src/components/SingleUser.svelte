@@ -11,44 +11,60 @@
     let newAdmin;
     let filteredPlacemarkList = []
     let filteredCategoryList = []
+    let placemarkList = []
 
     let placemarkService = getContext("PlacemarkService")
 
 
-    async function changeIsOpen() {
-        openSubTable = !openSubTable
-    }
+    /**
+     * Deletes user by id, uses the api to delete out of the database
+     *
+     * @param _id id of the user, which is going to be deleted
+     * @returns {Promise<void>}
+     * @private
+     */
+    async function deleteUserById(_id) {
 
-    async function deleteUserById_(_id) {
-
-        const response = await placemarkService.deleteUserById_(_id)
+        // Api call
+        await placemarkService.deleteUserById(_id)
+        // page is reloaded after deletion to show changes
         location.reload()
     }
 
+    /**
+     *  Updates a user, uses the api to update the placemark in the database
+     *
+     * @param user User object, which is getting updated
+     * @returns {Promise<void>}
+     */
     async function updateUserById(user) {
 
+        /**
+         * Creates new user object, if the values differ from the original they are reassigned
+         * if not, they stay the same
+         */
         const newUser = {
             email: newMail !== "" ? newMail : user.email,
             firstName: newFirstName !== "" ? newFirstName : user.firstName,
             lastName: newLastName !== "" ? newLastName : user.lastName,
             password: newPassword !== "" ? newPassword : user.password,
-            admin: newAdmin === "Admin",
+            admin: newAdmin === "Admin", // If the user selected "Admin" in the dropdown, admin will be set to true
             _id: user._id
         }
+        // Api call
+        await placemarkService.updateUserById(user._id, newUser)
 
-        const response = await placemarkService.updateUserById(user._id, newUser)
+        //   openSubTable = !openSubTable
 
-        openSubTable = !openSubTable
-
+        // page is reloaded after edit to show changes
         location.reload()
     }
 
 
     onMount(async () => {
-        let placemarkList = await placemarkService.getPlacemarks();
-        filteredCategoryList = await placemarkService.getFilteredCategoryList(user.email);
-        filteredPlacemarkList = await placemarkService.getFilteredPlacemarkList(user.email, placemarkList);
-
+        placemarkList = await placemarkService.getPlacemarks(); // get all placemarks
+        filteredCategoryList = await placemarkService.getCategoriesByMail(user.email); // get all categories of the specific user
+        filteredPlacemarkList = await placemarkService.getPlacemarksByMail(user.email, placemarkList); // get all placemarks of the specific user
     });
 
 </script>
@@ -82,12 +98,12 @@
     </td>
 
     <td>
-        <button class="button is-rounded" on:click={() => deleteUserById_(user._id)}>
+        <button class="button is-rounded" on:click={() => deleteUserById(user._id)}>
             Delete
         </button>
     </td>
     <td>
-        <button class="button is-rounded" on:click={changeIsOpen}>
+        <button class="button is-rounded" on:click={() => openSubTable = !openSubTable}>
             Edit
         </button>
     </td>
@@ -127,8 +143,6 @@
                         <option>No Admin</option>
                         <option>Admin</option>
                     {/if}
-                    <!--                    <option>{user.admin}</option>-->
-                    <!--                    <option>{!user.admin}</option>-->
                 </select>
             </div>
         </td>
@@ -140,7 +154,7 @@
             </button>
         </td>
         <td>
-            <button class="button is-rounded" on:click={changeIsOpen}>
+            <button class="button is-rounded" on:click={() => openSubTable = !openSubTable}>
                 x
             </button>
         </td>

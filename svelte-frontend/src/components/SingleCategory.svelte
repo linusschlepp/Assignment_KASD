@@ -6,57 +6,85 @@
     var isOpen;
     let dispatch = createEventDispatcher();
     export let category;
-    export let placemarkList
+    export let placemarkList;
+    let newName = "";
 
 
     const placemarkService = getContext("PlacemarkService");
 
+    /**
+     * Deletes category by id, uses the api to delete out of the database
+     *
+     * @param _id id of the category, which is going to be deleted
+     * @returns {Promise<void>}
+     * @private
+     */
+    async function deleteCategoryById(_id) {
 
-    async function deleteCategoryById_(_id) {
-
-        const response = placemarkService.deleteCategoryById_(_id)
+        // Api call
+        await placemarkService.deleteCategoryById(_id)
+        // page is reloaded after deletion to show changes
         location.reload()
     }
 
+    /**
+     * Updates a category, uses the api to update the placemark in the database
+     *
+     * @param category Category object, which is getting updated
+     * @returns {Promise<void>}
+     */
+    async function updateCategoryById(category) {
 
-    async function updateCategoryById_(category) {
+        // TODO: Remove commented out code:
+        // openSubTable = !openSubTable
 
-        openSubTable = !openSubTable
-
+        /**
+         * Creates new category object, if the values differ from the original they are reassigned
+         * if not, they stay the same
+         */
         const newCategory = {
             name: newName.length === 0 ? category.name : newName,
             userid: category.userid,
             _id: category._id
 
         }
-
-        const repsone = await placemarkService.updateCategoryById(category._id, newCategory);
+        // Api call
+        await placemarkService.updateCategoryById(category._id, newCategory);
+        // page is reloaded after edit to show changes
         location.reload()
 
     }
 
-    async function addDescription(placemark){
 
-        dispatch("addDescription", placemark)
+    /**
+     * If the user clicks on the name of the placemark, an event gets dispatched and details of the placemark
+     * are shown on the screen
+     *
+     * @param placemark Placemark, which is shown on screen
+     */
+    async function showPlacemarkDetails(placemark){
+
+        dispatch("showPlacemark", placemark)
     }
 
     async function dispatchDestroy(){
-        dispatch("destroyDescription", isOpen)
+        dispatch("hidePlacemark", isOpen)
     }
 
     async function changeIsOpen() {
         isOpen = !isOpen
 
-        dispatch("destroyDescription", isOpen)
+        dispatch("hidePlacemark", isOpen)
     }
 
-
+    /**
+     * Filters the table (my-table) according to the input (my-input) of the user in the input field
+     */
     function filterTable() {
-        console.log("inside")
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
+        input = document.getElementById("my-input");
         filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
+        table = document.getElementById("my-table");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
@@ -71,7 +99,7 @@
         }
     }
 
-    let newName = "";
+
 
 
 </script>
@@ -92,7 +120,7 @@
             <b style="font-size: 22px">{category.name}</b>
         </div>
         <div class="column">
-            <button class="button is-rounded" on:click={() => deleteCategoryById_(category._id)}>Delete</button>
+            <button class="button is-rounded" on:click={() => deleteCategoryById(category._id)}>Delete</button>
         </div>
         <div class="column">
             <button class="button is-rounded" on:click={() => openSubTable = !openSubTable}>Edit</button>
@@ -109,7 +137,7 @@
                 </div>
             </div>
             <div class="column">
-                <button class="button is-rounded" on:click={() => updateCategoryById_(category)}>Ok</button>
+                <button class="button is-rounded" on:click={() => updateCategoryById(category)}>Ok</button>
             </div>
         </div>
 
@@ -118,9 +146,9 @@
 
     {#if placemarkList.filter(placemark => placemark.categoryid === category._id).length > 0 }
         <b style="font-size: 19px">Placemarks of {category.name}: </b>
-        <input style="width: 350px" id="myInput" class="input" type="text" on:keyup={filterTable}
+        <input style="width: 350px" id="my-input" class="input" type="text" on:keyup={filterTable}
                placeholder="Search for placemark by name...">
-        <table class="table is-fullwidth" id="myTable">
+        <table class="table is-fullwidth" id="my-table">
             <thead>
             <th>Name</th>
             <th>Longtitude</th>
@@ -131,7 +159,7 @@
             <tbody>
             {#each placemarkList as placemark}
                 {#if placemark.categoryid === category._id}
-                    <SinglePlacemark {placemark} {category} on:destroyDescription={dispatchDestroy} on:addDescription={addDescription(placemark)}/>
+                    <SinglePlacemark {placemark} {category} on:hidePlacemark={dispatchDestroy} on:showPlacemark={showPlacemarkDetails(placemark)}/>
                 {/if}
             {/each}
         </table>

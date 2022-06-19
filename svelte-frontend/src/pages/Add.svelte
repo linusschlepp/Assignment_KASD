@@ -9,9 +9,15 @@
 
     let placemarkMap = null;
 
-    function placemarkGenerated(event){
+    /**
+     * Zooms in on recently added placemarks on the map and adds them to the map
+     *
+     * @param event Placemark, which is getting added
+     */
+    function placemarkGenerated(event) {
 
-            placemarkMap.addPlacemarkMarker(event.detail.placemark)
+        // Adds placemark to the map and zooms to recently added placemark
+        placemarkMap.addPlacemarkMarker(event.detail.placemark)
     }
 
 </script>
