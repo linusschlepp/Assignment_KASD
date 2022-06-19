@@ -8,7 +8,9 @@
 
 <div class="columns has-text-centered m-2">
 <div class="column">
+    <a href="/">
         <img src="{map_dashboard}" width="60" alt="img"/>
+    </a>
     </div>
     <div class="column">
         <div class="title is-5"> {title} </div>
@@ -23,3 +25,14 @@
     </div>
 </div>
 
+<div id="footer">
+    <p>&copy Linus Schlepp 2022</p>
+</div>
+<style>
+
+    #footer {
+        position:fixed;
+        bottom:10px;
+        right: 12px
+    }
+</style>

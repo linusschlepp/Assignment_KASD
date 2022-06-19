@@ -62,12 +62,12 @@
      *
      * @param placemark Placemark, which is shown on screen
      */
-    async function showPlacemarkDetails(placemark){
+    async function showPlacemarkDetails(placemark) {
 
         dispatch("showPlacemark", placemark)
     }
 
-    async function dispatchDestroy(){
+    async function dispatchDestroy() {
         dispatch("hidePlacemark", isOpen)
     }
 
@@ -100,8 +100,6 @@
     }
 
 
-
-
 </script>
 <button class:active={isOpen} class="accordion" on:click={changeIsOpen}>
 
@@ -130,11 +128,14 @@
     {#if openSubTable}
         <div class="columns">
             <div class="column">
-                <div style="float:left;margin-right:20px;">
-                    <label for="name" class="label">Name</label>
-                    <input name="name" id="name" bind:value={newName} type="text" class="input"
-                           placeholder="{category.name}">
+                <div >
+                    <label for="name" class="label">Change the category-name:</label>
+
                 </div>
+            </div>
+            <div class="column">
+                <input name="name" id="name" bind:value={newName} type="text" class="input"
+                       placeholder="{category.name}">
             </div>
             <div class="column">
                 <button class="button is-rounded" on:click={() => updateCategoryById(category)}>Ok</button>
@@ -159,7 +160,8 @@
             <tbody>
             {#each placemarkList as placemark}
                 {#if placemark.categoryid === category._id}
-                    <SinglePlacemark {placemark} {category} on:hidePlacemark={dispatchDestroy} on:showPlacemark={showPlacemarkDetails(placemark)}/>
+                    <SinglePlacemark {placemark} {category} on:hidePlacemark={dispatchDestroy}
+                                     on:showPlacemark={showPlacemarkDetails(placemark)}/>
                 {/if}
             {/each}
         </table>

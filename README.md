@@ -1,10 +1,10 @@
 # Final Assigment in Advanced Fullstack Development of Linus Schlepp 
 
 
-Check it out in [this](https://github.com/linusschlepp/Assignment_KASD) GitHub repository. <br>
-Check out [my video]() regarding this project. 
+* Check it out in [this](https://github.com/linusschlepp/Assignment_KASD) GitHub repository. <br>
+* Check out [my video]() regarding this project. 
 
-Notice: This project contains handlebars, handlebars has only been implemented for testing purposes and is <u>not</u> meant to be used for the frontend. 
+ Notice: This project contains [Handlebars](https://handlebarsjs.com/), handlebars has only been implemented for testing purposes and is <u>not</u> meant to be used for the frontend.
 
 ## About
 
@@ -15,7 +15,7 @@ Database and are structured according to this UML-Class-Diagram: <br>
 ![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/uml_diagramm.jpg)
 
 
-The backend uses [Hapi](https://hapi.dev/) while the frontend is written in [Svelte](https://svelte.dev/) and is integrated design-elements from [Bulma](https://bulma.io/). Front- and backend communicate via an api, which is powered by [Axios](https://github.com/axios/axios)
+The backend uses [Hapi](https://hapi.dev/) while the frontend is written in [Svelte](https://svelte.dev/) and is integrating design-elements from [Bulma](https://bulma.io/). Front- and backend communicate via an api, which is powered by [Axios](https://github.com/axios/axios)
 and documented according to the [Open API Swagger Standard](https://www.openapis.org/).
 
 
