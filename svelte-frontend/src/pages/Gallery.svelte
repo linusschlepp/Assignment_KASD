@@ -30,11 +30,12 @@
     </div>
 </div>
 <div class="title">Discover the images of your favourite places</div>
+<br>
 {#if filteredPlacemarkList.length > 0 }
     {#each filteredPlacemarkList as placemark}
         <div class="columns">
             <div class="column">
-                <img src="{placemark.img}" alt="">
+                <img style="width: 400px; height: 400px" src="{placemark.img}" alt="">
             </div>
                 <div class="column">
                     <div class="title">{placemark.name}</div>
@@ -48,8 +49,6 @@
 
     <b>Oops, it seems like you didn't add any Placemarks or pictures yet.
         Start adding Placemarks right <a href="/#/add">here!</a></b>
-
-
 {/if}
 <style>
 

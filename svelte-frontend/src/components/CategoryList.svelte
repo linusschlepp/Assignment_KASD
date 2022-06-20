@@ -11,11 +11,11 @@
     let accordionShowing = false;
     let description = ""
     export let placemarkMap = null
-    let lng = "" // Represents longitude of specific placemark
-    let lat = "" // Represents latitude of specific placemark
-    let imgLink = "" // Represents img of specific placemark
+    let lng = ""
+    let lat = ""
+    let imgLink = ""
     let name = ""
-    let showPlacmemark = false; // If a placemark gets selected, this will be turned to true
+    let showPlacemark = false; // If a placemark gets selected, this will be turned to true
 
 
     onMount(async () => {
@@ -32,6 +32,7 @@
     const showPlacemarkDetails = (e) => {
 
         // all variables get initialized
+        showPlacemark = true
         description = e.detail.description
         lng = e.detail.longitude
         lat = e.detail.latitude
@@ -40,9 +41,13 @@
         // Show placemark on map
         placemarkMap.addPlacemarkMarker(e.detail)
     };
-
+    /**
+     * Hides the placemark-details on the screen
+     *
+     * @param e e.detail is always false
+     */
     const hidePlacemarkDetails = (e) => {
-        showPlacmemark = e.detail
+        showPlacemark = e.detail
     };
 
 
@@ -69,7 +74,7 @@
     </div>
     <div class="column is-three-quarters">
 
-    {#if description.length > 0 && showPlacmemark}
+    {#if description.length > 0 && showPlacemark}
         <div class="title">You selected: {name}</div>
         <div class="columns">
             <div class="column">

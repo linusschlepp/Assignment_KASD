@@ -43,7 +43,7 @@ In the following I will discuss the grading rubric row by row:
 
 * In the first row every task has been completed. Regarding git, just run: ``git log`` to inspect the commit history. I have also implemented a mem-store, which is never used because, mongo is the standard.
 * In the second row every task has been completed. A Json-store has also been implemented, but is never used as well. 
-* In the third row every task has been completed. Except the hosting on Cloud-Atlas, this still needs to be achieved. To check out the tagged releases, by running: ``git tag``.
+* In the third row every task has been completed. To check out the tagged releases, by running: ``git tag``.
 * In the fourth row every task has been completed. Except the hosting on Heroku, this still needs to be achieved. To check out the different branches just run: ``git branch``. To access the admin Dashboard, create an account with the email ```placemark@admin.com``` admin-rights will be assigned automatically.
 
 

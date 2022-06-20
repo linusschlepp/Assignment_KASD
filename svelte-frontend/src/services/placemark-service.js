@@ -57,7 +57,6 @@ export class PlacemarkService {
       email: "",
       token: "",
     });
-    console.log("logout");
     axios.defaults.headers.common.Authorization = "";
     localStorage.removeItem("donation");
   }

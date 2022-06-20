@@ -67,14 +67,18 @@
         dispatch("showPlacemark", placemark)
     }
 
-    async function dispatchDestroy() {
-        dispatch("hidePlacemark", isOpen)
-    }
 
-    async function changeIsOpen() {
+    /**
+     * Upon closing the Category, the placemark-details need to vanish on the screen. Therefore, isOpen is only dispatched if false
+     * to hide the according details
+     *
+     * @returns {Promise<void>}
+     */
+    async function hidePlacemarkDetails() {
         isOpen = !isOpen
 
-        dispatch("hidePlacemark", isOpen)
+        if(!isOpen)
+            dispatch("hidePlacemark", isOpen)
     }
 
     /**
@@ -101,7 +105,7 @@
 
 
 </script>
-<button class:active={isOpen} class="accordion" on:click={changeIsOpen}>
+<button class:active={isOpen} class="accordion" on:click={hidePlacemarkDetails}>
 
     <span class="heading">{category.name}</span>
     {#if isOpen}
@@ -160,7 +164,7 @@
             <tbody>
             {#each placemarkList as placemark}
                 {#if placemark.categoryid === category._id}
-                    <SinglePlacemark {placemark} {category} on:hidePlacemark={dispatchDestroy}
+                    <SinglePlacemark {placemark} {category}
                                      on:showPlacemark={showPlacemarkDetails(placemark)}/>
                 {/if}
             {/each}

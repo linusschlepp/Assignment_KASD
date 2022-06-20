@@ -44,20 +44,28 @@ export const seedData = {
   placemarks: {
     _model: "Placemark",
     regensburg: {
-      longitude: 49.013432,
-      latitude: 12.101624,
+      longitude: 12.101624,
+      latitude: 49.013432,
       img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png",
       name: "Regensburg",
       description: "Nice city in Bavaria",
       categoryid: "->categories.cities",
     },
     waterford: {
-      longitude: 52.2583,
-      latitude: -7.1119,
+      longitude: -7.1119,
+      latitude: 52.2583,
       name: "Waterford",
       img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png",
       description: "Nice city in the south east of Ireland",
       categoryid: "->categories.cities",
+    },
+    random_forest: {
+      longitude: -91.289101,
+      latitude: 37.546444,
+      name: "Mark Twain National Forest",
+      img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png",
+      description: "Just a random forest in America, nothing special",
+      categoryid: "->categories.forests",
     },
   },
 };

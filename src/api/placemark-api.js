@@ -148,7 +148,6 @@ export const placemarkApi = {
     handler: async function (request, h) {
       try {
         const placemark = await db.placemarkStore.deletePlacemarkById(request.params.id);
-        console.log(placemark);
         if (!placemark) {
           return Boom.notFound("No Placemark with this id");
         }

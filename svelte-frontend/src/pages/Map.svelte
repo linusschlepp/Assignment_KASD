@@ -13,5 +13,6 @@
     </div>
 </div>
 
-
+<div class="title">Discover your favourite places on the Map</div>
+<br>
 <PlacemarkMap/>
