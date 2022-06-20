@@ -6,21 +6,28 @@ export const seedData = {
       lastName: "Schlepp",
       email: "linus@schlepp.com",
       password: "secret",
-      admin: "false",
+      admin: false,
     },
     john: {
       firstName: "John",
       lastName: "Doe",
       email: "john@doe.com",
       password: "secret",
-      admin: "false",
+      admin: false,
     },
     max: {
       firstName: "Max",
       lastName: "Mustermann",
       email: "max@mustermann.com",
       password: "secret",
-      admin: "false",
+      admin: false,
+    },
+    admin: {
+      firstName: "Admin",
+      lastName: "Admin",
+      email: "admin@admin.com",
+      password: "admin",
+      admin: true,
     },
   },
   categories: {
@@ -28,6 +35,10 @@ export const seedData = {
     cities: {
       name: "cities",
       userid: "->users.linus",
+    },
+    forests: {
+      name: "forests",
+      userid: "->users.admin",
     },
   },
   placemarks: {
