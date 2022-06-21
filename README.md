@@ -5,7 +5,7 @@
 * Check out [my video](https://www.youtube.com/watch?v=ve4w8w2bVUw&ab_channel=LinusSchlepp) about this project.
 
  Notice: This project contains [Handlebars](https://handlebarsjs.com/), handlebars has only been implemented for testing purposes and is <u>not</u> meant to be used for the frontend. 
- The "handelbar-mock-frontend" is also visible on Heroku, because I only managed to deploy the backend on Heroku and like previosly mentioned, it was only 
+ The "handelbar-mock-frontend" is also visible on Heroku, because I only managed to deploy the backend on Heroku and like previously mentioned, it was only 
  implemented to browse and to test the backend features because it was developed before the frontend.
 ##### So please consider: The frontend on Heroku is not the actual front end of this project. It's just a mockup!
 
