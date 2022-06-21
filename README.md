@@ -40,7 +40,7 @@ After cloning or opening this project in the IDE, don't forget to run: ``npm ins
 Now, you should be good to go!
 
 ## Self evaluation
-![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/grading_rubric.png)
+![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/grading_rubric.jpg)
 
 In the following I will discuss the grading rubric row by row:
 
