@@ -8,7 +8,7 @@
 
 
     let userMail = $user.email; // email of the current user
-    let selectedChart = ""
+    let selectedChart = "None"
     let filteredPlacemarkList = []
     let filteredCategoryList = []
     let placemarkList = []
@@ -70,7 +70,7 @@
         filteredPlacemarkList = await placemarkService.getPlacemarksByMail(userMail, placemarkList); // gets all placemarks of the current user
         filteredCategoryList = await placemarkService.getCategoriesByMail(userMail); // get all categories of the current user
 
-        // Fills datasets with values
+        // Fills the different datasets with values
 
         // Compares placemarks of user to user average
         dataBarPlacemark.datasets[0].values[0] = filteredPlacemarkList.length
@@ -110,12 +110,12 @@
             <option>BarCharts</option>
             <option>PieCharts</option>
             <option>Both</option>
-            <option></option>
+            <option>None</option>
         </select>
     </div>
 </div>
 <br>
-{#if selectedChart.length > 0}
+{#if selectedChart !== "None"}
     {#if selectedChart === "BarCharts" || selectedChart === "Both" }
         <div class="columns">
             <div class="column has-text-centered">
