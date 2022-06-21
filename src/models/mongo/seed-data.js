@@ -46,7 +46,7 @@ export const seedData = {
     regensburg: {
       longitude: 12.101624,
       latitude: 49.013432,
-      img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png",
+      img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655752479/gye5gjok0uzqfb6w1z4n.jpg",
       name: "Regensburg",
       description: "Nice city in Bavaria",
       categoryid: "->categories.cities",
@@ -55,7 +55,7 @@ export const seedData = {
       longitude: -7.1119,
       latitude: 52.2583,
       name: "Waterford",
-      img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655461983/mhi6dbjsefhc97b1ewte.png",
+      img: "https://res.cloudinary.com/dvfwsgoh0/image/upload/v1655752647/rhr1seligomoiccpidkd.jpg",
       description: "Nice city in the south east of Ireland",
       categoryid: "->categories.cities",
     },
