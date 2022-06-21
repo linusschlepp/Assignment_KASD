@@ -1,4 +1,4 @@
-# Final Assigment in Advanced Fullstack Development of Linus Schlepp 
+# Final Assignment in Advanced Fullstack Development of Linus Schlepp 
 
 
 * Check it out in [this](https://github.com/linusschlepp/Assignment_KASD) GitHub repository. <br>
@@ -40,7 +40,7 @@ After cloning or opening this project in the IDE, don't forget to run: ``npm ins
 Now, you should be good to go!
 
 ## Self evaluation
-![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/grading_rubrik.png)
+![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/grading_rubric.png)
 
 In the following I will discuss the grading rubric row by row:
 
