@@ -43,7 +43,7 @@ export const placemarkJsonStore = {
   },
 
   async updatePlacemark(placemark, updatedPlacemark) {
-    placemark.longtitude = updatedPlacemark.longtitude;
+    placemark.longitude = updatedPlacemark.longitude;
     placemark.latitude = updatedPlacemark.latitude;
     placemark.name = updatedPlacemark.name;
     placemark.decription = updatedPlacemark.decription;

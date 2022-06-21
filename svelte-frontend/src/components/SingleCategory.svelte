@@ -156,7 +156,7 @@
         <table class="table is-fullwidth" id="my-table">
             <thead>
             <th>Name</th>
-            <th>Longtitude</th>
+            <th>Longitude</th>
             <th>Latitude</th>
             <th></th>
             <th></th>
