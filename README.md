@@ -3,10 +3,10 @@
 
 * Check it out in [this](https://github.com/linusschlepp/Assignment_KASD) GitHub repository. <br>
 * Check out [my video](https://www.youtube.com/watch?v=ve4w8w2bVUw&ab_channel=LinusSchlepp) about this project.
+* Deployed [Backend](https://polar-bayou-58717.herokuapp.com) on Heroku (contains a mocking-frontend for testing purposes, **not the actual frontend!**)
+* Deployed [Frontend](https://timely-crisp-7c2172.netlify.app) on Netlify (actual frontend)
 
- Notice: This project contains [Handlebars](https://handlebarsjs.com/), handlebars has only been implemented for testing purposes and is <u>not</u> meant to be used for the frontend. 
- The "handelbar-mock-frontend" is also visible on Heroku, because I only managed to deploy the backend on Heroku and like previously mentioned, it was only 
- implemented to browse and to test the backend features because it was developed before the frontend.
+ Notice: This project contains [Handlebars](https://handlebarsjs.com/), handlebars has only been implemented for testing the backend because it has been implemented before the actual frontend, it is **not** meant to be used.
 ##### So please consider: The frontend on Heroku is not the actual front end of this project. It's just a mockup!
 
 ## About
@@ -47,11 +47,11 @@ In the following I will discuss the grading rubric row by row:
 * In the first row every task has been completed. Regarding git, just run: ``git log`` to inspect the commit history. I have also implemented a mem-store, which is never used because, mongo is the standard.
 * In the second row every task has been completed. A json-store has also been implemented but is never used as well. 
 * In the third row every task has been completed. To check out the tagged releases, by running: ``git tag``.
-* In the fourth row every task has been completed. The hosting on Heroku was only partially implemented, only the backend is hosted on Heroku, the backend uses Handlebars to enable browsing, therefore the frontend on Heroku is just a very simple Mockup and <u>not</u> the actual frontend of this assignment! To check out the different branches just run: ``git branch``. To access the admin Dashboard use the ```admin@admin.com``` account with password: ```admin``` or  create an account with the email ```placemark@admin.com``` and admin-rights will be assigned automatically.
+* In the fourth row every task has been completed. The backend is hosted on Heroku (the backend possesses a mockup-frontend **(not the actual frontend)**). The actual frontend is hosted on Netlify and communicates with the backend via the api. To check out the different branches just run: ``git branch``. To access the admin Dashboard use the ```admin@admin.com``` account with the password: ```admin``` or  create an account with the email ```placemark@admin.com``` and admin-rights will be assigned automatically.
 * In the fifth row every task has been completed. At least I hope so... I am not particular sure regarding the last column of this row, because in my implementation one category can hold multiple placemarks and every placemark can hold one image. Therefore, one category has multiple images. So, I am not sure, if this satisfies the requirement.
 * In the sixth row every task has been completed. In the second column, I was only able to implement one map per page in assignment. 
 
 ## Resources
 
-* The [link](https://icon-icons.com/de/symbol/anzeigen/42272) for the favicon is used
-* The [link](https://icon-icons.com/de/symbol/Reisen-Karte-Lage-pin/109805) for the placemark-logo, which is displayed at the start and on the Titlebar
+* The [link](https://icon-icons.com/de/symbol/anzeigen/42272) for the favicon I used
+* The [link](https://icon-icons.com/de/symbol/Reisen-Karte-Lage-pin/109805) for the placemark-logo, which is displayed at the start and on the TitleBar
