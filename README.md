@@ -42,7 +42,7 @@ Now, you should be good to go!
 ## Self evaluation
 ![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/grading_rubric.jpg)
 
-In the following I will discuss the grading rubric row by row:
+**In the following I will discuss the grading rubric row by row:**
 
 * In the first row every task has been completed. Regarding git, just run: ``git log`` to inspect the commit history. I have also implemented a mem-store, which is never used because, mongo is the standard.
 * In the second row every task has been completed. A json-store has also been implemented but is never used as well. 
