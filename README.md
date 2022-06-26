@@ -47,11 +47,13 @@ Now, you should be good to go!
 * In the first row every task has been completed. Regarding git, just run: ``git log`` to inspect the commit history. I have also implemented a mem-store, which is never used because, mongo is the standard.
 * In the second row every task has been completed. A json-store has also been implemented but is never used as well. 
 * In the third row every task has been completed. To check out the tagged releases, by running: ``git tag``.
-* In the fourth row every task has been completed. The backend is hosted on Heroku (the backend possesses a mockup-frontend **(not the actual frontend)**). The actual frontend is hosted on Netlify and communicates with the backend via the api. To check out the different branches just run: ``git branch``. To access the admin Dashboard use the ```admin@admin.com``` account with the password: ```admin``` or  create an account with the email ```placemark@admin.com``` and admin-rights will be assigned automatically.
+* In the fourth row every task has been completed. The backend is hosted on Heroku (the backend possesses a mockup-frontend **(not the actual frontend)**). The actual frontend is hosted on Netlify and communicates with the backend via the api. Please consider, I have used multiple branches on my local-git-repository, each time a feature was successfully integrated, I merged with development and then with the master branch. After the merge with the master branch, I pushed to the remote-repository and created a tagged release. Therefore, only one branch (master) exists on the remote repository. On my local multiple branches exist. (Picture below) <br> To check out the different branches just run: ``git branch``. To access the admin Dashboard, use the ```admin@admin.com``` account with the password: ```admin``` or  create an account with the email ```placemark@admin.com``` and admin-rights will be assigned automatically.
 * In the fifth row every task has been completed. At least I hope so... I am not particular sure regarding the last column of this row, because in my implementation one category can hold multiple placemarks and every placemark can hold one image. Therefore, one category has multiple images. So, I am not sure, if this satisfies the requirement.
 * In the sixth row every task has been completed. In the second column, I was only able to implement one map per page in assignment. 
 
 ## Resources
 
-* The [link](https://icon-icons.com/de/symbol/anzeigen/42272) for the favicon I used
+* The [link](https://icon-icons.com/de/symbol/anzeigen/42272) for the favicon, I used
 * The [link](https://icon-icons.com/de/symbol/Reisen-Karte-Lage-pin/109805) for the placemark-logo, which is displayed at the start and on the TitleBar
+* Seeding data exists, use this account-Data for testing purposes: <br> 
+
