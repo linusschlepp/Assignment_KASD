@@ -29,10 +29,12 @@ Clone this repository in your file-directory, like this: ``git clone https://git
 
 Or unzip the folder, using a tool like [7ip](https://www.7-zip.de/).
 
+**This is a mono-repository, you need to run the following commands within the repository in order to run the back- and frontend:** 
+
 #### Run this command in the terminal/ powershell in order to start the frontend (you have to be positioned in "svelte-frontend" folder)
 ![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/start_frontend.jpg)
 
-#### Run this command in the terminal/ powershell in order to start the backend (you have to be positioned in the "Assigment" folder)
+#### Run this command in the terminal/ powershell in order to start the backend (you have to be positioned in the "Assigment" (source) folder)
 ![](https://github.com/linusschlepp/Assignment_KASD/blob/master/svelte-frontend/src/assets/start_backend.jpg)
 
 After cloning or opening this project in the IDE, don't forget to run: ``npm install``
