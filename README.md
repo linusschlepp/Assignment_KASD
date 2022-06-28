@@ -3,6 +3,7 @@
 
 * Check it out in [this](https://github.com/linusschlepp/Assignment_KASD) GitHub repository. <br>
 * Check out [my video](https://www.youtube.com/watch?v=ve4w8w2bVUw&ab_channel=LinusSchlepp) about this project.
+* In this [video](https://youtu.be/LCvjCbimfZE), I give a short review of the code, used in this assignment.
 * Deployed [Backend](https://polar-bayou-58717.herokuapp.com) on Heroku (contains a mocking-frontend for testing purposes, **not the actual frontend!**)
 * Deployed [Frontend](https://timely-crisp-7c2172.netlify.app) on Netlify (actual frontend)
 
