@@ -2,7 +2,6 @@ import Boom from "@hapi/boom";
 import { CategoryArraySpec, CategorySpec, CategorySpecPlus, IdSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
-import { imageStore } from "../models/image-store.js";
 
 export const categoryApi = {
   // Get all categories

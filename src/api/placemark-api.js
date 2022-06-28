@@ -110,12 +110,6 @@ export const placemarkApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    // payload: {
-    //   multipart: true,
-    //   output: "data",
-    //   maxBytes: 209715200,
-    //   parse: true,
-    // },
     tags: ["api"],
     description: "Create a placemark",
     notes: "Returns the newly created placemark",

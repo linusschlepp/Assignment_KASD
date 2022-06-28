@@ -3,6 +3,12 @@ import { accountsController } from "./controllers/acccounts-controller.js";
 import { aboutController } from "./controllers/about-controller.js";
 import { categoryController } from "./controllers/categories-controller.js";
 
+/**
+ * Solely implemented for the handlebars, which have been implemented for testing the backend
+ *
+ * @type {[{path: string, method: string, config: {handler: function(*, *): *, auth: boolean}},{path: string, method: string, config: {handler: function(*, *): *, auth: boolean}},{path: string, method: string, config: {handler: function(*, *): *, auth: boolean}},{path: string, method: string, config: {handler: function(*, *): *, auth: boolean}},{path: string, method: string, config: {handler: function(*, *): Promise<*>, auth: boolean, validate: {payload: Joi.ObjectSchema<any>, failAction: function(*, *, *): *}}},null,null,null,null,null,null,null,null]}
+ */
+
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
   { method: "GET", path: "/signup", config: accountsController.showSignup },

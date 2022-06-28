@@ -1,6 +1,10 @@
 import axios from "axios";
 
-// import { serviceUrl } from "../fixtures.js";
+/**
+ * This placemark-service is only used for the unit-tests within the backend
+ *
+ * @type {{placemarkUrl: string, getAllUsers(): Promise<any>, clearAuth(): Promise<void>, authenticate(*): Promise<any>, getUser(*): Promise<any>, updateCategory(*, *): Promise<any>, getCategory(*): Promise<any>, updateUser(*, *): Promise<any>, getAllCategories(): Promise<any>, getAllPlacemarks(): Promise<any>, deleteCategory(*): Promise<AxiosResponse<any>>, deleteAllPlacemarks(): Promise<any>, createPlacemark(*, *): Promise<any>, deletePlacemark(*): Promise<any>, getPlacemark(*): Promise<any>, deleteAllUsers(): Promise<any>, deleteAllCategories(): Promise<any>, createUser(*): Promise<any>, createCategory(*): Promise<any>}}
+ */
 
 export const placemarkService = {
   placemarkUrl: "http://localhost:4000",
